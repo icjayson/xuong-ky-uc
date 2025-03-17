@@ -1,0 +1,72 @@
+"use client";
+
+import * as React from "react";
+import { cn } from "@/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
+import EyeCloseIcon from "../icons/eye-close";
+import { useState } from "react";
+import EyeIcon from "../icons/eye";
+const inputVariants = cva(
+  [
+    "rounded-[50px] text-black-80",
+    "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground w-full min-w-0 px-6 transition-[color] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+  ],
+  {
+    variants: {
+      variant: {
+        primary: "bg-white",
+        secondary: "bg-primary-50"
+      },
+      inputSize: {
+        sm: "h-5 text-xs",
+        md: "h-6 text-base",
+        lg: "h-12 text-xl"
+      }
+    },
+    defaultVariants: {
+      variant: "primary",
+      inputSize: "md"
+    }
+  }
+);
+
+type InputProps = React.ComponentProps<"input"> &
+  VariantProps<typeof inputVariants>;
+
+function Input({ className, type, variant, inputSize, ...props }: InputProps) {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  return (
+    <div className="relative">
+      <input
+        type={isPasswordVisible ? "text" : type}
+        data-slot="input"
+        className={cn(
+          inputVariants({ variant, inputSize }),
+          {
+            "!pr-12": type === "password"
+          },
+          className
+        )}
+        {...props}
+      />
+
+      {type === "password" && (
+        <div className="absolute right-[10px] top-0 h-full flex items-center justify-center">
+          <span
+            onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+            className="cursor-pointer"
+          >
+            {isPasswordVisible ? (
+              <EyeCloseIcon width={32} height={32} />
+            ) : (
+              <EyeIcon width={32} height={32} />
+            )}
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export { Input };

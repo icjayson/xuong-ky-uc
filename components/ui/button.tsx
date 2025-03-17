@@ -46,7 +46,6 @@ type ButtonProps = React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     icon?: React.ReactNode;
     asChild?: boolean;
-    anomaly?: "outline" | "ghost";
   };
 
 function Button({

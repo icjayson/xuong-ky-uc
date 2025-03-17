@@ -87,6 +87,7 @@
 
   /* Colors */
   --color-black-80: rgba(0, 0, 0, 0.8);
+  --color-primary-50: rgba(206, 161, 158, 0.5);
 
   /* Custom heights */
   --height-calculated-content: calc(100vh - 98px - 289px);

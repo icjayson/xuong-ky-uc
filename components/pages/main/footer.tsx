@@ -54,7 +54,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="h-[69px] mx-[60px] flex justify-center items-center max-sm:mx-0 max-sm">
+      <div className="h-[69px] mx-[60px] flex justify-center items-center max-sm:mx-0 text-center">
         Copyright &copy; {new Date().getFullYear()} xuongkyuc. All rights
         reserverd.
       </div>
