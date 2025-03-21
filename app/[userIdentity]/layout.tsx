@@ -1,5 +1,5 @@
+import Header from "@/components/pages/main/header";
 import type { Metadata } from "next";
-import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -12,8 +12,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+    <div className="bg-background flex flex-col min-h-screen">
+      <Header />
+      <div className="flex-1">{children}</div>
+    </div>
   );
 }
