@@ -1,7 +1,8 @@
+import MainPage from "@/components/pages/main/main";
 import React from "react";
 
 const UserIdentityPage = () => {
-  return <div>UserIdentity</div>;
+  return <MainPage />;
 };
 
 export default UserIdentityPage;

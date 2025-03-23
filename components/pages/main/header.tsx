@@ -7,61 +7,86 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger
 } from "@/components/ui/drawer";
+import { cn } from "@/lib/utils";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React from "react";
 import Sidebar from "./sidebar";
+import { usePathname } from "next/navigation";
 
-const Header = () => {
+type HeaderProps = {
+  forceEditMode?: boolean;
+  className?: string;
+};
+
+const Header = ({ forceEditMode = false, className }: HeaderProps) => {
   const pathname = usePathname();
-  const isHomepage = pathname === "/";
+  const isEditMode = pathname.split("/").includes("edit") || forceEditMode;
 
   return (
-    <header className="flex justify-between items-center h-[98px] border-b border-[rgba(0,0,0,0.2)] px-9 sticky top-0 bg-background z-50">
-      <div className="flex items-center gap-11">
-        <Avatar className="w-[50px] h-[50px]">
+    <header
+      className={cn(
+        "flex justify-between items-center h-[98px] border-b border-[rgba(0,0,0,0.2)] px-9 sticky top-0 bg-background z-50",
+        "max-sm:px-3 max-sm:h-[74px]",
+        className
+      )}
+    >
+      <div
+        className={cn(
+          "flex items-center gap-11",
+          "max-sm:flex-row-reverse max-sm:w-1/2 max-sm:justify-between"
+        )}
+      >
+        <Avatar
+          className={cn("w-[50px] h-[50px]", "max-sm:w-[40px] max-sm:h-[40px]")}
+        >
           <AvatarImage src="/logo.png" />
           <AvatarFallback>XKU</AvatarFallback>
         </Avatar>
 
-        <Drawer direction="left">
-          <DrawerTrigger>
-            <BurgerIcon />
-          </DrawerTrigger>
-          <DrawerContent className="!w-[256px] p-6">
-            <DialogTitle />
-            <DialogDescription />
+        {isEditMode && (
+          <Drawer direction="left">
+            <DrawerTrigger>
+              <BurgerIcon />
+            </DrawerTrigger>
+            <DrawerContent className={cn("!w-[256px] p-6", "max-sm:!w-full")}>
+              <DialogTitle />
+              <DialogDescription />
 
-            <div className="flex flex-col h-full">
-              <div className="flex items-center gap-11 px-3">
-                <Avatar className="w-[50px] h-[50px]">
-                  <AvatarImage src="/logo.png" />
-                  <AvatarFallback>XKU</AvatarFallback>
-                </Avatar>
+              <div className="flex flex-col h-full">
+                <div
+                  className={cn(
+                    "flex items-center gap-11 px-3",
+                    "max-sm:flex-row-reverse max-sm:justify-between"
+                  )}
+                >
+                  <Avatar
+                    className={cn(
+                      "w-[50px] h-[50px]",
+                      "max-sm:w-[40px] max-sm:h-[40px]"
+                    )}
+                  >
+                    <AvatarImage src="/logo.png" />
+                    <AvatarFallback>XKU</AvatarFallback>
+                  </Avatar>
 
-                <DrawerClose>
-                  <BurgerIcon />
-                </DrawerClose>
+                  <DrawerClose>
+                    <BurgerIcon />
+                  </DrawerClose>
+                </div>
+
+                <div className="text-xl font-semibold text-black mt-4 mb-2 px-3">
+                  Khám phá
+                </div>
+
+                <Sidebar />
               </div>
-
-              <div className="text-xl font-semibold text-black mt-4 mb-2 px-3">
-                Khám phá
-              </div>
-
-              <Sidebar />
-            </div>
-          </DrawerContent>
-        </Drawer>
+            </DrawerContent>
+          </Drawer>
+        )}
       </div>
 
-      <Button variant="primary">Chia sẻ</Button>
+      {isEditMode && <Button variant="primary">Chia sẻ</Button>}
     </header>
   );
 };

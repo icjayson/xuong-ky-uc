@@ -1,4 +1,5 @@
 import Header from "@/components/pages/main/header";
+import Footer from "@/components/pages/unauth/footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -14,7 +15,8 @@ export default function RootLayout({
   return (
     <div className="bg-background flex flex-col min-h-screen">
       <Header />
-      <div className="flex-1">{children}</div>
+      <div className="flex-1 overflow-x-hidden">{children}</div>
+      <Footer />
     </div>
   );
 }

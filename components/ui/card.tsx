@@ -5,6 +5,7 @@ import React from "react";
 type CardProps = React.ComponentProps<"div"> & {
   noShadow?: boolean;
   diary?: boolean;
+  infoCard?: boolean;
 };
 
 const cardVariants = cva("shadow-card max-md:shadow-card-small", {
@@ -14,18 +15,28 @@ const cardVariants = cva("shadow-card max-md:shadow-card-small", {
     },
     diary: {
       true: "bg-primary p-3 max-md:p-2"
+    },
+    infoCard: {
+      true: "border-2 border-primary rounded-lg p-6 shadow-info-card backdrop-timer max-md:shadow-info-card-small"
     }
   },
   defaultVariants: {
     noShadow: false,
-    diary: false
+    diary: false,
+    infoCard: false
   }
 });
 
-const Card = ({ className, noShadow, diary, ...props }: CardProps) => {
+const Card = ({
+  className,
+  noShadow,
+  diary,
+  infoCard,
+  ...props
+}: CardProps) => {
   return (
     <div
-      className={cn(cardVariants({ noShadow, diary }), className)}
+      className={cn(cardVariants({ noShadow, diary, infoCard }), className)}
       {...props}
     />
   );

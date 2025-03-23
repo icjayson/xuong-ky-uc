@@ -11,7 +11,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-const Sidebar = () => {
+type SidebarProps = {
+  isCollapsed?: boolean;
+};
+
+const Sidebar = ({ isCollapsed }: SidebarProps) => {
   const pathname = usePathname();
   const items = [
     {
@@ -55,13 +59,14 @@ const Sidebar = () => {
             className={cn(
               "text-base text-black h-10 flex items-center rounded-lg hover:bg-white px-3 gap-4",
               {
-                "bg-primary hover:bg-primary": item.isActive
+                "bg-primary hover:bg-primary": item.isActive,
+                "px-0 justify-center": isCollapsed
               }
             )}
             key={item.label}
           >
             {item.icon}
-            {item.label}
+            {!isCollapsed && item.label}
           </Link>
         ))}
       </div>
@@ -69,7 +74,7 @@ const Sidebar = () => {
       <div className="flex flex-col">
         <div className="text-base text-black h-10 flex items-center rounded-lg hover:bg-white px-3 gap-4 cursor-pointer">
           <ExitIcon />
-          Đăng xuất
+          {!isCollapsed && "Đăng xuất"}
         </div>
       </div>
     </div>

@@ -1,7 +1,8 @@
+import MainPage from "@/components/pages/main/main";
 import React from "react";
 
 const UserIdentityEditPage = () => {
-  return <div>UserIdentityEditPage</div>;
+  return <MainPage isEditMode />;
 };
 
 export default UserIdentityEditPage;

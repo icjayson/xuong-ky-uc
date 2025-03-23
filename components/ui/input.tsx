@@ -31,9 +31,20 @@ const inputVariants = cva(
 );
 
 type InputProps = React.ComponentProps<"input"> &
-  VariantProps<typeof inputVariants>;
+  VariantProps<typeof inputVariants> & {
+    iconSize?: number;
+    iconClassName?: string;
+  };
 
-function Input({ className, type, variant, inputSize, ...props }: InputProps) {
+function Input({
+  className,
+  type,
+  variant,
+  inputSize,
+  iconSize = 32,
+  iconClassName,
+  ...props
+}: InputProps) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   return (
@@ -55,12 +66,12 @@ function Input({ className, type, variant, inputSize, ...props }: InputProps) {
         <div className="absolute right-[10px] top-0 h-full flex items-center justify-center">
           <span
             onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-            className="cursor-pointer"
+            className={cn("cursor-pointer", iconClassName)}
           >
             {isPasswordVisible ? (
-              <EyeCloseIcon width={32} height={32} />
+              <EyeCloseIcon width={iconSize} height={iconSize} />
             ) : (
-              <EyeIcon width={32} height={32} />
+              <EyeIcon width={iconSize} height={iconSize} />
             )}
           </span>
         </div>
