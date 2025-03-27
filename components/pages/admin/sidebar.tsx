@@ -16,7 +16,7 @@ const Sidebar = ({ className }: SidebarProps) => {
   return (
     <div
       className={cn(
-        "border-r border-black-20 w-[80px] px-4 py-6 transition-all flex flex-col",
+        "border-r border-black-20 w-[80px] px-4 py-6 transition-all flex flex-col sticky left-0 top-0 max-h-screen",
         {
           "w-[256px] px-6": !isCollapsed
         },

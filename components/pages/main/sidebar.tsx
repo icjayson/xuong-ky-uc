@@ -38,9 +38,9 @@ const Sidebar = ({ isCollapsed }: SidebarProps) => {
     },
     {
       label: "Cập nhật nhật ký",
-      href: "/memory-log",
+      href: "/memory",
       icon: <FileIcon />,
-      isActive: pathname === "/memory-log"
+      isActive: pathname === "/memory"
     },
     {
       label: "Feedback",

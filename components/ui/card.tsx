@@ -17,7 +17,7 @@ const cardVariants = cva("shadow-card max-md:shadow-card-small", {
       true: "bg-primary p-3 max-md:p-2"
     },
     infoCard: {
-      true: "border-2 border-primary rounded-lg p-6 shadow-info-card backdrop-timer max-md:shadow-info-card-small"
+      true: "border-2 border-primary rounded-lg p-6 max-sm:p-4 shadow-info-card backdrop-timer max-md:shadow-info-card-small box-border"
     }
   },
   defaultVariants: {

@@ -34,6 +34,7 @@ type InputProps = React.ComponentProps<"input"> &
   VariantProps<typeof inputVariants> & {
     iconSize?: number;
     iconClassName?: string;
+    rootClassName?: string;
   };
 
 function Input({
@@ -43,12 +44,13 @@ function Input({
   inputSize,
   iconSize = 32,
   iconClassName,
+  rootClassName,
   ...props
 }: InputProps) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   return (
-    <div className="relative">
+    <div className={cn("relative", rootClassName)}>
       <input
         type={isPasswordVisible ? "text" : type}
         data-slot="input"

@@ -95,6 +95,12 @@
   --color-primary-50: rgba(206, 161, 158, 0.5);
   --color-white-60: rgba(255, 255, 255, 0.6);
   --color-info-icon: rgba(113, 113, 113, 1);
+  --color-checked-icon: rgba(0, 237, 4, 1);
+  --color-frame-background: rgba(255, 251, 250, 1);
+  --color-frame-text: rgba(9, 9, 9, 1);
+  --color-image-placeholder: rgba(217, 217, 217, 1);
+  --color-heart-clock: rgba(165, 68, 91, 1);
+  --color-memory-frame-background: rgba(238, 234, 223, 1);
 
   /* Custom heights */
   --height-calculated-content: calc(100vh - 98px - 289px);
@@ -150,4 +156,18 @@
   to {
     background-position: 2000px 0;
   }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.animate-blink {
+  animation: blink 1s step-start infinite;
 }

@@ -46,6 +46,7 @@ type ButtonProps = React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     icon?: React.ReactNode;
     asChild?: boolean;
+    rootClassName?: string;
   };
 
 function Button({
@@ -55,12 +56,15 @@ function Button({
   asChild = false,
   icon,
   anomaly,
+  rootClassName,
   ...props
 }: ButtonProps) {
   const Comp = asChild ? Slot : "button";
 
   return (
-    <div className="flex items-center justify-center gap-4">
+    <div
+      className={cn("flex items-center justify-center gap-4", rootClassName)}
+    >
       {icon && icon}
 
       <Comp

@@ -11,7 +11,7 @@ const MainPage = ({ isEditMode = false }: MainPageProps) => {
   return (
     <div
       className={cn(
-        "py-24 flex flex-col gap-10 max-w-[1440px] mx-auto",
+        "py-24 flex flex-col gap-[200px] max-w-[1440px] mx-auto",
         "max-sm:py-12 max-sm:gap-10",
         "max-lg:py-16"
       )}
