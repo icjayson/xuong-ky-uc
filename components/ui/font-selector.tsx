@@ -23,7 +23,7 @@ const FontSelector = ({ value, onChange }: FontSelectorProps) => {
       <div className={cn("text-black-80 text-base", "max-sm:text-xs")}>
         Font:
       </div>
-      <div className={cn("")}>
+      <div>
         <Select value={value} onValueChange={onChange}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Chọn font" />

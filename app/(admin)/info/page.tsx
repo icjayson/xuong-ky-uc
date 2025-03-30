@@ -1,12 +1,91 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import Loading from "@/components/ui/loading";
 import { cn } from "@/lib/utils";
 import React from "react";
-
+import { useRouter } from "next/navigation";
 const InfoPage = () => {
-  const email = "admin@gmail.com";
-  const currentDomain = "test";
+  const router = useRouter();
+
+  const [password, setPassword] = React.useState<string>("");
+  const [domain, setDomain] = React.useState<string>("");
+  const [email, setEmail] = React.useState<string>("");
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [passwordError, setPasswordError] = React.useState<string>("");
+  const [domainError, setDomainError] = React.useState<string>("");
+
+  const fetchUser = async () => {
+    try {
+      setIsLoading(true);
+      const res = await fetch("/api/couple-page/user");
+      const { data } = await res.json();
+      setEmail(data.email);
+      setDomain(data.domain);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const refetchUser = async () => {
+    fetchUser();
+  };
+
+  const handleChangeDomain = async () => {
+    try {
+      setDomainError("");
+      setIsLoading(true);
+      const res = await fetch("/api/couple-page/setting", {
+        method: "PATCH",
+        body: JSON.stringify({ domain })
+      });
+      const { error } = await res.json();
+
+      if (error) {
+        setDomainError(error);
+      } else {
+        refetchUser();
+        router.refresh();
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleChangePassword = async () => {
+    try {
+      setPasswordError("");
+      setIsLoading(true);
+      const res = await fetch("/api/couple-page/setting", {
+        method: "PATCH",
+        body: JSON.stringify({ password })
+      });
+      const { error } = await res.json();
+
+      if (error) {
+        setPasswordError(error);
+      } else {
+        refetchUser();
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  React.useEffect(() => {
+    fetchUser();
+  }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className={cn("w-full h-full flex")}>
@@ -70,11 +149,25 @@ const InfoPage = () => {
                 className="max-sm:!text-xs px-2"
                 iconClassName="text-info-icon"
                 placeholder="Mật khẩu"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
 
-          <div className="flex justify-end text-xs text-black-80 underline mt-2">
+          {passwordError && (
+            <div className="text-red-500 text-xs flex justify-end">
+              {passwordError}
+            </div>
+          )}
+
+          <div
+            className={cn(
+              "flex justify-end text-xs text-black-80 underline mt-2 cursor-pointer",
+              "max-sm:text-xs"
+            )}
+            onClick={handleChangePassword}
+          >
             Đổi mật khẩu
           </div>
         </Card>
@@ -118,12 +211,25 @@ const InfoPage = () => {
                 rootClassName="w-full"
                 iconClassName="text-info-icon"
                 placeholder="Mật khẩu"
-                defaultValue={currentDomain}
+                value={domain}
+                onChange={(e) => setDomain(e.target.value)}
               />
             </div>
           </div>
 
-          <div className="flex justify-end text-xs text-black-80 underline mt-2">
+          {domainError && (
+            <div className="text-red-500 text-xs flex justify-end">
+              {domainError}
+            </div>
+          )}
+
+          <div
+            className={cn(
+              "flex justify-end text-xs text-black-80 underline mt-2 cursor-pointer",
+              "max-sm:text-xs"
+            )}
+            onClick={handleChangeDomain}
+          >
             Đổi domain
           </div>
         </Card>
@@ -137,15 +243,6 @@ const InfoPage = () => {
             )}
           >
             Xem trước
-          </Button>
-
-          <Button
-            className={cn(
-              "h-10 px-4 text-base",
-              "max-sm:h-8 max-sm:px-2 max-sm:text-xs"
-            )}
-          >
-            Lưu
           </Button>
         </div>
       </div>

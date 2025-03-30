@@ -44,7 +44,7 @@ const frames = [
 const MemoryFrameSelector = () => {
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex gap-x-2 gap-y-3 flex-wrap">
+      <div className="grid grid-cols-[repeat(auto-fill,_minmax(132px,_1fr))] gap-x-2 gap-y-3 place-items-center">
         {frames.map((frame) => (
           <MemoryFrame
             key={frame.id}

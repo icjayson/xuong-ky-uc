@@ -33,7 +33,7 @@ const INITIAL_CUSTOM_COLORS: ColorSchemeColors = {
   white: "#000000"
 };
 
-const COLOR_SCHEMES: Record<string, ColorScheme> = {
+export const COLOR_SCHEMES: Record<string, ColorScheme> = {
   "1": {
     colors: {
       primary: "#cea19e",
@@ -160,7 +160,7 @@ const CustomColorPicker = ({
 
 const ColorSelector = ({ value, colors, onChange }: ColorSelectorProps) => {
   const [customColors, setCustomColors] = React.useState<ColorSchemeColors>(
-    INITIAL_CUSTOM_COLORS
+    colors || INITIAL_CUSTOM_COLORS
   );
 
   const handleSelect = (id: string, colors: ColorSchemeColors) => {
@@ -171,23 +171,22 @@ const ColorSelector = ({ value, colors, onChange }: ColorSelectorProps) => {
     key: keyof ColorSchemeColors,
     color: string
   ) => {
-    setCustomColors((prev) => {
-      const newColors = { ...prev, [key]: color };
-      onChange?.("custom", newColors);
-      return newColors;
-    });
+    setCustomColors((prev) => ({ ...prev, [key]: color }));
   };
 
   React.useEffect(() => {
-    if (colors) {
-      setCustomColors(colors);
+    if (value === "custom") {
+      onChange?.("custom", customColors);
     }
-  }, [colors]);
+  }, [customColors]);
 
   return (
     <div className="flex flex-col gap-3">
       <div
-        className={cn("flex flex-wrap gap-5", "max-sm:gap-x-1 max-sm:gap-y-3")}
+        className={cn(
+          "grid grid-cols-[repeat(auto-fill,_minmax(70px,_1fr))] gap-5 place-items-center",
+          "max-sm:gap-x-1 max-sm:gap-y-3"
+        )}
       >
         {Object.entries(COLOR_SCHEMES).map(([id, scheme]) => (
           <ColorSchemePreview

@@ -101,6 +101,7 @@
   --color-image-placeholder: rgba(217, 217, 217, 1);
   --color-heart-clock: rgba(165, 68, 91, 1);
   --color-memory-frame-background: rgba(238, 234, 223, 1);
+  --color-switch-active: rgba(0, 237, 4, 1);
 
   /* Custom heights */
   --height-calculated-content: calc(100vh - 98px - 289px);
@@ -170,4 +171,26 @@
 
 .animate-blink {
   animation: blink 1s step-start infinite;
+}
+
+.loader {
+  width: fit-content;
+  font-size: 40px;
+  font-family: monospace;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #0000;
+  -webkit-text-stroke: 1px #000;
+  background: conic-gradient(#000 0 0) 0/0 100% no-repeat text;
+  animation: l11 2s steps(8, jump-none) infinite;
+}
+
+.loader:before {
+  content: "Loading";
+}
+
+@keyframes l11 {
+  to {
+    background-size: 100% 100%;
+  }
 }

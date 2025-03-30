@@ -7,7 +7,6 @@ type MemoryFrameProps = {
 };
 
 const getFrameBackground = (frame: string) => {
-  console.log("frame", frame);
   if (frame.startsWith("/")) {
     return {
       backgroundImage: `url(${frame})`

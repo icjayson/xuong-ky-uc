@@ -14,11 +14,11 @@ import { cn } from "@/lib/utils";
 
 type DatePickerProps = {
   className?: string;
+  value?: Date;
+  onChange?: (date: Date) => void;
 };
 
-export function DatePicker({ className }: DatePickerProps) {
-  const [date, setDate] = React.useState<Date>();
-
+export function DatePicker({ className, value, onChange }: DatePickerProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -30,14 +30,16 @@ export function DatePicker({ className }: DatePickerProps) {
           )}
           rootClassName="flex-1"
         >
-          {date ? format(date, "dd/MM/yyyy") : <span>DD/MM/YYYY</span>}
+          {value ? format(value, "dd/MM/yyyy") : <span>DD/MM/YYYY</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0 border-primary" align="start">
         <Calendar
           mode="single"
-          selected={date}
-          onSelect={setDate}
+          selected={value}
+          onSelect={(day) => {
+            onChange?.(day as Date);
+          }}
           initialFocus
         />
       </PopoverContent>
