@@ -2,53 +2,21 @@
 
 import DiaryCard from "@/components/ui/diary-card";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 import React from "react";
+import { MainPageContext } from "@/app/(auth)/[userIdentity]/layout";
 
 type DiarySectionProps = {
   isEditMode?: boolean;
 };
 
 const DiarySection = ({ isEditMode = false }: DiarySectionProps) => {
-  const diaries = [
-    {
-      id: 1,
-      url: "https://github.com/shadcn.png",
-      title: "Tên bài viết",
-      date: "2025-03-22",
-      description: "Mô tả bài viết"
-    },
-    {
-      id: 2,
-      url: "https://github.com/shadcn.png",
-      title: "Tên bài viết",
-      date: "2025-03-22",
-      description: "Mô tả bài viết"
-    },
-    {
-      id: 3,
-      url: "https://github.com/shadcn.png",
-      title: "Tên bài viết",
-      date: "2025-03-22",
-      description: "Mô tả bài viết"
-    },
-    {
-      id: 4,
-      url: "https://github.com/shadcn.png",
-      title: "Tên bài viết",
-      date: "2025-03-22",
-      description: "Mô tả bài viết"
-    },
-    {
-      id: 5,
-      url: "https://github.com/shadcn.png",
-      title: "Tên bài viết",
-      date: "2025-03-22",
-      description: "Mô tả bài viết"
-    }
-  ];
+  const { memories, color } = React.useContext(MainPageContext);
 
-  const handleClickAddDiary = () => {
-    console.log("click");
+  const router = useRouter();
+
+  const handleClickAddMemory = () => {
+    router.push("/memory");
   };
 
   return (
@@ -65,6 +33,9 @@ const DiarySection = ({ isEditMode = false }: DiarySectionProps) => {
           "max-lg:text-lg",
           "max-xl:text-xl"
         )}
+        style={{
+          color: color?.white || undefined
+        }}
       >
         Nhật ký tình yêu
       </div>
@@ -76,12 +47,12 @@ const DiarySection = ({ isEditMode = false }: DiarySectionProps) => {
           "max-lg:gap-4 max-lg:grid-cols-3"
         )}
       >
-        {diaries.map((diary) => (
-          <DiaryCard key={diary.id} {...diary} />
+        {memories.map((memory) => (
+          <DiaryCard key={memory.id} {...memory} />
         ))}
 
         {isEditMode && (
-          <DiaryCard isEditMode={isEditMode} onClick={handleClickAddDiary} />
+          <DiaryCard isEditMode={isEditMode} onClick={handleClickAddMemory} />
         )}
       </div>
     </div>

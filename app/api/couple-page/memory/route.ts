@@ -58,6 +58,7 @@ export async function GET(req: Request) {
       created_at,
       memory_images (
         id,
+        memory_id,
         image_url,
         description,
         memory_date,
@@ -68,7 +69,7 @@ export async function GET(req: Request) {
     `
     )
     .eq("page_id", page.id)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: true });
 
   if (publicOnly) {
     query = query.eq("is_visible", true);
@@ -145,11 +146,24 @@ export async function DELETE(req: Request) {
     );
   }
 
+  const { data: page, error: pageError } = await supabase
+    .from("couple_pages")
+    .select("id")
+    .eq("user_id", userId)
+    .single();
+
+  if (pageError || !page) {
+    return NextResponse.json(
+      { error: "Không tìm thấy trang của bạn" },
+      { status: 404 }
+    );
+  }
+
   const { data: memory, error: fetchError } = await supabase
     .from("memories")
-    .select("image_url")
+    .select("id")
     .eq("id", id)
-    .eq("user_id", userId)
+    .eq("page_id", page.id)
     .single();
 
   if (fetchError || !memory) {
@@ -159,13 +173,23 @@ export async function DELETE(req: Request) {
     );
   }
 
-  const filePath = memory.image_url?.split("/storage/v1/object/public/")[1];
+  const { data: memoryImages, error: memoryImagesError } = await supabase
+    .from("memory_images")
+    .select("image_url")
+    .eq("memory_id", memory.id);
+
+  if (memoryImagesError) {
+    return NextResponse.json(
+      { error: "Không thể xóa ảnh kỷ niệm" },
+      { status: 500 }
+    );
+  }
 
   const { error: deleteError } = await supabase
     .from("memories")
     .delete()
     .eq("id", id)
-    .eq("user_id", userId);
+    .eq("page_id", page.id);
 
   if (deleteError) {
     return NextResponse.json(
@@ -174,10 +198,14 @@ export async function DELETE(req: Request) {
     );
   }
 
-  if (filePath) {
+  const filePaths = memoryImages.map(
+    (image) => image.image_url?.split("/storage/v1/object/public/")[1]
+  );
+
+  if (filePaths.length > 0) {
     const { error: storageError } = await supabase.storage
       .from("memories")
-      .remove([filePath]);
+      .remove(filePaths);
 
     if (storageError) {
       console.warn(

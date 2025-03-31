@@ -1,4 +1,5 @@
 "use client";
+import { MainPageContext } from "@/app/(auth)/[userIdentity]/layout";
 import FacebookIcon from "@/components/icons/facebook";
 import InstagramIcon from "@/components/icons/instagram";
 import MailIcon from "@/components/icons/mail";

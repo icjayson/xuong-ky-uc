@@ -1,13 +1,29 @@
+"use client";
+
 import { cn } from "@/lib/utils";
+import React from "react";
 import ClockSection from "./clock-section";
-import LoveSection from "./love-section";
 import DiarySection from "./diary-section";
+import LoveSection from "./love-section";
+import Loading from "@/components/ui/loading";
+import FourOFourPage from "../unauth/404";
+import NotSharing from "../unauth/not-sharing";
+import { MainPageContext } from "@/app/(auth)/[userIdentity]/layout";
 
 type MainPageProps = {
   isEditMode?: boolean;
 };
 
 const MainPage = ({ isEditMode = false }: MainPageProps) => {
+  const { data, isLoading, isBelongsToUser } =
+    React.useContext(MainPageContext);
+
+  if (isLoading) return <Loading />;
+
+  if (isEditMode && !isBelongsToUser) return <FourOFourPage />;
+
+  if (!isBelongsToUser && !data?.is_sharing) return <NotSharing />;
+
   return (
     <div
       className={cn(

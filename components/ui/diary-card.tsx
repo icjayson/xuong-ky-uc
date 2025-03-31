@@ -1,25 +1,27 @@
-import React from "react";
-import Card from "./card";
-import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { cn } from "@/lib/utils";
-
+import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
+import Card from "./card";
+import { MainPageContext } from "@/app/(auth)/[userIdentity]/layout";
+import React from "react";
 type DiaryCardProps = {
   isEditMode?: boolean;
-  url?: string;
-  title?: string;
-  date?: string;
+  image_url?: string;
+  location?: string;
+  memory_date?: string;
   description?: string;
   onClick?: () => void;
 };
 
 const DiaryCard = ({
   isEditMode = false,
-  url,
-  title,
-  date,
+  image_url,
+  location,
+  memory_date,
   description,
   onClick
 }: DiaryCardProps) => {
+  const { color } = React.useContext(MainPageContext);
+
   return (
     <Card
       diary
@@ -30,6 +32,9 @@ const DiaryCard = ({
           "cursor-pointer": isEditMode
         }
       )}
+      style={{
+        backgroundColor: color?.secondary1 || "#fff"
+      }}
       onClick={onClick}
     >
       <div className={cn("w-full")}>
@@ -37,7 +42,8 @@ const DiaryCard = ({
           <div className="w-full h-full rounded-sm bg-black opacity-40 aspect-square"></div>
         ) : (
           <Avatar squareBorder className={cn("w-full h-full rounded-sm")}>
-            <AvatarImage src={url} />
+            <AvatarImage src={image_url} />
+            <AvatarFallback>Avatar</AvatarFallback>
           </Avatar>
         )}
       </div>
@@ -52,18 +58,24 @@ const DiaryCard = ({
                 "max-lg:text-sm",
                 "max-xl:text-base"
               )}
+              style={{
+                color: color?.black || undefined
+              }}
             >
-              {title}
+              {location}
             </div>
             <div
               className={cn(
-                "text-base text-black-60",
+                "text-base text-black-60 opacity-60",
                 "max-sm:text-[8px]",
                 "max-lg:text-[10px]",
                 "max-xl:text-xs"
               )}
+              style={{
+                color: color?.black || undefined
+              }}
             >
-              {date}
+              {memory_date}
             </div>
           </div>
           <div
@@ -73,6 +85,9 @@ const DiaryCard = ({
               "max-lg:text-xs",
               "max-xl:text-sm"
             )}
+            style={{
+              color: color?.black || undefined
+            }}
           >
             "{description}"
           </div>
@@ -85,6 +100,9 @@ const DiaryCard = ({
             "max-lg:text-sm",
             "max-xl:text-base"
           )}
+          style={{
+            color: color?.black || undefined
+          }}
         >
           Cập nhật nhật ký
         </div>

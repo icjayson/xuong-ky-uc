@@ -17,9 +17,10 @@ export default async function Layout({
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("token")?.value;
   const refreshToken = cookieStore.get("refresh_token")?.value;
+  const domain = cookieStore.get("domain")?.value;
 
   if (accessToken && refreshToken) {
-    redirect("/test");
+    redirect(`/${domain}/edit`);
   }
 
   return (

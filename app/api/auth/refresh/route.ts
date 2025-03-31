@@ -14,7 +14,6 @@ export async function POST() {
     const newAccessToken = signAccessToken({ userId: payload.userId });
 
     cookieStore.set("token", newAccessToken, {
-      httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/"
     });

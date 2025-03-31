@@ -8,6 +8,7 @@ import { MemoryContext } from "@/app/(admin)/memory/page";
 
 type Memory = {
   id: number;
+  memory_id: string;
   location: string;
   memory_date: Date;
   image_url: string;

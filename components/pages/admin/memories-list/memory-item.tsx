@@ -16,6 +16,7 @@ import {
 
 type MemoryItemProps = {
   id: number;
+  memory_id: string;
   location: string;
   memory_date: Date;
   image_url: File | string;
@@ -25,6 +26,7 @@ type MemoryItemProps = {
 
 const MemoryItem = ({
   id,
+  memory_id,
   location,
   memory_date,
   image_url,
@@ -78,7 +80,7 @@ const MemoryItem = ({
       setIsLoading(true);
 
       const formData = new FormData();
-      formData.append("memory_id", id.toString());
+      formData.append("memory_id", memory_id.toString());
 
       const response = await fetch(`/api/couple-page/upload-memory`, {
         method: "DELETE",

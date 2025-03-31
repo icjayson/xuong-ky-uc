@@ -141,7 +141,7 @@ const MemoryFormItem = ({
 
             <Button
               className={cn("h-6 text-[10px] px-2 rounded-[8px]")}
-              onClick={onSave}
+              onClick={() => onSave()}
             >
               Xong
             </Button>

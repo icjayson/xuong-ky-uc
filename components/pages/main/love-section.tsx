@@ -1,24 +1,15 @@
+"use client";
+
 import LoveIcon from "@/components/ui/love-icon";
 import LoveInfo from "@/components/ui/love-info";
 import LoveItem from "@/components/ui/love-item";
 import { cn } from "@/lib/utils";
 import React from "react";
-
-const person1 = {
-  name: "Nguyễn Văn A",
-  nickName: "Biệt danh",
-  dateOfBirth: "2025-03-22",
-  zodiac: "Zodiac"
-};
-
-const person2 = {
-  name: "Nguyễn Văn B",
-  nickName: "Biệt danh",
-  dateOfBirth: "2025-03-22",
-  zodiac: "Zodiac"
-};
+import { MainPageContext } from "@/app/(auth)/[userIdentity]/layout";
 
 const LoveSection = () => {
+  const { data } = React.useContext(MainPageContext);
+
   return (
     <div>
       <div
@@ -27,26 +18,28 @@ const LoveSection = () => {
           "max-xl:grid-cols-[2fr_0.5fr_2fr]"
         )}
       >
-        <LoveItem url="https://github.com/shadcn.png" />
+        <LoveItem url={data.avatar_1_url ?? ""} />
 
-        <LoveIcon />
+        <LoveIcon type={data.clock_type ?? 1} />
 
-        <LoveItem url="https://github.com/shadcn.png" />
+        <LoveItem url={data.avatar_2_url ?? ""} />
 
         <LoveInfo
-          name={person1.name}
-          nickName={person1.nickName}
-          dateOfBirth={person1.dateOfBirth}
-          zodiac={person1.zodiac}
+          name={data.person1_name ?? ""}
+          nickName={data.person1_nickname ?? ""}
+          dateOfBirth={data.person1_dob ?? ""}
+          zodiac={data.person1_zodiac ?? ""}
+          description={data.person1_description ?? ""}
         />
 
         <div></div>
 
         <LoveInfo
-          name={person2.name}
-          nickName={person2.nickName}
-          dateOfBirth={person2.dateOfBirth}
-          zodiac={person2.zodiac}
+          name={data.person2_name ?? ""}
+          nickName={data.person2_nickname ?? ""}
+          dateOfBirth={data.person2_dob ?? ""}
+          zodiac={data.person2_zodiac ?? ""}
+          description={data.person2_description ?? ""}
         />
       </div>
     </div>

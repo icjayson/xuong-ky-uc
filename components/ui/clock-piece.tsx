@@ -1,3 +1,4 @@
+import { MainPageContext } from "@/app/(auth)/[userIdentity]/layout";
 import { cn } from "@/lib/utils";
 import React from "react";
 
@@ -7,14 +8,19 @@ type ClockPieceProps = {
 };
 
 const ClockPiece = ({ number, timeType }: ClockPieceProps) => {
+  const { color } = React.useContext(MainPageContext);
+
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center bg-black-60 w-[200px] h-[200px] rounded-[22px]",
+        "flex flex-col items-center justify-center bg-black-60 w-[200px] h-[200px] rounded-[22px] opacity-60",
         "max-sm:w-[52px] max-sm:h-[52px] max-sm:rounded-[6px] max-sm:gap-0",
         "max-lg:w-[84px] max-lg:h-[84px] max-lg:rounded-[12px] max-lg:gap-1",
         "max-xl:w-[128px] max-xl:h-[128px] max-xl:rounded-[16px] max-xl:gap-2"
       )}
+      style={{
+        backgroundColor: color?.secondary2 || undefined
+      }}
     >
       <div
         className={cn(
@@ -23,6 +29,9 @@ const ClockPiece = ({ number, timeType }: ClockPieceProps) => {
           "max-lg:text-2xl",
           "max-xl:text-4xl"
         )}
+        style={{
+          color: color?.primary || undefined
+        }}
       >
         {number}
       </div>
@@ -33,6 +42,9 @@ const ClockPiece = ({ number, timeType }: ClockPieceProps) => {
           "max-lg:text-[8px]",
           "max-xl:text-sm"
         )}
+        style={{
+          color: color?.black || undefined
+        }}
       >
         {timeType}
       </div>

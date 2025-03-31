@@ -24,13 +24,9 @@ export async function POST(req: Request) {
     start_date_of_love,
     title,
     font,
-    custom_color_1,
-    custom_color_2,
-    custom_color_3,
-    custom_color_4,
-    custom_color_5,
     color_scheme,
-    clock_type
+    clock_type,
+    is_sharing
   } = await req.json();
 
   const { data: existingPage } = await supabase
@@ -102,32 +98,16 @@ export async function POST(req: Request) {
       updates.font = font;
     }
 
-    if (custom_color_1) {
-      updates.custom_color_1 = custom_color_1;
-    }
-
-    if (custom_color_2) {
-      updates.custom_color_2 = custom_color_2;
-    }
-
-    if (custom_color_3) {
-      updates.custom_color_3 = custom_color_3;
-    }
-
-    if (custom_color_4) {
-      updates.custom_color_4 = custom_color_4;
-    }
-
-    if (custom_color_5) {
-      updates.custom_color_5 = custom_color_5;
-    }
-
     if (color_scheme) {
       updates.color_scheme = color_scheme;
     }
 
     if (clock_type) {
       updates.clock_type = clock_type;
+    }
+
+    if (is_sharing) {
+      updates.is_sharing = is_sharing;
     }
 
     const { error } = await supabase
@@ -148,13 +128,9 @@ export async function POST(req: Request) {
         start_date_of_love,
         title,
         font,
-        custom_color_1,
-        custom_color_2,
-        custom_color_3,
-        custom_color_4,
-        custom_color_5,
         color_scheme,
-        clock_type
+        clock_type,
+        is_sharing
       })
       .eq("user_id", userId);
 
@@ -181,13 +157,9 @@ export async function POST(req: Request) {
     start_date_of_love,
     title,
     font,
-    custom_color_1,
-    custom_color_2,
-    custom_color_3,
-    custom_color_4,
-    custom_color_5,
     color_scheme,
-    clock_type
+    clock_type,
+    is_sharing
   });
   if (error)
     return NextResponse.json({ error: error.message }, { status: 500 });

@@ -1,6 +1,7 @@
 "use client";
 
 import MemoriesList from "@/components/pages/admin/memories-list/memories-list";
+import Preview from "@/components/pages/admin/preview";
 import { Button } from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import Loading from "@/components/ui/loading";
@@ -114,7 +115,9 @@ const MemoryPage = () => {
           </div>
         </div>
 
-        <div className={cn("w-1/2 max-xl:hidden")}>Preview</div>
+        <div className={cn("w-1/2 max-xl:hidden")}>
+          <Preview />
+        </div>
       </div>
     </MemoryContext.Provider>
   );

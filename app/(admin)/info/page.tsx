@@ -7,6 +7,7 @@ import Loading from "@/components/ui/loading";
 import { cn } from "@/lib/utils";
 import React from "react";
 import { useRouter } from "next/navigation";
+import Preview from "@/components/pages/admin/preview";
 const InfoPage = () => {
   const router = useRouter();
 
@@ -247,7 +248,9 @@ const InfoPage = () => {
         </div>
       </div>
 
-      <div className={cn("w-1/2 max-xl:hidden")}>Preview</div>
+      <div className={cn("w-1/2 max-xl:hidden")}>
+        <Preview />
+      </div>
     </div>
   );
 };

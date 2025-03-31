@@ -1,4 +1,4 @@
-import { MainPageContext } from "@/app/(auth)/[userIdentity]/layout";
+import { PreviewContext } from "@/components/pages/admin/preview";
 import { cn } from "@/lib/utils";
 import React from "react";
 import { format } from "date-fns";
@@ -17,12 +17,12 @@ const LoveInfo = ({
   zodiac,
   description
 }: LoveInfoProps) => {
-  const { color } = React.useContext(MainPageContext);
+  const { color } = React.useContext(PreviewContext);
 
   return (
     <div className="flex flex-col items-center justify-center gap-2">
       <div
-        className={cn("text-2xl font-medium text-black", "max-sm:text-xs")}
+        className={cn("text-xs font-medium text-black")}
         style={{
           color: color?.white || undefined
         }}
@@ -32,10 +32,7 @@ const LoveInfo = ({
 
       <div className="flex flex-col items-center justify-center">
         <div
-          className={cn(
-            "text-xl text-black-80 opacity-80",
-            "max-sm:text-[10px]"
-          )}
+          className={cn("text-[10px] text-black-80 opacity-80")}
           style={{
             color: color?.white || undefined
           }}
@@ -43,10 +40,7 @@ const LoveInfo = ({
           {nickName}
         </div>
         <div
-          className={cn(
-            "text-base text-black-60 opacity-60",
-            "max-sm:text-[8px]"
-          )}
+          className={cn("text-[8px] text-black-60 opacity-60")}
           style={{
             color: color?.white || undefined
           }}
@@ -57,10 +51,7 @@ const LoveInfo = ({
           )}
         </div>
         <div
-          className={cn(
-            "text-base text-black-60 opacity-60",
-            "max-sm:text-[8px]"
-          )}
+          className={cn("text-[8px] text-black-60 opacity-60")}
           style={{
             color: color?.white || undefined
           }}
@@ -69,10 +60,7 @@ const LoveInfo = ({
         </div>
 
         <div
-          className={cn(
-            "text-base text-black-60 opacity-60",
-            "max-sm:text-[8px]"
-          )}
+          className={cn("text-[8px] text-black-60 opacity-60")}
           style={{
             color: color?.white || undefined
           }}

@@ -1,8 +1,7 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import { verifyAccessToken, verifyRefreshToken } from "@/utils/jwt";
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",

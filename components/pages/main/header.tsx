@@ -11,17 +11,27 @@ import {
 } from "@/components/ui/drawer";
 import { cn } from "@/lib/utils";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
-import Sidebar from "./sidebar";
 import { usePathname } from "next/navigation";
+import React from "react";
+import ShareModal from "./share-modal";
+import Sidebar from "./sidebar";
+import { MainPageContext } from "@/app/(auth)/[userIdentity]/layout";
 
 type HeaderProps = {
   forceEditMode?: boolean;
   className?: string;
+  isMainPage?: boolean;
 };
 
-const Header = ({ forceEditMode = false, className }: HeaderProps) => {
+const Header = ({
+  forceEditMode = false,
+  className,
+  isMainPage = false
+}: HeaderProps) => {
   const pathname = usePathname();
   const isEditMode = pathname.split("/").includes("edit") || forceEditMode;
+  const [isSharingModalOpen, setIsSharingModalOpen] = React.useState(false);
+  const { color } = React.useContext(MainPageContext);
 
   return (
     <header
@@ -30,6 +40,9 @@ const Header = ({ forceEditMode = false, className }: HeaderProps) => {
         "max-sm:px-3 max-sm:h-[74px]",
         className
       )}
+      style={{
+        backgroundColor: isMainPage ? color?.primary : undefined
+      }}
     >
       <div
         className={cn(
@@ -86,7 +99,24 @@ const Header = ({ forceEditMode = false, className }: HeaderProps) => {
         )}
       </div>
 
-      {isEditMode && <Button variant="primary">Chia sẻ</Button>}
+      {isEditMode && (
+        <>
+          <Button
+            variant="primary"
+            onClick={() => setIsSharingModalOpen(true)}
+            style={{
+              backgroundColor: isMainPage ? color?.secondary1 : undefined
+            }}
+          >
+            Chia sẻ
+          </Button>
+
+          <ShareModal
+            isSharingModalOpen={isSharingModalOpen}
+            setIsSharingModalOpen={setIsSharingModalOpen}
+          />
+        </>
+      )}
     </header>
   );
 };

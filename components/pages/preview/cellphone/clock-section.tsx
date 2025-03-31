@@ -1,11 +1,11 @@
-import ClockPiece from "@/components/ui/clock-piece";
+import ClockPiece from "@/components/pages/preview/cellphone/clock-piece";
 import { cn } from "@/lib/utils";
 import React from "react";
 import { formatDurationFrom } from "@/utils/date";
-import { MainPageContext } from "@/app/(auth)/[userIdentity]/layout";
+import { PreviewContext } from "../../admin/preview";
 
 const ClockSection = () => {
-  const { data } = React.useContext(MainPageContext);
+  const { data, color } = React.useContext(PreviewContext);
 
   const fromDate = new Date(
     data.start_date_of_love || new Date().toISOString()
@@ -16,26 +16,18 @@ const ClockSection = () => {
   });
 
   const { years, months, days, hours } = formatDurationFrom(fromDate);
-  const colorScheme = data.color_scheme;
-  const color = Object.values(colorScheme || {})[0];
 
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center gap-5 w-4/5 mx-auto bg-primary rounded-[36px] py-8 shadow-timer backdrop-timer",
-        "max-sm:rounded-[10px] max-sm:py-2 max-sm:shadow-timer-small max-sm:backdrop-timer-small max-sm:gap-1"
+        "flex flex-col items-center justify-center gap-1 w-[276px] h-[101px] mx-auto bg-primary rounded-[9px] py-8 shadow-timer-small backdrop-timer"
       )}
       style={{
         backgroundColor: color?.secondary1 || undefined
       }}
     >
       <div
-        className={cn(
-          "text-[32px] text-black-80 font-medium",
-          "max-sm:text-xs",
-          "max-lg:text-base",
-          "max-xl:text-2xl"
-        )}
+        className={cn("text-xs text-black-80 font-medium")}
         style={{
           color: color?.black || undefined
         }}
@@ -44,7 +36,7 @@ const ClockSection = () => {
       </div>
 
       <div>
-        <div className={cn("flex gap-8", "max-sm:gap-3", "max-lg:gap-6")}>
+        <div className={cn("flex gap-[10px]")}>
           <ClockPiece number={years.toString()} timeType="NĂM" />
           <ClockPiece number={months.toString()} timeType="THÁNG" />
           <ClockPiece number={days.toString()} timeType="NGÀY" />
@@ -53,12 +45,7 @@ const ClockSection = () => {
       </div>
 
       <div
-        className={cn(
-          "text-black-80 text-xl font-medium",
-          "max-sm:text-[8px]",
-          "max-lg:text-xs",
-          "max-xl:text-base"
-        )}
+        className={cn("text-black-80 text-[8px] font-medium")}
         style={{
           color: color?.black || undefined
         }}

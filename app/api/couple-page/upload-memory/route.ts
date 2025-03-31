@@ -124,13 +124,56 @@ export async function DELETE(req: Request) {
   const formData = await req.formData();
   const memory_id = formData.get("memory_id") as string;
 
+  const { data: memory, error: memoryError } = await supabase
+    .from("memory_images")
+    .select("image_url")
+    .eq("memory_id", memory_id)
+    .single();
+
+  if (memoryError) {
+    return NextResponse.json(
+      { error: "Không thể xóa ảnh kỷ niệm" },
+      { status: 500 }
+    );
+  }
+
+  const filePath = memory.image_url.split(
+    "/storage/v1/object/public/memories/"
+  )[1];
+
+  const { error: deleteImagesError } = await supabase.storage
+    .from("memories")
+    .remove([filePath.toString()]);
+
+  if (deleteImagesError) {
+    return NextResponse.json(
+      { error: "Không thể xóa ảnh kỷ niệm" },
+      { status: 500 }
+    );
+  }
+
   const { error: deleteError } = await supabase
     .from("memory_images")
     .delete()
-    .eq("id", memory_id);
+    .eq("memory_id", memory_id);
 
   if (deleteError) {
-    return NextResponse.json({ error: deleteError.message }, { status: 500 });
+    return NextResponse.json(
+      { error: "Không thể xóa ảnh kỷ niệm" },
+      { status: 500 }
+    );
+  }
+
+  const { error: deleteMemoryError } = await supabase
+    .from("memories")
+    .delete()
+    .eq("id", memory_id);
+
+  if (deleteMemoryError) {
+    return NextResponse.json(
+      { error: "Không thể xóa kỷ niệm" },
+      { status: 500 }
+    );
   }
 
   return NextResponse.json({ message: "Xóa ảnh thành công" });

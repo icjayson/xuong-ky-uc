@@ -43,7 +43,6 @@ export async function POST(req: Request) {
   const refreshToken = signRefreshToken({ userId: user.id });
 
   const cookieOptions = {
-    httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     path: "/"
   };
