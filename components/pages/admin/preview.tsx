@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import ClockSection from "../preview/cellphone/clock-section";
 import LoveSection from "../preview/cellphone/love-section";
 import DiarySection from "../preview/cellphone/love-diary";
-import { Data, Memories } from "@/app/(auth)/[userIdentity]/layout";
+import { Data, Memories } from "@/contexts/contexts";
 import { useGetCookie } from "cookies-next";
 import Loading from "@/components/ui/loading";
 import { ColorSchemeColors } from "@/components/ui/color-selector";

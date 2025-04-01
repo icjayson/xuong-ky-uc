@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import MemoryFormItem from "./memory-form-item";
 import { useGetCookie } from "cookies-next";
-import { MemoryContext } from "@/app/(admin)/memory/page";
+import { MemoryContext } from "@/contexts/contexts";
 
 type Memory = {
   id: number;

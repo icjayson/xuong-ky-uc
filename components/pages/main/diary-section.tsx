@@ -1,10 +1,10 @@
 "use client";
 
 import DiaryCard from "@/components/ui/diary-card";
+import { MainPageContext } from "@/contexts/contexts";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { MainPageContext } from "@/app/(auth)/[userIdentity]/layout";
 
 type DiarySectionProps = {
   isEditMode?: boolean;

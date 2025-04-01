@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React from "react";
 import MemoryFormItem from "./memory-form-item";
-import { MemoryContext } from "@/app/(admin)/memory/page";
+
 import {
   Dialog,
   DialogContent,
@@ -13,6 +13,7 @@ import {
   DialogHeader,
   DialogTitle
 } from "@/components/ui/dialog";
+import { MemoryContext } from "@/contexts/contexts";
 
 type MemoryItemProps = {
   id: number;

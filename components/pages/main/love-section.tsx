@@ -5,7 +5,7 @@ import LoveInfo from "@/components/ui/love-info";
 import LoveItem from "@/components/ui/love-item";
 import { cn } from "@/lib/utils";
 import React from "react";
-import { MainPageContext } from "@/app/(auth)/[userIdentity]/layout";
+import { MainPageContext } from "@/contexts/contexts";
 
 const LoveSection = () => {
   const { data } = React.useContext(MainPageContext);

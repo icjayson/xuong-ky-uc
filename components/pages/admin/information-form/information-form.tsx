@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import InformationFormItem from "./information-form-item";
-import { settingContext } from "@/app/(admin)/settings/page";
+import { SettingContext } from "@/contexts/contexts";
 
 const InformationForm = () => {
   const { person1, person2, setPerson1, setPerson2 } =
-    useContext(settingContext);
+    useContext(SettingContext);
 
   return (
     <div className="flex flex-col gap-3">

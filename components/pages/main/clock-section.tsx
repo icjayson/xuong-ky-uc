@@ -2,7 +2,7 @@ import ClockPiece from "@/components/ui/clock-piece";
 import { cn } from "@/lib/utils";
 import React from "react";
 import { formatDurationFrom } from "@/utils/date";
-import { MainPageContext } from "@/app/(auth)/[userIdentity]/layout";
+import { MainPageContext } from "@/contexts/contexts";
 
 const ClockSection = () => {
   const { data } = React.useContext(MainPageContext);

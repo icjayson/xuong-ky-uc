@@ -8,7 +8,7 @@ import LoveSection from "./love-section";
 import Loading from "@/components/ui/loading";
 import FourOFourPage from "../unauth/404";
 import NotSharing from "../unauth/not-sharing";
-import { MainPageContext } from "@/app/(auth)/[userIdentity]/layout";
+import { MainPageContext } from "@/contexts/contexts";
 
 type MainPageProps = {
   isEditMode?: boolean;

@@ -1,4 +1,4 @@
-import { MainPageContext } from "@/app/(auth)/[userIdentity]/layout";
+import { MainPageContext } from "@/contexts/contexts";
 import { cn } from "@/lib/utils";
 import React from "react";
 

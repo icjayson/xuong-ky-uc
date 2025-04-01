@@ -6,18 +6,9 @@ import { Button } from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import Loading from "@/components/ui/loading";
 import MemoryFrameSelector from "@/components/ui/memory-frame-selector";
+import { MemoryContext } from "@/contexts/contexts";
 import { cn } from "@/lib/utils";
 import React from "react";
-
-type MemoryContextType = {
-  refetchMemories: () => void;
-  setIsLoading: (isLoading: boolean) => void;
-};
-
-export const MemoryContext = React.createContext<MemoryContextType>({
-  refetchMemories: () => {},
-  setIsLoading: () => {}
-});
 
 const MemoryPage = () => {
   const [memories, setMemories] = React.useState([]);

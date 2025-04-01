@@ -15,7 +15,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import ShareModal from "./share-modal";
 import Sidebar from "./sidebar";
-import { MainPageContext } from "@/app/(auth)/[userIdentity]/layout";
+import { MainPageContext } from "@/contexts/contexts";
 
 type HeaderProps = {
   forceEditMode?: boolean;

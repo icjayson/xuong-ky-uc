@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import Card from "./card";
-import { MainPageContext } from "@/app/(auth)/[userIdentity]/layout";
+import { MainPageContext } from "@/contexts/contexts";
 import React from "react";
 type DiaryCardProps = {
   isEditMode?: boolean;

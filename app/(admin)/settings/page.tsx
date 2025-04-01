@@ -1,6 +1,5 @@
 "use client";
 
-import { Data } from "@/app/(auth)/[userIdentity]/layout";
 import ClockForm from "@/components/pages/admin/clock-form/clock-form";
 import InformationForm from "@/components/pages/admin/information-form/information-form";
 import Preview from "@/components/pages/admin/preview";
@@ -13,45 +12,9 @@ import ColorSelector, {
 import FontSelector from "@/components/ui/font-selector";
 import FrameSelector from "@/components/ui/frame-selector";
 import Loading from "@/components/ui/loading";
+import { Person, SettingContext, Data } from "@/contexts/contexts";
 import { cn } from "@/lib/utils";
 import React from "react";
-
-type Person = {
-  name: string;
-  nickname: string;
-  dob: Date;
-  zodiac: string;
-  description: string;
-  avatar: File | string;
-};
-
-type SettingContextType = {
-  person1: Person;
-  setPerson1: (person: Person) => void;
-  person2: Person;
-  setPerson2: (person: Person) => void;
-};
-
-export const settingContext = React.createContext<SettingContextType>({
-  person1: {
-    name: "",
-    nickname: "",
-    dob: new Date(),
-    zodiac: "",
-    description: "",
-    avatar: ""
-  },
-  person2: {
-    name: "",
-    nickname: "",
-    dob: new Date(),
-    zodiac: "",
-    description: "",
-    avatar: ""
-  },
-  setPerson1: () => {},
-  setPerson2: () => {}
-});
 
 const SettingsPage = () => {
   const [selectedColorScheme, setSelectedColorScheme] = React.useState<
@@ -248,7 +211,7 @@ const SettingsPage = () => {
   }
 
   return (
-    <settingContext.Provider
+    <SettingContext.Provider
       value={{
         person1,
         setPerson1,
@@ -399,7 +362,7 @@ const SettingsPage = () => {
           <Preview previewData={previewData} />
         </div>
       </div>
-    </settingContext.Provider>
+    </SettingContext.Provider>
   );
 };
 
