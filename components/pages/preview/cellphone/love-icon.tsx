@@ -1,10 +1,8 @@
 "use client";
 
+import BlinkingHeart from "@/components/pages/preview/cellphone/blinking-heart";
 import { cn } from "@/lib/utils";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import React from "react";
-import HeartRate from "@/components/ui/heart-rate";
-import BlinkingHeart from "@/components/pages/preview/cellphone/blinking-heart";
 
 type LoveIconProps = {
   className?: string;

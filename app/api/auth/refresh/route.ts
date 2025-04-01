@@ -19,7 +19,7 @@ export async function POST() {
     });
 
     return new Response("Token refreshed");
-  } catch (err) {
+  } catch {
     return new Response("Invalid refresh token", { status: 401 });
   }
 }

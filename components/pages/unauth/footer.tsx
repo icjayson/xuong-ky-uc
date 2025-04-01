@@ -1,5 +1,4 @@
 "use client";
-import { MainPageContext } from "@/app/(auth)/[userIdentity]/layout";
 import FacebookIcon from "@/components/icons/facebook";
 import InstagramIcon from "@/components/icons/instagram";
 import MailIcon from "@/components/icons/mail";
@@ -7,7 +6,6 @@ import PhoneIcon from "@/components/icons/phone";
 import Tiktok from "@/components/icons/tiktok";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
 
 const Footer = () => {
   const pathname = usePathname();

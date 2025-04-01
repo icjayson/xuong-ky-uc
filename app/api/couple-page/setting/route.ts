@@ -227,7 +227,7 @@ export async function PATCH(req: Request) {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    updates.password = hashedPassword;
+    updates.password_hash = hashedPassword;
   }
 
   const { error } = await supabase

@@ -3,12 +3,11 @@
 import CopyIcon from "@/components/icons/copy";
 import { Button } from "@/components/ui/button";
 import {
+  Dialog,
   DialogContent,
   DialogDescription,
   DialogTitle
 } from "@/components/ui/dialog";
-import { Dialog } from "@/components/ui/dialog";
-import Loading from "@/components/ui/loading";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 import React from "react";
@@ -47,7 +46,6 @@ const ShareModal = ({
 
   const handleCopyLink = () => {
     const formattedLink = window.location.href.split("/edit")[0];
-    console.log("formattedLink", formattedLink);
     navigator.clipboard.writeText(formattedLink);
   };
 

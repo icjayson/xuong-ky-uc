@@ -89,7 +89,7 @@ const DiaryCard = ({
               color: color?.black || undefined
             }}
           >
-            "{description}"
+            &ldquo;{description}&rdquo;
           </div>
         </div>
       ) : (

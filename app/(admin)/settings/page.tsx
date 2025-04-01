@@ -79,7 +79,6 @@ const SettingsPage = () => {
   });
   const [isLoading, setIsLoading] = React.useState(false);
   const [previewData, setPreviewData] = React.useState<Data | undefined>();
-  console.log("title", title);
 
   const handleColorChange = (id: string, colors: ColorSchemeColors) => {
     setSelectedColorScheme({ [id]: colors });
