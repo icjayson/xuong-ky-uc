@@ -1,6 +1,4 @@
-import React from "react";
 import MemoryFrame from "./memory-frame";
-import { Button } from "./button";
 
 const frames = [
   {
@@ -54,14 +52,6 @@ const MemoryFrameSelector = () => {
           />
         ))}
       </div>
-
-      <Button
-        className="w-full text-black-80 cursor-not-allowed hover:opacity-100"
-        anomaly="outline"
-        disabled
-      >
-        Cập nhật nhật ký tình yêu
-      </Button>
     </div>
   );
 };

@@ -25,21 +25,21 @@ const LoveSection = () => {
         <LoveItem url={data.avatar_2_url ?? ""} />
 
         <LoveInfo
-          name={data.person1_name ?? ""}
-          nickName={data.person1_nickname ?? ""}
-          dateOfBirth={data.person1_dob ?? ""}
-          zodiac={data.person1_zodiac ?? ""}
-          description={data.person1_description ?? ""}
+          name={data.person1_name ?? "Tên"}
+          nickName={data.person1_nickname ?? "Biệt danh"}
+          dateOfBirth={data.person1_dob ?? new Date().toISOString()}
+          zodiac={data.person1_zodiac ?? "Cung hoàng đạo"}
+          description={data.person1_description ?? "Mô tả"}
         />
 
         <div></div>
 
         <LoveInfo
-          name={data.person2_name ?? ""}
-          nickName={data.person2_nickname ?? ""}
-          dateOfBirth={data.person2_dob ?? ""}
-          zodiac={data.person2_zodiac ?? ""}
-          description={data.person2_description ?? ""}
+          name={data.person2_name ?? "Tên"}
+          nickName={data.person2_nickname ?? "Biệt danh"}
+          dateOfBirth={data.person2_dob ?? new Date().toISOString()}
+          zodiac={data.person2_zodiac ?? "Cung hoàng đạo"}
+          description={data.person2_description ?? "Mô tả"}
         />
       </div>
     </div>

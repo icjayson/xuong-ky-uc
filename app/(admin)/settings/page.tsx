@@ -146,30 +146,9 @@ const SettingsPage = () => {
   }, []);
 
   React.useEffect(() => {
-    if (
-      !person1.name ||
-      !person1.nickname ||
-      !person1.dob ||
-      !person1.zodiac ||
-      !person1.description ||
-      !person1.avatar ||
-      !person2.name ||
-      !person2.nickname ||
-      !person2.dob ||
-      !person2.zodiac ||
-      !person2.description ||
-      !person2.avatar ||
-      !startDate ||
-      !selectedClock ||
-      !selectedColorScheme ||
-      !selectedFont ||
-      !title
-    )
-      return;
-
     setPreviewData({
-      person1_name: person1.name,
-      person1_nickname: person1.nickname,
+      person1_name: person1?.name,
+      person1_nickname: person1?.nickname,
       person1_dob:
         typeof person1.dob === "string"
           ? person1.dob

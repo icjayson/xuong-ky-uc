@@ -71,7 +71,9 @@ function Button({
 
       <Comp
         data-slot="button"
-        className={cn(buttonVariants({ variant, size, className, anomaly }))}
+        className={cn(buttonVariants({ variant, size, className, anomaly }), {
+          "opacity-50 !cursor-not-allowed hover:opacity-50": props.disabled
+        })}
         {...props}
       />
     </div>

@@ -12,6 +12,7 @@ import React from "react";
 
 const MemoryPage = () => {
   const [memories, setMemories] = React.useState([]);
+  const [isCreating, setIsCreating] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
 
   const fetchMemories = async () => {
@@ -40,7 +41,9 @@ const MemoryPage = () => {
   }
 
   return (
-    <MemoryContext.Provider value={{ refetchMemories, setIsLoading }}>
+    <MemoryContext.Provider
+      value={{ refetchMemories, setIsLoading, isCreating, setIsCreating }}
+    >
       <div className={cn("w-full h-full flex")}>
         <div
           className={cn(
@@ -78,6 +81,13 @@ const MemoryPage = () => {
             </div>
 
             <MemoryFrameSelector />
+
+            <Button
+              className="w-full text-black-80 mt-3"
+              onClick={() => setIsCreating(!isCreating)}
+            >
+              Cập nhật nhật ký tình yêu
+            </Button>
           </Card>
 
           <Card infoCard className="">

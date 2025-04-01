@@ -62,7 +62,7 @@ export async function GET(req: Request) {
 
   const formattedMemories = memories
     .map((memory) => memory.memory_images[0])
-    .filter((memory) => memory.is_visible);
+    .filter((memory) => memory?.is_visible);
 
   const formattedData = {
     ...data,

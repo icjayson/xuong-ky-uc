@@ -4,7 +4,7 @@ import Header from "@/components/pages/main/header";
 import Footer from "@/components/pages/unauth/footer";
 import { Data, MainPageContext, Memories } from "@/contexts/contexts";
 import { useGetCookie } from "cookies-next";
-import { redirect, useParams } from "next/navigation";
+import { redirect, useParams, usePathname } from "next/navigation";
 import React from "react";
 
 export default function RootLayout({
@@ -13,6 +13,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const { userIdentity: domain } = useParams();
+  const pathname = usePathname();
+  const isAdminPage = pathname.split("/").pop() === "edit";
   const getCookie = useGetCookie();
   const [isLoading, setIsLoading] = React.useState(true);
   const [isBelongsToUser, setIsBelongsToUser] = React.useState(true);
@@ -57,10 +59,10 @@ export default function RootLayout({
     const accessToken = getCookie("token");
     const refreshToken = getCookie("refresh_token");
 
-    if (!accessToken || !refreshToken) {
+    if ((!accessToken || !refreshToken) && isAdminPage) {
       redirect("/login");
     }
-  }, [getCookie, isLoading]);
+  }, [getCookie, isLoading, isAdminPage]);
 
   return (
     <MainPageContext.Provider

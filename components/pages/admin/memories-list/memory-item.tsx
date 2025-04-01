@@ -96,6 +96,14 @@ const MemoryItem = ({
     }
   };
 
+  const handleCancel = () => {
+    setIsEditing(false);
+    setEditedLocation(location);
+    setEditedDate(memory_date);
+    setEditedDescription(description);
+    setEditedImage(image_url);
+  };
+
   React.useEffect(() => {
     if (image_url instanceof File) {
       const objectUrl = URL.createObjectURL(image_url);
@@ -125,7 +133,7 @@ const MemoryItem = ({
           setEditedDescription(value);
         }}
         onSave={handleSave}
-        onCancel={() => setIsEditing(false)}
+        onCancel={() => handleCancel()}
       />
     );
   }

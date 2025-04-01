@@ -4,11 +4,15 @@ import React from "react";
 export type MemoryContextType = {
   refetchMemories: () => void;
   setIsLoading: (isLoading: boolean) => void;
+  isCreating: boolean;
+  setIsCreating: (isCreating: boolean) => void;
 };
 
 export const MemoryContext = React.createContext<MemoryContextType>({
   refetchMemories: () => {},
-  setIsLoading: () => {}
+  setIsLoading: () => {},
+  isCreating: false,
+  setIsCreating: () => {}
 });
 
 export type Person = {

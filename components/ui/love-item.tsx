@@ -1,4 +1,4 @@
-import { Avatar, AvatarImage } from "./avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 
 type LoveItemProps = {
   url: string;
@@ -9,6 +9,7 @@ const LoveItem = ({ url }: LoveItemProps) => {
     <div className="flex items-center justify-center w-full h-full">
       <Avatar className="w-full h-full">
         <AvatarImage src={url} />
+        <AvatarFallback>Avatar</AvatarFallback>
       </Avatar>
     </div>
   );

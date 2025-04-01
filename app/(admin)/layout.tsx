@@ -1,3 +1,4 @@
+import MessengerWidget from "@/components/pages/admin/messenger-widget";
 import Sidebar from "@/components/pages/admin/sidebar";
 import Header from "@/components/pages/main/header";
 import { cn } from "@/lib/utils";
@@ -29,6 +30,7 @@ export default async function RootLayout({
       <Header forceEditMode className="hidden max-lg:flex" />
 
       <div className="flex-1 overflow-x-hidden">{children}</div>
+      <MessengerWidget />
     </div>
   );
 }

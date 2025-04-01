@@ -1,10 +1,9 @@
-import React from "react";
-import MemoryItem from "./memory-item";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import MemoryFormItem from "./memory-form-item";
-import { useGetCookie } from "cookies-next";
 import { MemoryContext } from "@/contexts/contexts";
+import { cn } from "@/lib/utils";
+import { useGetCookie } from "cookies-next";
+import React from "react";
+import MemoryFormItem from "./memory-form-item";
+import MemoryItem from "./memory-item";
 
 type Memory = {
   id: number;
@@ -21,17 +20,19 @@ type MemoriesListProps = {
 };
 
 const MemoriesList = ({ memories = [] }: MemoriesListProps) => {
-  const [isCreating, setIsCreating] = React.useState(false);
   const [location, setLocation] = React.useState("");
   const [date, setDate] = React.useState<Date>(new Date());
   const [description, setDescription] = React.useState("");
   const [image, setImage] = React.useState<File | string>("");
   const [previewImage, setPreviewImage] = React.useState<string | null>(null);
   const getCookie = useGetCookie();
-  const { refetchMemories, setIsLoading } = React.useContext(MemoryContext);
+  const { refetchMemories, setIsLoading, isCreating, setIsCreating } =
+    React.useContext(MemoryContext);
 
   const handleSave = async () => {
     try {
+      if (!image) return;
+
       setIsLoading(true);
       const page_id = getCookie("pageId");
       const response = await fetch("/api/couple-page/memory", {
@@ -55,9 +56,18 @@ const MemoriesList = ({ memories = [] }: MemoriesListProps) => {
       });
 
       refetchMemories();
+      setIsCreating(false);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleCancel = () => {
+    setIsCreating(false);
+    setLocation("");
+    setDate(new Date());
+    setDescription("");
+    setImage("");
   };
 
   React.useEffect(() => {
@@ -79,7 +89,7 @@ const MemoriesList = ({ memories = [] }: MemoriesListProps) => {
         </div>
       )}
 
-      {isCreating ? (
+      {isCreating && (
         <MemoryFormItem
           location={location}
           date={date}
@@ -90,18 +100,8 @@ const MemoriesList = ({ memories = [] }: MemoriesListProps) => {
           onDateChange={(value) => setDate(value)}
           onDescriptionChange={(value) => setDescription(value)}
           onSave={handleSave}
-          onCancel={() => setIsCreating(false)}
+          onCancel={() => handleCancel()}
         />
-      ) : (
-        <Button
-          className={cn(
-            "h-10 px-4 text-base",
-            "max-sm:h-8 max-sm:px-2 max-sm:text-xs"
-          )}
-          onClick={() => setIsCreating(true)}
-        >
-          Thêm kỷ niệm
-        </Button>
       )}
     </div>
   );

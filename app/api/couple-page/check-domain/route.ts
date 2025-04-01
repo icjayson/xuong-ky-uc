@@ -1,3 +1,4 @@
+import { getUser } from "@/utils/middlewares";
 import supabase from "@/utils/supabase";
 import { NextResponse } from "next/server";
 
@@ -5,7 +6,9 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const domain = searchParams.get("domain");
 
-  if (!domain) {
+  const userId = await getUser();
+
+  if (!domain || !userId) {
     return NextResponse.json(
       { error: "Không tìm thấy domain" },
       { status: 400 }
