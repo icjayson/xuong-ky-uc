@@ -3,6 +3,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Card from "@/components/ui/card";
 import { PreviewContext } from "@/components/pages/admin/preview";
 import React from "react";
+import { format } from "date-fns";
+
 type DiaryCardProps = {
   image_url?: string;
   location?: string;
@@ -18,14 +20,20 @@ const DiaryCard = ({
   description,
   onClick
 }: DiaryCardProps) => {
-  const { color } = React.useContext(PreviewContext);
+  const { color, data, colorKey } = React.useContext(PreviewContext);
+
+  const diaryCardBackground = () => {
+    return colorKey !== "custom"
+      ? color?.secondary1
+      : color?.primary || undefined;
+  };
 
   return (
     <Card
       diary
       className={cn("w-full rounded-2xl flex flex-col gap-2")}
       style={{
-        backgroundColor: color?.secondary1 || undefined
+        backgroundColor: diaryCardBackground()
       }}
       onClick={onClick}
     >
@@ -41,7 +49,8 @@ const DiaryCard = ({
           <div
             className={cn("text-xs text-black font-medium")}
             style={{
-              color: color?.black || undefined
+              color: color?.secondary3 || undefined,
+              fontFamily: data?.font || undefined
             }}
           >
             {location}
@@ -49,16 +58,18 @@ const DiaryCard = ({
           <div
             className={cn("text-[8px] text-black-60 opacity-60")}
             style={{
-              color: color?.black || undefined
+              color: color?.secondary3 || undefined,
+              fontFamily: data?.font || undefined
             }}
           >
-            {memory_date}
+            {format(new Date(memory_date || new Date()), "dd/MM/yyyy")}
           </div>
         </div>
         <div
           className={cn("text-[10px] text-black")}
           style={{
-            color: color?.black || undefined
+            color: color?.secondary3 || undefined,
+            fontFamily: data?.font || undefined
           }}
         >
           &ldquo;{description}&rdquo;

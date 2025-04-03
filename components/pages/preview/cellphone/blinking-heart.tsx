@@ -1,13 +1,13 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 
-const BlinkingHeart = () => {
+type BlinkingHeartProps = {
+  className?: string;
+};
+
+const BlinkingHeart = ({ className }: BlinkingHeartProps) => {
   return (
-    <div
-      className={cn(
-        "min-w-[100px] h-[30px] animate-blink text-heart-clock mr-1"
-      )}
-    >
+    <div className={cn("min-w-[100px] h-[30px] animate-blink mr-1", className)}>
       <svg
         id="Layer_1"
         xmlns="http://www.w3.org/2000/svg"

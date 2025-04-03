@@ -92,6 +92,7 @@ type MainPageContextType = {
   isLoading: boolean;
   isBelongsToUser: boolean;
   color: ColorSchemeColors;
+  colorKey: string;
 };
 
 export const MainPageContext = React.createContext<MainPageContextType>({
@@ -99,5 +100,6 @@ export const MainPageContext = React.createContext<MainPageContextType>({
   memories: [] as Memories[],
   isLoading: false,
   isBelongsToUser: true,
-  color: {} as ColorSchemeColors
+  color: {} as ColorSchemeColors,
+  colorKey: ""
 });

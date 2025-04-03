@@ -18,9 +18,7 @@ const Header = () => {
       </Avatar>
 
       <Link href={isHomepage ? "/login" : "/"}>
-        <Button variant="secondary" anomaly="outline">
-          {isHomepage ? "Đăng nhập" : "Trang chủ"}
-        </Button>
+        <Button>{isHomepage ? "Đăng nhập" : "Trang chủ"}</Button>
       </Link>
     </header>
   );

@@ -5,6 +5,7 @@ import React from "react";
 import MemoryFormInput from "./memory-form-input";
 
 type MemoryFormItemProps = {
+  isCreateMode?: boolean;
   location: string;
   date: Date;
   description: string;
@@ -18,6 +19,7 @@ type MemoryFormItemProps = {
 };
 
 const MemoryFormItem = ({
+  isCreateMode = false,
   location,
   date,
   description,
@@ -49,7 +51,7 @@ const MemoryFormItem = ({
           "max-sm:text-xs"
         )}
       >
-        Cập nhật kỷ niệm
+        {isCreateMode ? "Thêm kỷ niệm" : "Tùy chỉnh kỷ niệm"}
       </div>
 
       <div className={cn("flex gap-7", "max-sm:gap-2")}>

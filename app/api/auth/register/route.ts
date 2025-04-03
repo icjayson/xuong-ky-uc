@@ -59,7 +59,7 @@ export async function POST(req: Request) {
 
   const { data: page, error: pageError } = await supabase
     .from("couple_pages")
-    .insert({ user_id: user.id })
+    .insert({ user_id: user.id, is_sharing: true })
     .select()
     .single();
 

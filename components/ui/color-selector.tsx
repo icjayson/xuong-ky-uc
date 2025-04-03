@@ -10,8 +10,8 @@ export type ColorSchemeColors = {
   primary: string;
   secondary1: string;
   secondary2: string;
-  black: string;
-  white: string;
+  secondary3: string;
+  secondary4: string;
 };
 
 type ColorScheme = {
@@ -29,28 +29,28 @@ const INITIAL_CUSTOM_COLORS: ColorSchemeColors = {
   primary: "#000000",
   secondary1: "#000000",
   secondary2: "#000000",
-  black: "#000000",
-  white: "#000000"
+  secondary3: "#000000",
+  secondary4: "#000000"
 };
 
 export const COLOR_SCHEMES: Record<string, ColorScheme> = {
   "1": {
     colors: {
-      primary: "#cea19e",
-      secondary1: "#eeeadf",
-      secondary2: "#bb7458",
-      black: "#000000",
-      white: "#ffffff"
+      primary: "#eeeadf",
+      secondary1: "#cea19e",
+      secondary2: "#52403f",
+      secondary3: "#000000",
+      secondary4: "#ffffff"
     },
     disabled: false
   },
   "2": {
     colors: {
-      primary: "#ff70cd",
-      secondary1: "#ffb8e6",
-      secondary2: "#ff00a6",
-      black: "#000000",
-      white: "#ffffff"
+      primary: "#ffb8e6",
+      secondary1: "#ff70cd",
+      secondary2: "#662d52",
+      secondary3: "#000000",
+      secondary4: "#ffffff"
     },
     disabled: false
   },
@@ -58,9 +58,9 @@ export const COLOR_SCHEMES: Record<string, ColorScheme> = {
     colors: {
       primary: "#7d412c",
       secondary1: "#eeeadf",
-      secondary2: "#603222",
-      black: "#000000",
-      white: "#ffffff"
+      secondary2: "#bebbb2",
+      secondary3: "#000000",
+      secondary4: "#ffffff"
     },
     disabled: false
   },
@@ -69,8 +69,8 @@ export const COLOR_SCHEMES: Record<string, ColorScheme> = {
       primary: "#7d412c",
       secondary1: "#eeeadf",
       secondary2: "#603222",
-      black: "#000000",
-      white: "#ffffff"
+      secondary3: "#000000",
+      secondary4: "#ffffff"
     },
     disabled: true
   },
@@ -79,8 +79,8 @@ export const COLOR_SCHEMES: Record<string, ColorScheme> = {
       primary: "#7d412c",
       secondary1: "#eeeadf",
       secondary2: "#603222",
-      black: "#000000",
-      white: "#ffffff"
+      secondary3: "#000000",
+      secondary4: "#ffffff"
     },
     disabled: true
   }
@@ -90,8 +90,8 @@ const COLOR_NAMES: Record<keyof ColorSchemeColors, string> = {
   primary: "Màu chính",
   secondary1: "Màu phụ 1",
   secondary2: "Màu phụ 2",
-  black: "Màu tối",
-  white: "Màu sáng"
+  secondary3: "Màu phụ 3",
+  secondary4: "Màu phụ 4"
 };
 
 const ColorSchemePreview = ({

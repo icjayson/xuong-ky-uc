@@ -5,7 +5,7 @@ import { formatDurationFrom } from "@/utils/date";
 import { MainPageContext } from "@/contexts/contexts";
 
 const ClockSection = () => {
-  const { data } = React.useContext(MainPageContext);
+  const { data, color, colorKey } = React.useContext(MainPageContext);
 
   const fromDate = new Date(
     data.start_date_of_love || new Date().toISOString()
@@ -16,8 +16,12 @@ const ClockSection = () => {
   });
 
   const { years, months, days, hours } = formatDurationFrom(fromDate);
-  const colorScheme = data.color_scheme;
-  const color = Object.values(colorScheme || {})[0];
+
+  const clockBackground = () => {
+    return colorKey !== "custom"
+      ? color?.secondary1
+      : color?.primary || undefined;
+  };
 
   return (
     <div
@@ -26,18 +30,19 @@ const ClockSection = () => {
         "max-sm:rounded-[10px] max-sm:py-2 max-sm:shadow-timer-small max-sm:backdrop-timer-small max-sm:gap-1"
       )}
       style={{
-        backgroundColor: color?.secondary1 || undefined
+        backgroundColor: clockBackground()
       }}
     >
       <div
         className={cn(
-          "text-[32px] text-black-80 font-medium",
-          "max-sm:text-xs",
-          "max-lg:text-base",
-          "max-xl:text-2xl"
+          "text-[32px] text-black-80 font-medium text-center max-w-[80%] break-words break-all whitespace-pre-wrap",
+          "max-sm:text-xs max-sm:max-w-[70%]",
+          "max-lg:text-base max-lg:max-w-[65%]",
+          "max-xl:text-2xl max-xl:max-w-[75%]"
         )}
         style={{
-          color: color?.black || undefined
+          color: color?.secondary3 || undefined,
+          fontFamily: data?.font || undefined
         }}
       >
         {data?.title || "Đã bên nhau"}
@@ -60,7 +65,8 @@ const ClockSection = () => {
           "max-xl:text-base"
         )}
         style={{
-          color: color?.black || undefined
+          color: color?.secondary3 || undefined,
+          fontFamily: data?.font || undefined
         }}
       >
         Từ {fromDate}

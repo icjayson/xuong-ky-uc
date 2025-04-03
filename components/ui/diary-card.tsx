@@ -3,6 +3,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import Card from "./card";
 import { MainPageContext } from "@/contexts/contexts";
 import React from "react";
+import { format } from "date-fns";
+
 type DiaryCardProps = {
   isEditMode?: boolean;
   image_url?: string;
@@ -20,7 +22,13 @@ const DiaryCard = ({
   description,
   onClick
 }: DiaryCardProps) => {
-  const { color } = React.useContext(MainPageContext);
+  const { color, data, colorKey } = React.useContext(MainPageContext);
+
+  const diaryCardBackground = () => {
+    return colorKey !== "custom"
+      ? color?.secondary1
+      : color?.primary || undefined;
+  };
 
   return (
     <Card
@@ -33,7 +41,7 @@ const DiaryCard = ({
         }
       )}
       style={{
-        backgroundColor: color?.secondary1 || "#fff"
+        backgroundColor: diaryCardBackground()
       }}
       onClick={onClick}
     >
@@ -59,7 +67,8 @@ const DiaryCard = ({
                 "max-xl:text-base"
               )}
               style={{
-                color: color?.black || undefined
+                color: color?.secondary3 || undefined,
+                fontFamily: data?.font || undefined
               }}
             >
               {location}
@@ -72,10 +81,11 @@ const DiaryCard = ({
                 "max-xl:text-xs"
               )}
               style={{
-                color: color?.black || undefined
+                color: color?.secondary3 || undefined,
+                fontFamily: data?.font || undefined
               }}
             >
-              {memory_date}
+              {format(new Date(memory_date || new Date()), "dd/MM/yyyy")}
             </div>
           </div>
           <div
@@ -86,7 +96,8 @@ const DiaryCard = ({
               "max-xl:text-sm"
             )}
             style={{
-              color: color?.black || undefined
+              color: color?.secondary3 || undefined,
+              fontFamily: data?.font || undefined
             }}
           >
             &ldquo;{description}&rdquo;
@@ -101,7 +112,8 @@ const DiaryCard = ({
             "max-xl:text-base"
           )}
           style={{
-            color: color?.black || undefined
+            color: color?.secondary3 || undefined,
+            fontFamily: data?.font || undefined
           }}
         >
           Cập nhật nhật ký

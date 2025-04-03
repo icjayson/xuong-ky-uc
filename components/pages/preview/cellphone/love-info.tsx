@@ -17,14 +17,20 @@ const LoveInfo = ({
   zodiac,
   description
 }: LoveInfoProps) => {
-  const { color } = React.useContext(PreviewContext);
+  const { color, data, colorKey } = React.useContext(PreviewContext);
 
   return (
     <div className="flex flex-col items-center justify-center gap-2">
       <div
-        className={cn("text-xs font-medium text-black")}
+        className={cn("text-xs font-medium text-black text-center")}
         style={{
-          color: color?.white || undefined
+          color:
+            colorKey !== "custom"
+              ? colorKey == "3"
+                ? color?.secondary1
+                : color?.secondary3
+              : color?.secondary4 || undefined,
+          fontFamily: data?.font || undefined
         }}
       >
         {name}
@@ -32,17 +38,29 @@ const LoveInfo = ({
 
       <div className="flex flex-col items-center justify-center">
         <div
-          className={cn("text-[10px] text-black-80 opacity-80")}
+          className={cn("text-[10px] text-black-80 opacity-80 text-center")}
           style={{
-            color: color?.white || undefined
+            color:
+              colorKey !== "custom"
+                ? colorKey == "3"
+                  ? color?.secondary1
+                  : color?.secondary3
+                : color?.secondary4 || undefined,
+            fontFamily: data?.font || undefined
           }}
         >
           {nickName}
         </div>
         <div
-          className={cn("text-[8px] text-black-60 opacity-60")}
+          className={cn("text-[8px] text-black-60 opacity-60 text-center")}
           style={{
-            color: color?.white || undefined
+            color:
+              colorKey !== "custom"
+                ? colorKey == "3"
+                  ? color?.secondary1
+                  : color?.secondary3
+                : color?.secondary4 || undefined,
+            fontFamily: data?.font || undefined
           }}
         >
           {format(
@@ -51,9 +69,15 @@ const LoveInfo = ({
           )}
         </div>
         <div
-          className={cn("text-[8px] text-black-60 opacity-60")}
+          className={cn("text-[8px] text-black-60 opacity-60 text-center")}
           style={{
-            color: color?.white || undefined
+            color:
+              colorKey !== "custom"
+                ? colorKey == "3"
+                  ? color?.secondary1
+                  : color?.secondary3
+                : color?.secondary4 || undefined,
+            fontFamily: data?.font || undefined
           }}
         >
           {zodiac}
@@ -62,7 +86,13 @@ const LoveInfo = ({
         <div
           className={cn("text-[8px] text-black-60 opacity-60")}
           style={{
-            color: color?.white || undefined
+            color:
+              colorKey !== "custom"
+                ? colorKey == "3"
+                  ? color?.secondary1
+                  : color?.secondary3
+                : color?.secondary4 || undefined,
+            fontFamily: data?.font || undefined
           }}
         >
           {description}

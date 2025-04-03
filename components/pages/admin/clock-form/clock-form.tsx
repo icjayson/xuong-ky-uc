@@ -1,7 +1,6 @@
 import { DatePicker } from "@/components/ui/date-picker";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import React from "react";
 
 type ClockFormProps = {
   title: string;

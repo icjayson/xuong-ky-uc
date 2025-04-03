@@ -22,7 +22,7 @@ export default function RootLayout({
   const [memories, setMemories] = React.useState<Memories[]>([]);
   const colorScheme = data.color_scheme;
   const color = Object.values(colorScheme || {})[0];
-
+  const colorKey = Object.keys(colorScheme || {})[0];
   const checkDomain = async () => {
     setIsLoading(true);
     const res = await fetch(`/api/couple-page/check-domain?domain=${domain}`);
@@ -66,13 +66,18 @@ export default function RootLayout({
 
   return (
     <MainPageContext.Provider
-      value={{ data, memories, isLoading, isBelongsToUser, color }}
+      value={{ data, memories, isLoading, isBelongsToUser, color, colorKey }}
     >
       <div className="bg-background flex flex-col min-h-screen">
         <Header isMainPage />
         <div
           className="flex-1 overflow-x-hidden"
-          style={{ backgroundColor: color?.primary || undefined }}
+          style={{
+            backgroundColor:
+              colorKey !== "custom"
+                ? color?.primary
+                : color?.secondary1 || undefined
+          }}
         >
           {children}
         </div>

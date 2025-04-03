@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 
 const DiarySection = () => {
-  const { memories, color } = React.useContext(PreviewContext);
+  const { memories, color, data, colorKey } = React.useContext(PreviewContext);
 
   return (
     <div
@@ -17,7 +17,13 @@ const DiarySection = () => {
       <div
         className={cn("text-base text-black-80 font-medium")}
         style={{
-          color: color?.white || undefined
+          color:
+            colorKey !== "custom"
+              ? colorKey == "3"
+                ? color?.secondary1
+                : color?.secondary3
+              : color?.secondary4 || undefined,
+          fontFamily: data?.font || undefined
         }}
       >
         Nhật ký tình yêu

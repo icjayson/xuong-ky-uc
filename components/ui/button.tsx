@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
   [
-    "font-mark-pro font-normal text-base rounded-lg cursor-pointer hover:opacity-70 transition-opacity duration-300"
+    "font-mark-pro font-normal text-base rounded-lg cursor-pointer hover:opacity-70 transition duration-300"
   ],
   {
     variants: {

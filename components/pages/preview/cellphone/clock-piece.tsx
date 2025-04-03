@@ -8,29 +8,40 @@ type ClockPieceProps = {
 };
 
 const ClockPiece = ({ number, timeType }: ClockPieceProps) => {
-  const { color } = React.useContext(PreviewContext);
+  const { color, data, colorKey } = React.useContext(PreviewContext);
 
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center bg-black-60 w-[52px] h-[52px] rounded-[5px] opacity-60"
+        "flex flex-col items-center justify-center bg-black-60 w-[52px] h-[52px] rounded-[5px]"
       )}
       style={{
-        backgroundColor: color?.secondary2 || undefined
+        backgroundColor:
+          colorKey !== "custom"
+            ? color?.secondary2
+            : color?.secondary2 || undefined
       }}
     >
       <div
         className={cn("text-xl text-background")}
         style={{
-          color: color?.primary || undefined
+          color:
+            colorKey !== "custom"
+              ? color?.primary
+              : color?.secondary1 || undefined,
+          fontFamily: data?.font || undefined
         }}
       >
         {number}
       </div>
       <div
-        className={cn("text-white-60 text-[6px]")}
+        className={cn("text-white text-[6px]")}
         style={{
-          color: color?.black || undefined
+          color:
+            colorKey !== "custom"
+              ? color?.primary
+              : color?.secondary1 || undefined,
+          fontFamily: data?.font || undefined
         }}
       >
         {timeType}

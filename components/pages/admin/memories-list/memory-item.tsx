@@ -14,6 +14,7 @@ import {
   DialogTitle
 } from "@/components/ui/dialog";
 import { MemoryContext } from "@/contexts/contexts";
+import { format } from "date-fns";
 
 type MemoryItemProps = {
   id: number;
@@ -55,7 +56,7 @@ const MemoryItem = ({
       formData.append("file", editedImage);
       formData.append("memory_id", id.toString());
       formData.append("location", editedLocation);
-      formData.append("date", new Date(editedDate).toISOString());
+      formData.append("memory_date", new Date(editedDate).toISOString());
       formData.append("description", editedDescription);
       formData.append(
         "is_visible",
@@ -139,9 +140,13 @@ const MemoryItem = ({
   }
 
   return (
-    <div className={cn("flex justify-between")}>
-      <div className={cn("flex gap-3")}>
-        <div className={cn("w-15 h-15 bg-image-placeholder overflow-hidden")}>
+    <div className={cn("flex justify-between items-center gap-2")}>
+      <div className={cn("flex gap-3 max-w-[85%]")}>
+        <div
+          className={cn(
+            "min-w-15 min-h-15 w-15 h-15 bg-image-placeholder overflow-hidden"
+          )}
+        >
           {imageUrl && (
             <Image
               src={imageUrl as string}
@@ -162,7 +167,7 @@ const MemoryItem = ({
             {location}
           </div>
           <div className={cn("text-black-80 text-xs", "max-sm:text-[10px]")}>
-            {memory_date.toString()}
+            {format(memory_date ? memory_date : new Date(), "dd/MM/yyyy")}
           </div>
           <div className={cn("text-black-80 text-xs", "max-sm:text-[10px]")}>
             {description}

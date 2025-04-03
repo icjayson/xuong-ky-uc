@@ -3,21 +3,35 @@
 import BlinkingHeart from "@/components/pages/preview/cellphone/blinking-heart";
 import { cn } from "@/lib/utils";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-
+import { PreviewContext } from "../../admin/preview";
+import React from "react";
 type LoveIconProps = {
   className?: string;
   type?: number;
 };
 
 const LoveIcon = ({ type = 1, className }: LoveIconProps) => {
+  const { color, colorKey } = React.useContext(PreviewContext);
+
+  const iconColorBlinkingHeart = () => {
+    if (colorKey === "2") return color?.secondary2;
+
+    if (colorKey === "1") return color?.secondary1;
+
+    return color?.secondary4 || undefined;
+  };
+
   switch (type) {
     case 1:
       return (
         <div
           className={cn(
-            "flex justify-center items-center w-full h-full overflow-x-hidden",
+            "flex justify-center items-center w-full h-full overflow-x-hidden text-heart-clock",
             className
           )}
+          style={{
+            color: iconColorBlinkingHeart()
+          }}
         >
           <BlinkingHeart />
         </div>

@@ -19,8 +19,10 @@ type DatePickerProps = {
 };
 
 export function DatePicker({ className, value, onChange }: DatePickerProps) {
+  const [isOpen, setIsOpen] = React.useState(false);
+
   return (
-    <Popover>
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="primary"
@@ -40,7 +42,10 @@ export function DatePicker({ className, value, onChange }: DatePickerProps) {
           onSelect={(day) => {
             onChange?.(day as Date);
           }}
-          initialFocus
+          onDayClick={() => {
+            setIsOpen(false);
+          }}
+          defaultMonth={value}
         />
       </PopoverContent>
     </Popover>

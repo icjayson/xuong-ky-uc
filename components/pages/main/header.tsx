@@ -47,7 +47,10 @@ const Header = ({
       <div
         className={cn(
           "flex items-center gap-11",
-          "max-sm:flex-row-reverse max-sm:w-1/2 max-sm:justify-between"
+          "max-sm:flex-row-reverse max-sm:w-1/2 max-sm:justify-between",
+          {
+            "max-sm:w-full max-sm:justify-center": !isEditMode
+          }
         )}
       >
         <Avatar

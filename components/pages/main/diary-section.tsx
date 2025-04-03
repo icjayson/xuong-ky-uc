@@ -11,7 +11,7 @@ type DiarySectionProps = {
 };
 
 const DiarySection = ({ isEditMode = false }: DiarySectionProps) => {
-  const { memories, color } = React.useContext(MainPageContext);
+  const { memories, color, data, colorKey } = React.useContext(MainPageContext);
 
   const router = useRouter();
 
@@ -34,7 +34,13 @@ const DiarySection = ({ isEditMode = false }: DiarySectionProps) => {
           "max-xl:text-xl"
         )}
         style={{
-          color: color?.white || undefined
+          color:
+            colorKey !== "custom"
+              ? colorKey == "3"
+                ? color?.secondary1
+                : color?.secondary3
+              : color?.secondary4 || undefined,
+          fontFamily: data?.font || undefined
         }}
       >
         Nhật ký tình yêu

@@ -4,12 +4,13 @@ import InstagramIcon from "@/components/icons/instagram";
 import MailIcon from "@/components/icons/mail";
 import PhoneIcon from "@/components/icons/phone";
 import Tiktok from "@/components/icons/tiktok";
-import { MainPageContext } from "@/contexts/contexts";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { PreviewContext } from "../../admin/preview";
 import React from "react";
+
 const Footer = () => {
-  const { color, colorKey } = React.useContext(MainPageContext);
+  const { color } = React.useContext(PreviewContext);
 
   const pathname = usePathname();
   const pathnames = pathname.split("/");
@@ -20,10 +21,7 @@ const Footer = () => {
     <footer
       className="bg-primary"
       style={{
-        backgroundColor:
-          colorKey !== "custom"
-            ? color?.secondary1
-            : color?.primary || undefined
+        backgroundColor: color?.secondary1 || undefined
       }}
     >
       <div className="py-5 px-[60px] flex justify-between items-center gap-5 max-sm:flex-col max-sm:items-start">

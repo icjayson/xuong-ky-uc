@@ -1,8 +1,8 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import React from "react";
 import ColorPickerIcon from "../icons/color-picker";
-import { cn } from "@/lib/utils";
 
 type ColorInputProps = {
   id: string;
@@ -20,7 +20,7 @@ const ColorInput = ({ id, value = "#000000", onChange }: ColorInputProps) => {
           type="color"
           ref={inputRef}
           className="opacity-0 absolute top-0 left-0"
-          value={value}
+          value={value || "#000000"}
           onChange={(e) => onChange?.(e.target.value)}
           id={id}
         />

@@ -18,7 +18,7 @@ const LoveItem = ({ url }: LoveItemProps) => {
   return (
     <div className="flex items-center justify-center w-[116px] h-[116px]">
       <Avatar className="w-full h-full">
-        <AvatarImage src={avatarUrl} />
+        <AvatarImage src={avatarUrl} className="object-cover" />
         <AvatarFallback>Avatar</AvatarFallback>
       </Avatar>
     </div>

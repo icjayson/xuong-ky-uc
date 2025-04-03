@@ -2,6 +2,7 @@ import { verifyAccessToken, verifyRefreshToken } from "@/utils/jwt";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -34,7 +35,10 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }

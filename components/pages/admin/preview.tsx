@@ -18,12 +18,14 @@ type PreviewContextType = {
   data: Data;
   memories: Memories[];
   color: ColorSchemeColors;
+  colorKey: string;
 };
 
 export const PreviewContext = React.createContext<PreviewContextType>({
   data: {} as Data,
   memories: [] as Memories[],
-  color: {} as ColorSchemeColors
+  color: {} as ColorSchemeColors,
+  colorKey: ""
 });
 
 type PreviewProps = {
@@ -43,6 +45,7 @@ const Preview = ({ previewData, previewMemories }: PreviewProps) => {
   const domain = getCookie("domain");
   const colorScheme = previewData?.color_scheme || data?.color_scheme;
   const color = Object.values(colorScheme || {})[0];
+  const colorKey = Object.keys(colorScheme || {})[0];
 
   const fetchDomain = async () => {
     setIsLoading(true);
@@ -71,7 +74,8 @@ const Preview = ({ previewData, previewMemories }: PreviewProps) => {
       value={{
         data: previewData || data,
         memories: previewMemories || memories,
-        color
+        color,
+        colorKey
       }}
     >
       <div className="flex flex-col p-9 w-full h-full">
@@ -108,9 +112,12 @@ const Preview = ({ previewData, previewMemories }: PreviewProps) => {
 
         <div className="flex justify-center mt-6">
           <div
-            className="w-[375px] h-[812px] bg-memory-frame-background rounded-[36px] border-4 border-black overflow-y-auto py-6 flex flex-col gap-10 hide-scrollbar"
+            className="w-[375px] h-[812px] bg-memory-frame-background rounded-[36px] border-4 border-black overflow-y-auto pt-6 flex flex-col gap-10 hide-scrollbar"
             style={{
-              backgroundColor: color?.primary || undefined
+              backgroundColor:
+                colorKey !== "custom"
+                  ? color?.primary
+                  : color?.secondary1 || undefined
             }}
           >
             <ClockSection />

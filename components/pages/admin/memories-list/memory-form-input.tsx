@@ -22,7 +22,7 @@ const MemoryFormInput = ({
   className
 }: MemoryFormInputProps) => {
   return (
-    <div className={cn("w-full flex flex-col gap-1", className)}>
+    <div className={cn("w-full max-w-full flex flex-col gap-1", className)}>
       <div className={cn("text-xs text-black-80", "max-sm:text-[10px]")}>
         {title}:
       </div>
@@ -40,7 +40,9 @@ const MemoryFormInput = ({
       ) : type === "textarea" ? (
         <Textarea
           placeholder={placeholder}
-          className={cn("placeholder:text-black px-2 flex-1 h-full")}
+          className={cn(
+            "placeholder:text-black px-2 flex-1 h-full w-full max-w-full break-words break-all whitespace-pre-wrap"
+          )}
           value={value as string}
           onChange={(e) => onChange?.(e.target.value)}
         />

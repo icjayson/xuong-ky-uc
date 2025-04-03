@@ -1,6 +1,7 @@
 "use client";
 
 import MemoriesList from "@/components/pages/admin/memories-list/memories-list";
+import MemoryFormItem from "@/components/pages/admin/memories-list/memory-form-item";
 import Preview from "@/components/pages/admin/preview";
 import { Button } from "@/components/ui/button";
 import Card from "@/components/ui/card";
@@ -8,6 +9,7 @@ import Loading from "@/components/ui/loading";
 import MemoryFrameSelector from "@/components/ui/memory-frame-selector";
 import { MemoryContext } from "@/contexts/contexts";
 import { cn } from "@/lib/utils";
+import { useGetCookie } from "cookies-next";
 import React from "react";
 
 const MemoryPage = () => {
@@ -31,6 +33,64 @@ const MemoryPage = () => {
   const refetchMemories = () => {
     fetchMemories();
   };
+
+  const [location, setLocation] = React.useState("");
+  const [date, setDate] = React.useState<Date>(new Date());
+  const [description, setDescription] = React.useState("");
+  const [image, setImage] = React.useState<File | string>("");
+  const [previewImage, setPreviewImage] = React.useState<string | null>(null);
+  const getCookie = useGetCookie();
+
+  const handleSave = async () => {
+    try {
+      if (!image) return;
+
+      setIsLoading(true);
+      const page_id = getCookie("pageId");
+      const response = await fetch("/api/couple-page/memory", {
+        method: "POST",
+        body: JSON.stringify({ page_id })
+      });
+
+      const data = await response.json();
+
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("memory_id", data.memory_id);
+      formData.append("location", location);
+      formData.append("description", description);
+      formData.append("is_visible", "true");
+      formData.append("memory_date", date.toISOString());
+
+      await fetch("/api/couple-page/upload-memory", {
+        method: "POST",
+        body: formData
+      });
+
+      refetchMemories();
+      setIsCreating(false);
+      handleCancel();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsCreating(false);
+    setLocation("");
+    setDate(new Date());
+    setDescription("");
+    setImage("");
+  };
+
+  React.useEffect(() => {
+    if (image instanceof File) {
+      const objectUrl = URL.createObjectURL(image);
+      setPreviewImage(objectUrl);
+    } else {
+      setPreviewImage(image || "");
+    }
+  }, [image]);
 
   React.useEffect(() => {
     fetchMemories();
@@ -83,11 +143,27 @@ const MemoryPage = () => {
             <MemoryFrameSelector />
 
             <Button
-              className="w-full text-black-80 mt-3"
+              className="w-full text-black-80 my-3"
               onClick={() => setIsCreating(!isCreating)}
             >
-              Cập nhật nhật ký tình yêu
+              Thêm kỷ niệm
             </Button>
+
+            {isCreating && (
+              <MemoryFormItem
+                isCreateMode
+                location={location}
+                date={date}
+                description={description}
+                image={previewImage as string}
+                onImageChange={(value) => setImage(value)}
+                onLocationChange={(value) => setLocation(value)}
+                onDateChange={(value) => setDate(value)}
+                onDescriptionChange={(value) => setDescription(value)}
+                onSave={handleSave}
+                onCancel={() => handleCancel()}
+              />
+            )}
           </Card>
 
           <Card infoCard className="">

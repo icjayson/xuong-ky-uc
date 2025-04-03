@@ -10,8 +10,9 @@ import {
 } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
+import { useGetCookie } from "cookies-next";
 import React from "react";
-
+import { toast } from "sonner";
 type ShareModalProps = {
   isSharingModalOpen: boolean;
   setIsSharingModalOpen: (isOpen: boolean) => void;
@@ -23,6 +24,7 @@ const ShareModal = ({
 }: ShareModalProps) => {
   const [isSharing, setIsSharing] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
+  const getCookie = useGetCookie();
 
   const handleCheckedChange = async () => {
     setIsLoading(true);
@@ -45,8 +47,11 @@ const ShareModal = ({
   };
 
   const handleCopyLink = () => {
-    const formattedLink = window.location.href.split("/edit")[0];
-    navigator.clipboard.writeText(formattedLink);
+    const domain = getCookie("domain");
+    navigator.clipboard.writeText(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/${domain}`
+    );
+    toast.success("Đã sao chép đường dẫn nhật ký");
   };
 
   React.useEffect(() => {
@@ -91,7 +96,10 @@ const ShareModal = ({
             "max-sm:text-[10px]"
           )}
         >
-          Lưu ý: Bất cứ ai có link đều có thể thấy nhật ký của bạn
+          Lưu ý: {""}
+          {isSharing
+            ? "Bất cứ ai có link đều có thể thấy nhật ký của bạn"
+            : "Bạn đang khoá nhật ký, người khác sẽ không thể xem nhật ký của bạn"}
         </div>
 
         <div
@@ -102,7 +110,11 @@ const ShareModal = ({
         >
           <Button
             anomaly="outline"
-            className={cn("flex items-center gap-2", "max-sm:text-xs")}
+            className={cn(
+              "flex items-center gap-2",
+              "max-sm:text-xs",
+              "hover:!bg-primary hover:text-black hover:opacity-100"
+            )}
             onClick={() => handleCopyLink()}
           >
             <CopyIcon />
