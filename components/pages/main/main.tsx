@@ -15,7 +15,7 @@ type MainPageProps = {
 };
 
 const MainPage = ({ isEditMode = false }: MainPageProps) => {
-  const { data, isLoading, isBelongsToUser, isNotSharing } =
+  const { isLoading, isBelongsToUser, isNotSharing } =
     React.useContext(MainPageContext);
 
   if (isLoading) return <Loading />;

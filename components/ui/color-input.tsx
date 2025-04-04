@@ -2,8 +2,8 @@
 
 import { cn } from "@/lib/utils";
 import React from "react";
+import { ChromePicker } from "react-color";
 import ColorPickerIcon from "../icons/color-picker";
-import { ChromePicker, SketchPicker } from "react-color";
 
 type ColorInputProps = {
   id: string;
