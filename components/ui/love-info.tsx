@@ -97,7 +97,7 @@ const LoveInfo = ({
 
         <div
           className={cn(
-            "text-base text-black-60 opacity-60",
+            "text-base text-black-60 opacity-60 text-justify",
             "max-sm:text-[8px]"
           )}
           style={{

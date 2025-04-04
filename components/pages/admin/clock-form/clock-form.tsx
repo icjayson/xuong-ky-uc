@@ -30,6 +30,7 @@ const ClockForm = ({
           rootClassName="flex-1"
           value={title}
           onChange={(e) => onTitleChange(e.target.value)}
+          limit={50}
         />
       </div>
 

@@ -111,6 +111,7 @@ const MemoryFormItem = ({
               onChange={(value) => {
                 onLocationChange?.(value as string);
               }}
+              limit={50}
             />
             <MemoryFormInput
               title="Ngày"
@@ -130,6 +131,7 @@ const MemoryFormItem = ({
               onChange={(value) => {
                 onDescriptionChange?.(value as string);
               }}
+              limit={200}
             />
           </div>
 

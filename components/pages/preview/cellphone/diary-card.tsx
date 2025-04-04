@@ -39,7 +39,7 @@ const DiaryCard = ({
     >
       <div className={cn("w-full")}>
         <Avatar squareBorder className={cn("w-full h-full rounded-sm")}>
-          <AvatarImage src={image_url} />
+          <AvatarImage src={image_url} className="object-cover" />
           <AvatarFallback>Avatar</AvatarFallback>
         </Avatar>
       </div>

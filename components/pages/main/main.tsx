@@ -15,14 +15,14 @@ type MainPageProps = {
 };
 
 const MainPage = ({ isEditMode = false }: MainPageProps) => {
-  const { data, isLoading, isBelongsToUser } =
+  const { data, isLoading, isBelongsToUser, isNotSharing } =
     React.useContext(MainPageContext);
 
   if (isLoading) return <Loading />;
 
   if (isEditMode && !isBelongsToUser) return <FourOFourPage />;
 
-  if (!isBelongsToUser && !data?.is_sharing) return <NotSharing />;
+  if (isNotSharing) return <NotSharing />;
 
   return (
     <div

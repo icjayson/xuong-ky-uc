@@ -39,10 +39,10 @@ const Feedback = () => {
       });
 
       if (response.ok) {
-        setSuccess("Tin nhắn đã được gửi thành công!");
+        setSuccess("Lời nhắn đã được gửi thành công!");
         setFormData({ name: "", email: "", message: "" });
       } else {
-        setSuccess("Không gửi được tin nhắn");
+        setSuccess("Không gửi được lời nhắn");
       }
     } catch {
       setError("Đã xảy ra lỗi");
@@ -90,7 +90,7 @@ const Feedback = () => {
           />
           <Textarea
             name="message"
-            placeholder="Tin nhắn của bạn"
+            placeholder="Lời nhắn của bạn"
             onChange={handleChange}
             value={formData.message}
             className="h-24 px-3 !text-base placeholder:text-black-80"

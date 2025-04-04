@@ -93,6 +93,7 @@ type MainPageContextType = {
   isBelongsToUser: boolean;
   color: ColorSchemeColors;
   colorKey: string;
+  isNotSharing: boolean;
 };
 
 export const MainPageContext = React.createContext<MainPageContextType>({
@@ -101,5 +102,6 @@ export const MainPageContext = React.createContext<MainPageContextType>({
   isLoading: false,
   isBelongsToUser: true,
   color: {} as ColorSchemeColors,
-  colorKey: ""
+  colorKey: "",
+  isNotSharing: false
 });

@@ -119,6 +119,7 @@ const InformationFormItem = ({
             title="Biệt danh"
             placeholder="Biệt danh"
             value={nickname}
+            limit={40}
             onChange={(value) => onNicknameChange?.(value as string)}
           />
           <InformationFormInput
@@ -138,6 +139,7 @@ const InformationFormItem = ({
             title="Khác"
             placeholder="Mọi thứ bạn muốn"
             value={description}
+            limit={200}
             onChange={(value) => onDescriptionChange?.(value as string)}
           />
         </div>

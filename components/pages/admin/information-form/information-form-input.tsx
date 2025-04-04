@@ -8,6 +8,7 @@ type InformationFormInputProps = {
   placeholder?: string;
   type?: "input" | "date";
   value?: string | Date;
+  limit?: number;
   onChange?: (value: string | Date) => void;
 };
 
@@ -16,7 +17,8 @@ const InformationFormInput = ({
   placeholder,
   type = "input",
   value,
-  onChange
+  onChange,
+  limit
 }: InformationFormInputProps) => {
   return (
     <div className="w-full flex flex-col gap-1">
@@ -33,6 +35,7 @@ const InformationFormInput = ({
           rootClassName="h-5"
           value={value as string}
           onChange={(e) => onChange?.(e.target.value)}
+          limit={limit}
         />
       ) : (
         <DatePicker value={value as Date} onChange={onChange} />

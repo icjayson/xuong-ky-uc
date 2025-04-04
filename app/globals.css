@@ -101,7 +101,7 @@
   --color-frame-text: rgba(9, 9, 9, 1);
   --color-image-placeholder: rgba(217, 217, 217, 1);
   --color-heart-clock: rgba(165, 68, 91, 1);
-  --color-memory-frame-background: rgba(238, 234, 223, 1);
+  --color-memory-frame-background: rgba(238, 234, 223, 1); /* #eeeadf */
   --color-switch-active: rgba(0, 237, 4, 1);
 
   /* Custom heights */
@@ -203,4 +203,11 @@
 
 .hide-scrollbar {
   scrollbar-width: none;
+}
+
+.chrome-picker
+  > div[style*="background-color: inherit"]
+  > div:nth-child(2)
+  > div:nth-child(2) {
+  display: none;
 }

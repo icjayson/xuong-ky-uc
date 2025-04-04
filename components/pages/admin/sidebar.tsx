@@ -13,6 +13,7 @@ type SidebarProps = {
 
 const Sidebar = ({ className }: SidebarProps) => {
   const [isCollapsed, setIsCollapsed] = React.useState(false);
+
   return (
     <div
       className={cn(

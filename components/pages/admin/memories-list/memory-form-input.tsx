@@ -10,6 +10,7 @@ type MemoryFormInputProps = {
   placeholder?: string;
   type?: "input" | "date" | "textarea";
   value?: string | Date;
+  limit?: number;
   onChange?: (value: string | Date) => void;
 };
 
@@ -19,7 +20,8 @@ const MemoryFormInput = ({
   type = "input",
   value,
   onChange,
-  className
+  className,
+  limit
 }: MemoryFormInputProps) => {
   return (
     <div className={cn("w-full max-w-full flex flex-col gap-1", className)}>
@@ -36,6 +38,7 @@ const MemoryFormInput = ({
           rootClassName="h-5"
           value={value as string}
           onChange={(e) => onChange?.(e.target.value)}
+          limit={limit}
         />
       ) : type === "textarea" ? (
         <Textarea
@@ -45,6 +48,7 @@ const MemoryFormInput = ({
           )}
           value={value as string}
           onChange={(e) => onChange?.(e.target.value)}
+          limit={limit}
         />
       ) : (
         <DatePicker value={value as Date} onChange={onChange} />

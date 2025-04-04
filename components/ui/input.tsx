@@ -35,6 +35,7 @@ type InputProps = React.ComponentProps<"input"> &
     iconSize?: number;
     iconClassName?: string;
     rootClassName?: string;
+    limit?: number;
   };
 
 function Input({
@@ -45,9 +46,11 @@ function Input({
   iconSize = 32,
   iconClassName,
   rootClassName,
+  limit,
   ...props
 }: InputProps) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const value = props.value as string;
 
   return (
     <div className={cn("relative", rootClassName)}>
@@ -61,8 +64,15 @@ function Input({
           },
           className
         )}
+        maxLength={limit}
         {...props}
       />
+
+      {limit && (
+        <div className="h-full flex items-center justify-end text-black-80 text-[8px]">
+          {value.length}/{limit}
+        </div>
+      )}
 
       {type === "password" && (
         <div className="absolute right-[10px] top-0 h-full flex items-center justify-center">

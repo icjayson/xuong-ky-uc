@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 import ColorPickerIcon from "../icons/color-picker";
+import { ChromePicker, SketchPicker } from "react-color";
 
 type ColorInputProps = {
   id: string;
@@ -11,25 +12,55 @@ type ColorInputProps = {
 };
 
 const ColorInput = ({ id, value = "#000000", onChange }: ColorInputProps) => {
-  const inputRef = React.useRef<HTMLInputElement>(null);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const stopPropagationRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const handleClickOutside = () => {
+      if (isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    const stopPropagation = (e: MouseEvent) => {
+      e.stopPropagation();
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    stopPropagationRef.current?.addEventListener("click", stopPropagation);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+      stopPropagationRef.current?.removeEventListener("click", stopPropagation);
+    };
+  }, [isOpen]);
 
   return (
     <label htmlFor={id} className="max-w-[150px] flex items-center">
       <div className="relative">
-        <input
-          type="color"
-          ref={inputRef}
-          className="opacity-0 absolute top-0 left-0"
-          value={value || "#000000"}
-          onChange={(e) => onChange?.(e.target.value)}
-          id={id}
-        />
-
+        <div ref={stopPropagationRef}>
+          <ChromePicker
+            disableAlpha
+            color={value || "#000000"}
+            onChange={(color) => onChange?.(color.hex)}
+            styles={{
+              default: {
+                body: {
+                  backgroundColor: "inherit"
+                }
+              }
+            }}
+            className={cn("absolute top-0 left-0 z-2", {
+              " hidden": !isOpen
+            })}
+          />
+        </div>
         <div
           className={cn(
             "items-center grid grid-cols-[75px_auto]",
             "max-sm:grid-cols-[65px_auto]"
           )}
+          onClick={() => setIsOpen(true)}
         >
           <div className="flex items-center">
             <div className="w-3 h-3 mr-1" style={{ backgroundColor: value }} />

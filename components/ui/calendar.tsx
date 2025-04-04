@@ -42,7 +42,11 @@ function Calendar({
           <SelectTrigger className="outline-none h-8 w-full cursor-pointer">
             <SelectValue>{selected?.label}</SelectValue>
           </SelectTrigger>
-          <SelectContent position="popper" align="center">
+          <SelectContent
+            position="popper"
+            align="center"
+            className="bg-primary"
+          >
             <div className="h-80 overflow-y-auto">
               {options?.map(({ value, label, disabled }, id) => (
                 <SelectItem

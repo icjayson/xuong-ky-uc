@@ -32,7 +32,7 @@ const Header = ({
   const isEditMode = pathname.split("/").includes("edit") || forceEditMode;
   const [isSharingModalOpen, setIsSharingModalOpen] = React.useState(false);
   const { color } = React.useContext(MainPageContext);
-
+  const [isCollapsed, setIsCollapsed] = React.useState(false);
   return (
     <header
       className={cn(
@@ -61,7 +61,11 @@ const Header = ({
         </Avatar>
 
         {isEditMode && (
-          <Drawer direction="left">
+          <Drawer
+            direction="left"
+            onOpenChange={() => setIsCollapsed(!isCollapsed)}
+            open={isCollapsed}
+          >
             <DrawerTrigger>
               <BurgerIcon />
             </DrawerTrigger>
@@ -95,7 +99,7 @@ const Header = ({
                   Khám phá
                 </div>
 
-                <Sidebar />
+                <Sidebar onSelect={() => setIsCollapsed(false)} />
               </div>
             </DrawerContent>
           </Drawer>

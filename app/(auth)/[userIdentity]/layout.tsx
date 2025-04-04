@@ -23,6 +23,8 @@ export default function RootLayout({
   const colorScheme = data.color_scheme;
   const color = Object.values(colorScheme || {})[0];
   const colorKey = Object.keys(colorScheme || {})[0];
+  const isNotSharing = !isBelongsToUser && !data?.is_sharing;
+
   const checkDomain = async () => {
     setIsLoading(true);
     const res = await fetch(`/api/couple-page/check-domain?domain=${domain}`);
@@ -66,17 +68,26 @@ export default function RootLayout({
 
   return (
     <MainPageContext.Provider
-      value={{ data, memories, isLoading, isBelongsToUser, color, colorKey }}
+      value={{
+        data,
+        memories,
+        isLoading,
+        isBelongsToUser,
+        color,
+        colorKey,
+        isNotSharing
+      }}
     >
       <div className="bg-background flex flex-col min-h-screen">
         <Header isMainPage />
         <div
-          className="flex-1 overflow-x-hidden"
+          className="flex-1 overflow-x-hidden bg-memory-frame-background"
           style={{
-            backgroundColor:
-              colorKey !== "custom"
-                ? color?.primary
-                : color?.secondary1 || undefined
+            backgroundColor: isNotSharing
+              ? undefined
+              : colorKey !== "custom"
+              ? color?.primary
+              : color?.secondary1 || undefined
           }}
         >
           {children}

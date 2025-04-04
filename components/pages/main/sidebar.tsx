@@ -13,9 +13,10 @@ import { usePathname, useRouter } from "next/navigation";
 
 type SidebarProps = {
   isCollapsed?: boolean;
+  onSelect?: () => void;
 };
 
-const Sidebar = ({ isCollapsed }: SidebarProps) => {
+const Sidebar = ({ isCollapsed, onSelect }: SidebarProps) => {
   const pathname = usePathname();
   const router = useRouter();
   const getCookie = useGetCookie();
@@ -80,6 +81,7 @@ const Sidebar = ({ isCollapsed }: SidebarProps) => {
               }
             )}
             key={item.label}
+            onClick={() => onSelect?.()}
           >
             {item.icon}
             {!isCollapsed && item.label}

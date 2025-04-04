@@ -50,7 +50,7 @@ const DiaryCard = ({
           <div className="w-full h-full rounded-sm bg-black opacity-40 aspect-square"></div>
         ) : (
           <Avatar squareBorder className={cn("w-full h-full rounded-sm")}>
-            <AvatarImage src={image_url} />
+            <AvatarImage src={image_url} className="object-cover" />
             <AvatarFallback>Avatar</AvatarFallback>
           </Avatar>
         )}
