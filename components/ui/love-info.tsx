@@ -23,7 +23,7 @@ const LoveInfo = ({
     <div className="flex flex-col items-center justify-center gap-2">
       <div
         className={cn(
-          "text-2xl font-medium text-black text-center",
+          "text-2xl font-medium text-black text-center prevent-overflow-word",
           "max-sm:text-xs"
         )}
         style={{
@@ -42,7 +42,7 @@ const LoveInfo = ({
       <div className="flex flex-col items-center justify-center">
         <div
           className={cn(
-            "text-xl text-black-80 opacity-80 text-center",
+            "text-xl text-black-80 opacity-80 text-center prevent-overflow-word",
             "max-sm:text-[10px]"
           )}
           style={{
@@ -59,7 +59,7 @@ const LoveInfo = ({
         </div>
         <div
           className={cn(
-            "text-base text-black-60 opacity-60 text-center",
+            "text-base text-black-60 opacity-60 text-center prevent-overflow-word",
             "max-sm:text-[8px]"
           )}
           style={{
@@ -79,7 +79,7 @@ const LoveInfo = ({
         </div>
         <div
           className={cn(
-            "text-base text-black-60 opacity-60 text-center",
+            "text-base text-black-60 opacity-60 text-center prevent-overflow-word",
             "max-sm:text-[8px]"
           )}
           style={{
@@ -97,7 +97,7 @@ const LoveInfo = ({
 
         <div
           className={cn(
-            "text-base text-black-60 opacity-60 text-justify",
+            "text-base text-black-60 opacity-60 text-justify prevent-overflow-word",
             "max-sm:text-[8px]"
           )}
           style={{

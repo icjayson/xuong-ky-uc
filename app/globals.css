@@ -211,3 +211,9 @@
   > div:nth-child(2) {
   display: none;
 }
+
+.prevent-overflow-word {
+  word-break: break-all;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}

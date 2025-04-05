@@ -44,7 +44,7 @@ const MemoryFormInput = ({
         <Textarea
           placeholder={placeholder}
           className={cn(
-            "placeholder:text-black px-2 flex-1 h-full w-full max-w-full break-words break-all whitespace-pre-wrap"
+            "placeholder:text-black px-2 flex-1 h-full w-full max-w-full prevent-overflow-word"
           )}
           value={value as string}
           onChange={(e) => onChange?.(e.target.value)}

@@ -176,16 +176,26 @@ const MemoryItem = ({
         <div>
           <div
             className={cn(
-              "text-black-80 text-base font-medium",
+              "text-black-80 text-base font-medium prevent-overflow-word",
               "max-sm:text-xs"
             )}
           >
             {location}
           </div>
-          <div className={cn("text-black-80 text-xs", "max-sm:text-[10px]")}>
+          <div
+            className={cn(
+              "text-black-80 text-xs prevent-overflow-word",
+              "max-sm:text-[10px]"
+            )}
+          >
             {format(memory_date ? memory_date : new Date(), "dd/MM/yyyy")}
           </div>
-          <div className={cn("text-black-80 text-xs", "max-sm:text-[10px]")}>
+          <div
+            className={cn(
+              "text-black-80 text-xs prevent-overflow-word",
+              "max-sm:text-[10px]"
+            )}
+          >
             {description}
           </div>
         </div>

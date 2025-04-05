@@ -47,7 +47,9 @@ const DiaryCard = ({
       <div className="flex flex-col gap-1">
         <div>
           <div
-            className={cn("text-xs text-black font-medium")}
+            className={cn(
+              "text-xs text-black font-medium prevent-overflow-word"
+            )}
             style={{
               color: color?.secondary3 || undefined,
               fontFamily: data?.font || undefined
@@ -56,7 +58,9 @@ const DiaryCard = ({
             {location}
           </div>
           <div
-            className={cn("text-[8px] text-black-60 opacity-60")}
+            className={cn(
+              "text-[8px] text-black-60 opacity-60 prevent-overflow-word"
+            )}
             style={{
               color: color?.secondary3 || undefined,
               fontFamily: data?.font || undefined
@@ -66,7 +70,7 @@ const DiaryCard = ({
           </div>
         </div>
         <div
-          className={cn("text-[10px] text-black")}
+          className={cn("text-[10px] text-black prevent-overflow-word")}
           style={{
             color: color?.secondary3 || undefined,
             fontFamily: data?.font || undefined

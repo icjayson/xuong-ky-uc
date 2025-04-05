@@ -61,7 +61,7 @@ const DiaryCard = ({
           <div>
             <div
               className={cn(
-                "text-2xl text-black font-medium",
+                "text-2xl text-black font-medium prevent-overflow-word",
                 "max-sm:text-xs",
                 "max-lg:text-sm",
                 "max-xl:text-base"
@@ -75,7 +75,7 @@ const DiaryCard = ({
             </div>
             <div
               className={cn(
-                "text-base text-black-60 opacity-60",
+                "text-base text-black-60 opacity-60 prevent-overflow-word",
                 "max-sm:text-[8px]",
                 "max-lg:text-[10px]",
                 "max-xl:text-xs"
@@ -90,7 +90,7 @@ const DiaryCard = ({
           </div>
           <div
             className={cn(
-              "text-xl text-black",
+              "text-xl text-black prevent-overflow-word",
               "max-sm:text-[10px]",
               "max-lg:text-xs",
               "max-xl:text-sm"

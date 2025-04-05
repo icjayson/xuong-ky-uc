@@ -20,9 +20,9 @@ const MainPage = ({ isEditMode = false }: MainPageProps) => {
   if (isLoading || isBelongsToUser === undefined || isNotSharing === undefined)
     return <Loading />;
 
-  if (isNotSharing) return <NotSharing />;
-
   if (isEditMode && !isBelongsToUser) return <FourOFourPage />;
+
+  if (isNotSharing) return <NotSharing />;
 
   return (
     <div

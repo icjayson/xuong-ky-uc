@@ -34,7 +34,7 @@ const ClockSection = () => {
     >
       <div
         className={cn(
-          "text-xs text-black-80 font-medium text-center max-w-[85%] break-words keep-all whitespace-pre-wrap"
+          "text-xs text-black-80 font-medium text-center max-w-[85%] prevent-overflow-word"
         )}
         style={{
           color: color?.secondary3 || undefined,

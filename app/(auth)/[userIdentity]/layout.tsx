@@ -51,10 +51,8 @@ export default function RootLayout({
   React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const isDomainBelongsToUser = await checkDomain();
-      if (isDomainBelongsToUser) {
-        await fetchDomain();
-      }
+      await checkDomain();
+      await fetchDomain();
 
       setTimeout(() => {
         setIsLoading(false);
@@ -88,20 +86,31 @@ export default function RootLayout({
       }}
     >
       <div className="bg-background flex flex-col min-h-screen">
-        <Header isMainPage />
+        <Header
+          isMainPage
+          hideShareButtonAndMenu={!isBelongsToUser}
+          forceDefaultColor={
+            isNotSharing || (!isBelongsToUser && !data?.is_sharing)
+          }
+        />
         <div
           className="flex-1 overflow-x-hidden bg-memory-frame-background"
           style={{
-            backgroundColor: isNotSharing
-              ? undefined
-              : colorKey !== "custom"
-              ? color?.primary
-              : color?.secondary1 || undefined
+            backgroundColor:
+              isNotSharing || (!isBelongsToUser && !data?.is_sharing)
+                ? undefined
+                : colorKey !== "custom"
+                ? color?.primary
+                : color?.secondary1 || undefined
           }}
         >
           {children}
         </div>
-        <Footer />
+        <Footer
+          forceDefaultColor={
+            isNotSharing || (!isBelongsToUser && !data?.is_sharing)
+          }
+        />
       </div>
     </MainPageContext.Provider>
   );

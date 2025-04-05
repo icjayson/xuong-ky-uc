@@ -163,7 +163,7 @@ const Preview = ({
               }}
             >
               <div
-                className="absolute right-5 top-5 cursor-pointer"
+                className="fixed right-5 top-5 cursor-pointer"
                 onClick={() => setIsPreviewDesktop(false)}
               >
                 X

@@ -16,22 +16,27 @@ import React from "react";
 import ShareModal from "./share-modal";
 import Sidebar from "./sidebar";
 import { MainPageContext } from "@/contexts/contexts";
+import Link from "next/link";
 
 type HeaderProps = {
   forceEditMode?: boolean;
   className?: string;
   isMainPage?: boolean;
+  forceDefaultColor?: boolean;
+  hideShareButtonAndMenu?: boolean;
 };
 
 const Header = ({
   forceEditMode = false,
   className,
-  isMainPage = false
+  isMainPage = false,
+  forceDefaultColor = false,
+  hideShareButtonAndMenu = false
 }: HeaderProps) => {
   const pathname = usePathname();
   const isEditMode = pathname.split("/").includes("edit") || forceEditMode;
   const [isSharingModalOpen, setIsSharingModalOpen] = React.useState(false);
-  const { color } = React.useContext(MainPageContext);
+  const { color, isLoading } = React.useContext(MainPageContext);
   const [isCollapsed, setIsCollapsed] = React.useState(false);
   return (
     <header
@@ -41,7 +46,11 @@ const Header = ({
         className
       )}
       style={{
-        backgroundColor: isMainPage ? color?.primary : undefined
+        backgroundColor: forceDefaultColor
+          ? undefined
+          : isMainPage
+          ? color?.primary
+          : undefined
       }}
     >
       <div
@@ -53,14 +62,19 @@ const Header = ({
           }
         )}
       >
-        <Avatar
-          className={cn("w-[50px] h-[50px]", "max-sm:w-[40px] max-sm:h-[40px]")}
-        >
-          <AvatarImage src="/logo.png" />
-          <AvatarFallback>XKU</AvatarFallback>
-        </Avatar>
+        <Link href="/">
+          <Avatar
+            className={cn(
+              "w-[50px] h-[50px]",
+              "max-sm:w-[40px] max-sm:h-[40px]"
+            )}
+          >
+            <AvatarImage src="/logo.png" />
+            <AvatarFallback>XKU</AvatarFallback>
+          </Avatar>
+        </Link>
 
-        {isEditMode && (
+        {!hideShareButtonAndMenu && isEditMode && !isLoading && (
           <Drawer
             direction="left"
             onOpenChange={() => setIsCollapsed(!isCollapsed)}
@@ -106,13 +120,17 @@ const Header = ({
         )}
       </div>
 
-      {isEditMode && (
+      {!hideShareButtonAndMenu && isEditMode && !isLoading && (
         <>
           <Button
             variant="primary"
             onClick={() => setIsSharingModalOpen(true)}
             style={{
-              backgroundColor: isMainPage ? color?.secondary1 : undefined
+              backgroundColor: forceDefaultColor
+                ? undefined
+                : isMainPage
+                ? color?.secondary1
+                : undefined
             }}
           >
             Chia sẻ

@@ -22,7 +22,9 @@ const LoveInfo = ({
   return (
     <div className="flex flex-col items-center justify-center gap-2">
       <div
-        className={cn("text-xs font-medium text-black text-center")}
+        className={cn(
+          "text-xs font-medium text-black text-center prevent-overflow-word"
+        )}
         style={{
           color:
             colorKey !== "custom"
@@ -38,7 +40,9 @@ const LoveInfo = ({
 
       <div className="flex flex-col items-center justify-center">
         <div
-          className={cn("text-[10px] text-black-80 opacity-80 text-center")}
+          className={cn(
+            "text-[10px] text-black-80 opacity-80 text-center prevent-overflow-word"
+          )}
           style={{
             color:
               colorKey !== "custom"
@@ -52,7 +56,9 @@ const LoveInfo = ({
           {nickName}
         </div>
         <div
-          className={cn("text-[8px] text-black-60 opacity-60 text-center")}
+          className={cn(
+            "text-[8px] text-black-60 opacity-60 text-center prevent-overflow-word"
+          )}
           style={{
             color:
               colorKey !== "custom"
@@ -69,7 +75,9 @@ const LoveInfo = ({
           )}
         </div>
         <div
-          className={cn("text-[8px] text-black-60 opacity-60 text-center")}
+          className={cn(
+            "text-[8px] text-black-60 opacity-60 text-center prevent-overflow-word"
+          )}
           style={{
             color:
               colorKey !== "custom"
@@ -84,7 +92,9 @@ const LoveInfo = ({
         </div>
 
         <div
-          className={cn("text-[8px] text-black-60 opacity-60")}
+          className={cn(
+            "text-[8px] text-black-60 opacity-60 prevent-overflow-word"
+          )}
           style={{
             color:
               colorKey !== "custom"
