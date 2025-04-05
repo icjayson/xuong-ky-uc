@@ -14,6 +14,14 @@ const clocks = [
   {
     id: 3,
     image: "/clocks/clock-3.png"
+  },
+  {
+    id: 4,
+    image: "/clocks/clock-4.png"
+  },
+  {
+    id: 5,
+    image: "/clocks/clock-5.png"
   }
 ];
 
