@@ -146,6 +146,7 @@ const InformationFormItem = ({
             onChange={(value) => onZodiacChange?.(value as string)}
           />
           <InformationFormInput
+            type="textarea"
             title="Khác"
             placeholder="Mọi thứ bạn muốn"
             value={description}
