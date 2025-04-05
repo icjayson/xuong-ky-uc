@@ -5,10 +5,10 @@ import LoveInfo from "@/components/ui/love-info";
 import LoveItem from "@/components/ui/love-item";
 import { cn } from "@/lib/utils";
 import React from "react";
-import { MainPageContext } from "@/contexts/contexts";
+import { PreviewContext } from "../../admin/preview";
 
 const LoveSection = () => {
-  const { data } = React.useContext(MainPageContext);
+  const { data } = React.useContext(PreviewContext);
 
   return (
     <div>
@@ -18,11 +18,11 @@ const LoveSection = () => {
           "max-xl:grid-cols-[2fr_0.5fr_2fr]"
         )}
       >
-        <LoveItem url={(data?.avatar_1_url as string) ?? ""} />
+        <LoveItem url={(data?.avatar_1_url as string) || ""} />
 
         <LoveIcon type={data?.clock_type ?? 1} />
 
-        <LoveItem url={(data?.avatar_2_url as string) ?? ""} />
+        <LoveItem url={(data?.avatar_2_url as string) || ""} />
 
         <LoveInfo
           name={data?.person1_name ?? "Tên"}

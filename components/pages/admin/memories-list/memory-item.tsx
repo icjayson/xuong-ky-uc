@@ -56,7 +56,7 @@ const MemoryItem = ({
       formData.append("file", editedImage);
       formData.append("memory_id", id.toString());
       formData.append("location", editedLocation);
-      formData.append("memory_date", new Date(editedDate).toISOString());
+      formData.append("memory_date", new Date(editedDate).toLocaleDateString());
       formData.append("description", editedDescription);
       formData.append(
         "is_visible",

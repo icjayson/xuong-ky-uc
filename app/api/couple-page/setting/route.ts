@@ -112,26 +112,7 @@ export async function POST(req: Request) {
 
     const { error } = await supabase
       .from("couple_pages")
-      .update({
-        person1_name,
-        person1_nickname,
-        person1_dob,
-        person1_zodiac,
-        person1_description,
-        avatar_1_url,
-        person2_name,
-        person2_nickname,
-        person2_dob,
-        person2_zodiac,
-        person2_description,
-        avatar_2_url,
-        start_date_of_love,
-        title,
-        font,
-        color_scheme,
-        clock_type,
-        is_sharing
-      })
+      .update(updates)
       .eq("user_id", userId);
 
     if (error)
@@ -189,7 +170,10 @@ export async function GET() {
 
   const formattedData = {
     ...data,
-    color_scheme: JSON.parse(data.color_scheme)
+    color_scheme: JSON.parse(data.color_scheme),
+    start_date_of_love: new Date(data.start_date_of_love).toLocaleDateString(),
+    person1_dob: new Date(data.person1_dob).toLocaleDateString(),
+    person2_dob: new Date(data.person2_dob).toLocaleDateString()
   };
 
   return NextResponse.json({ data: formattedData });

@@ -29,7 +29,7 @@ export default async function RootLayout({
       <Sidebar className="max-lg:hidden" />
       <Header forceEditMode className="hidden max-lg:flex" />
 
-      <div className="flex-1 overflow-x-hidden">{children}</div>
+      <div className="flex-1">{children}</div>
       <MessengerWidget />
     </div>
   );

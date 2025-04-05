@@ -29,6 +29,8 @@ export type SettingContextType = {
   setPerson1: (person: Person) => void;
   person2: Person;
   setPerson2: (person: Person) => void;
+  previewData: Data;
+  setPreviewData: (data: Data) => void;
 };
 
 export const SettingContext = React.createContext<SettingContextType>({
@@ -49,13 +51,15 @@ export const SettingContext = React.createContext<SettingContextType>({
     avatar: ""
   },
   setPerson1: () => {},
-  setPerson2: () => {}
+  setPerson2: () => {},
+  previewData: {} as Data,
+  setPreviewData: () => {}
 });
 
 export type Data = {
   title: string | null;
-  avatar_1_url: string | null;
-  avatar_2_url: string | null;
+  avatar_1_url: string | File;
+  avatar_2_url: string | File;
   clock_type: number | null;
   color_scheme: {
     [key: string]: ColorSchemeColors;

@@ -39,6 +39,7 @@ const MemoryPage = () => {
   const [description, setDescription] = React.useState("");
   const [image, setImage] = React.useState<File | string>("");
   const [previewImage, setPreviewImage] = React.useState<string | null>(null);
+  const [isPreviewDesktop, setIsPreviewDesktop] = React.useState(false);
   const getCookie = useGetCookie();
 
   const handleSave = async () => {
@@ -60,7 +61,7 @@ const MemoryPage = () => {
       formData.append("location", location);
       formData.append("description", description);
       formData.append("is_visible", "true");
-      formData.append("memory_date", date.toISOString());
+      formData.append("memory_date", new Date(date).toLocaleDateString());
 
       await fetch("/api/couple-page/upload-memory", {
         method: "POST",
@@ -107,7 +108,7 @@ const MemoryPage = () => {
       <div className={cn("w-full h-full flex")}>
         <div
           className={cn(
-            "w-1/2 h-full border-r border-black-20 pt-[100px] px-20 flex flex-col gap-10 pb-20",
+            "w-1/2 h-full border-r border-black-20 pt-[100px] px-20 flex flex-col gap-10 pb-20 overflow-x-hidden",
             "max-sm:gap-3",
             "max-xl:w-full max-xl:border-none max-xl:px-6 max-xl:pt-6"
           )}
@@ -186,6 +187,7 @@ const MemoryPage = () => {
                 "max-sm:h-8 max-sm:px-2 max-sm:text-xs",
                 "max-xl:block"
               )}
+              onClick={() => setIsPreviewDesktop(true)}
             >
               Xem trước
             </Button>
@@ -193,7 +195,10 @@ const MemoryPage = () => {
         </div>
 
         <div className={cn("w-1/2 max-xl:hidden")}>
-          <Preview />
+          <Preview
+            isPreviewDesktop={isPreviewDesktop}
+            setIsPreviewDesktop={setIsPreviewDesktop}
+          />
         </div>
       </div>
     </MemoryContext.Provider>

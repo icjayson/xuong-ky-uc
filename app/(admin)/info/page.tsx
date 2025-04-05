@@ -17,6 +17,8 @@ const InfoPage = () => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [passwordError, setPasswordError] = React.useState<string>("");
   const [domainError, setDomainError] = React.useState<string>("");
+  const [isPreviewDesktop, setIsPreviewDesktop] =
+    React.useState<boolean>(false);
 
   const fetchUser = async () => {
     try {
@@ -242,6 +244,7 @@ const InfoPage = () => {
               "max-sm:h-8 max-sm:px-2 max-sm:text-xs",
               "max-xl:block"
             )}
+            onClick={() => setIsPreviewDesktop(true)}
           >
             Xem trước
           </Button>
@@ -249,7 +252,10 @@ const InfoPage = () => {
       </div>
 
       <div className={cn("w-1/2 max-xl:hidden")}>
-        <Preview />
+        <Preview
+          isPreviewDesktop={isPreviewDesktop}
+          setIsPreviewDesktop={setIsPreviewDesktop}
+        />
       </div>
     </div>
   );

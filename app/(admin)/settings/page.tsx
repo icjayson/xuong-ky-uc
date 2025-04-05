@@ -41,10 +41,47 @@ const SettingsPage = () => {
     avatar: ""
   });
   const [isLoading, setIsLoading] = React.useState(false);
-  const [previewData, setPreviewData] = React.useState<Data | undefined>();
+  const [previewData, setPreviewData] = React.useState<Data>({} as Data);
+  const [isPreviewDesktop, setIsPreviewDesktop] = React.useState(false);
 
   const handleColorChange = (id: string, colors: ColorSchemeColors) => {
     setSelectedColorScheme({ [id]: colors });
+    setPreviewData({
+      ...previewData,
+      color_scheme: { [id]: colors }
+    });
+  };
+
+  const handleFontChange = (font: string) => {
+    setSelectedFont(font);
+    setPreviewData({
+      ...previewData,
+      font
+    });
+  };
+
+  const handleClockChange = (clock: number) => {
+    setSelectedClock(clock);
+    setPreviewData({
+      ...previewData,
+      clock_type: clock
+    });
+  };
+
+  const handleTitleChange = (title: string) => {
+    setTitle(title);
+    setPreviewData({
+      ...previewData,
+      title
+    });
+  };
+
+  const handleStartDateChange = (date: Date) => {
+    setStartDate(date);
+    setPreviewData({
+      ...previewData,
+      start_date_of_love: new Date(date).toLocaleDateString()
+    });
   };
 
   const handleSave = async () => {
@@ -78,17 +115,17 @@ const SettingsPage = () => {
         body: JSON.stringify({
           person1_name: person1.name,
           person1_nickname: person1.nickname,
-          person1_dob: person1.dob,
+          person1_dob: new Date(person1.dob).toLocaleDateString(),
           person1_zodiac: person1.zodiac,
           person1_description: person1.description,
           avatar_1_url: payloadAva1,
           person2_name: person2.name,
           person2_nickname: person2.nickname,
-          person2_dob: person2.dob,
+          person2_dob: new Date(person2.dob).toLocaleDateString(),
           person2_zodiac: person2.zodiac,
           person2_description: person2.description,
           avatar_2_url: payloadAva2,
-          start_date_of_love: startDate,
+          start_date_of_love: new Date(startDate).toLocaleDateString(),
           title,
           font: selectedFont,
           color_scheme: JSON.stringify(selectedColorScheme),
@@ -130,6 +167,7 @@ const SettingsPage = () => {
       setSelectedFont(data.font || "Mark Pro");
       setSelectedColorScheme(data.color_scheme || {});
       setSelectedClock(data.clock_type || 1);
+      setPreviewData(data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -145,46 +183,6 @@ const SettingsPage = () => {
     fetchData();
   }, []);
 
-  React.useEffect(() => {
-    setPreviewData({
-      person1_name: person1?.name,
-      person1_nickname: person1?.nickname,
-      person1_dob:
-        typeof person1.dob === "string"
-          ? person1.dob
-          : person1.dob.toISOString(),
-      person1_zodiac: person1.zodiac,
-      person1_description: person1.description,
-      avatar_1_url: person1.avatar as string,
-      person2_name: person2.name,
-      person2_nickname: person2.nickname,
-      person2_dob:
-        typeof person2.dob === "string"
-          ? person2.dob
-          : person2.dob.toISOString(),
-      person2_zodiac: person2.zodiac,
-      person2_description: person2.description,
-      avatar_2_url: person2.avatar as string,
-      start_date_of_love: startDate as unknown as string,
-      clock_type: selectedClock,
-      color_scheme: selectedColorScheme,
-      font: selectedFont,
-      created_at: new Date().toISOString(),
-      is_sharing: false,
-      id: "",
-      user_id: "",
-      title
-    });
-  }, [
-    person1,
-    person2,
-    startDate,
-    selectedClock,
-    selectedColorScheme,
-    selectedFont,
-    title
-  ]);
-
   if (isLoading) {
     return <Loading />;
   }
@@ -195,13 +193,15 @@ const SettingsPage = () => {
         person1,
         setPerson1,
         person2,
-        setPerson2
+        setPerson2,
+        previewData,
+        setPreviewData
       }}
     >
       <div className={cn("w-full h-full flex")}>
         <div
           className={cn(
-            "w-1/2 h-full border-r border-black-20 pt-[100px] px-20 flex flex-col gap-10 pb-20",
+            "w-1/2 h-full border-r border-black-20 pt-[100px] px-20 flex flex-col gap-10 pb-20 overflow-x-hidden",
             "max-sm:gap-3",
             "max-xl:w-full max-xl:border-none max-xl:px-6 max-xl:pt-6"
           )}
@@ -251,7 +251,7 @@ const SettingsPage = () => {
               Chọn font
             </div>
 
-            <FontSelector value={selectedFont} onChange={setSelectedFont} />
+            <FontSelector value={selectedFont} onChange={handleFontChange} />
           </Card>
 
           <Card infoCard className="">
@@ -276,15 +276,15 @@ const SettingsPage = () => {
             <div className="mb-3">
               <ClockSelector
                 value={selectedClock}
-                onSelect={setSelectedClock}
+                onSelect={handleClockChange}
               />
             </div>
 
             <ClockForm
               title={title}
-              onTitleChange={setTitle}
+              onTitleChange={handleTitleChange}
               startDate={startDate}
-              onStartDateChange={setStartDate}
+              onStartDateChange={handleStartDateChange}
             />
           </Card>
 
@@ -321,6 +321,7 @@ const SettingsPage = () => {
                 "max-sm:h-8 max-sm:px-2 max-sm:text-xs",
                 "max-xl:block"
               )}
+              onClick={() => setIsPreviewDesktop(true)}
             >
               Xem trước
             </Button>
@@ -338,7 +339,11 @@ const SettingsPage = () => {
         </div>
 
         <div className={cn("w-1/2 max-xl:hidden")}>
-          <Preview previewData={previewData} />
+          <Preview
+            previewData={previewData}
+            isPreviewDesktop={isPreviewDesktop}
+            setIsPreviewDesktop={setIsPreviewDesktop}
+          />
         </div>
       </div>
     </SettingContext.Provider>
