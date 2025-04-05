@@ -41,7 +41,7 @@ const Sidebar = ({ className }: SidebarProps) => {
           anomaly="ghost"
           onClick={() => setIsCollapsed(!isCollapsed)}
         >
-          <BurgerIcon />
+          {isCollapsed ? <BurgerIcon /> : "X"}
         </Button>
       </div>
 

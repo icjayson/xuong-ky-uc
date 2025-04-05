@@ -1,5 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { convertImage } from "@/utils/convert-image";
 import React from "react";
+
 type LoveItemProps = {
   url: string | File;
 };
@@ -8,11 +10,11 @@ const LoveItem = ({ url }: LoveItemProps) => {
   const [avatarUrl, setAvatarUrl] = React.useState<string>(url as string);
 
   React.useEffect(() => {
-    if (url instanceof File) {
-      setAvatarUrl(URL.createObjectURL(url));
-    } else {
-      setAvatarUrl(url);
-    }
+    const fetchAvatar = async () => {
+      const objectUrl = await convertImage(url);
+      setAvatarUrl(objectUrl || "");
+    };
+    fetchAvatar();
   }, [url]);
 
   return (

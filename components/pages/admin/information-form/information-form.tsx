@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import InformationFormItem from "./information-form-item";
 import { SettingContext } from "@/contexts/contexts";
-
+import { heicToJpeg, validateFile } from "@/utils/convert-image";
+import { useContext } from "react";
+import InformationFormItem from "./information-form-item";
 const InformationForm = () => {
   const {
     person1,
@@ -11,6 +11,21 @@ const InformationForm = () => {
     previewData,
     setPreviewData
   } = useContext(SettingContext);
+
+  const getFile = async (value: File | string) => {
+    if (
+      value instanceof File &&
+      (value.type === "image/heic" ||
+        value.type === "image/heif" ||
+        value.type.endsWith(".heic") ||
+        value.type.endsWith(".heif"))
+    ) {
+      const convertedFile = await heicToJpeg(value);
+      return convertedFile;
+    } else {
+      return value;
+    }
+  };
 
   return (
     <div className="flex flex-col gap-3">
@@ -42,8 +57,13 @@ const InformationForm = () => {
           setPerson1({ ...person1, description: value });
           setPreviewData({ ...previewData, person1_description: value });
         }}
-        onAvatarChange={(value) => {
-          setPerson1({ ...person1, avatar: value });
+        onAvatarChange={async (value) => {
+          if (!validateFile(value)) {
+            return;
+          }
+
+          const file = await getFile(value);
+          setPerson1({ ...person1, avatar: file });
           setPreviewData({ ...previewData, avatar_1_url: value });
         }}
       />
@@ -76,8 +96,13 @@ const InformationForm = () => {
           setPerson2({ ...person2, description: value });
           setPreviewData({ ...previewData, person2_description: value });
         }}
-        onAvatarChange={(value) => {
-          setPerson2({ ...person2, avatar: value });
+        onAvatarChange={async (value) => {
+          if (!validateFile(value)) {
+            return;
+          }
+
+          const file = await getFile(value);
+          setPerson2({ ...person2, avatar: file });
           setPreviewData({ ...previewData, avatar_2_url: value });
         }}
       />

@@ -26,18 +26,14 @@ export default function RootLayout({
   const isNotSharing = !isBelongsToUser && !data?.is_sharing;
 
   const checkDomain = async () => {
-    setIsLoading(true);
     const res = await fetch(`/api/couple-page/check-domain?domain=${domain}`);
     const { error } = await res.json();
     if (error) {
       setIsBelongsToUser(false);
     }
-
-    setIsLoading(false);
   };
 
   const fetchDomain = async () => {
-    setIsLoading(true);
     const res = await fetch(`/api/couple-page/domain?domain=${domain}`);
     const { data, memories } = await res.json();
     if (data) {
@@ -47,12 +43,20 @@ export default function RootLayout({
     if (memories) {
       setMemories(memories);
     }
-    setIsLoading(false);
   };
 
   React.useEffect(() => {
-    checkDomain();
-    fetchDomain();
+    const fetchData = async () => {
+      setIsLoading(true);
+      await checkDomain();
+      await fetchDomain();
+
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    };
+
+    fetchData();
   }, [domain]);
 
   React.useEffect(() => {
@@ -72,9 +76,9 @@ export default function RootLayout({
         data,
         memories,
         isLoading,
-        isBelongsToUser,
         color,
         colorKey,
+        isBelongsToUser,
         isNotSharing
       }}
     >

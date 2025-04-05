@@ -1,8 +1,8 @@
 "use client";
 
-import LoveIcon from "@/components/ui/love-icon";
-import LoveInfo from "@/components/ui/love-info";
-import LoveItem from "@/components/ui/love-item";
+import LoveIcon from "@/components/pages/preview/desktop/love-icon";
+import LoveInfo from "@/components/pages/preview/desktop/love-info";
+import LoveItem from "@/components/pages/preview/desktop/love-item";
 import { cn } from "@/lib/utils";
 import React from "react";
 import { PreviewContext } from "../../admin/preview";

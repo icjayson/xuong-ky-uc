@@ -23,7 +23,7 @@ const ClockPiece = ({ number, timeType }: ClockPieceProps) => {
       }}
     >
       <div
-        className={cn("text-xl text-background")}
+        className={cn("text-xl text-background font-semibold")}
         style={{
           color:
             colorKey !== "custom"

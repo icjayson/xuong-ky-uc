@@ -9,6 +9,7 @@ import Loading from "@/components/ui/loading";
 import MemoryFrameSelector from "@/components/ui/memory-frame-selector";
 import { MemoryContext } from "@/contexts/contexts";
 import { cn } from "@/lib/utils";
+import { convertImage, heicToJpeg, validateFile } from "@/utils/convert-image";
 import { useGetCookie } from "cookies-next";
 import React from "react";
 
@@ -53,10 +54,21 @@ const MemoryPage = () => {
         body: JSON.stringify({ page_id })
       });
 
+      let convertedFile;
+      if (
+        image instanceof File &&
+        (image.type === "image/heic" ||
+          image.type === "image/heif" ||
+          image.type.endsWith(".heic") ||
+          image.type.endsWith(".heif"))
+      ) {
+        convertedFile = await heicToJpeg(image);
+      }
+
       const data = await response.json();
 
       const formData = new FormData();
-      formData.append("file", image);
+      formData.append("file", convertedFile || image);
       formData.append("memory_id", data.memory_id);
       formData.append("location", location);
       formData.append("description", description);
@@ -85,12 +97,12 @@ const MemoryPage = () => {
   };
 
   React.useEffect(() => {
-    if (image instanceof File) {
-      const objectUrl = URL.createObjectURL(image);
-      setPreviewImage(objectUrl);
-    } else {
-      setPreviewImage(image || "");
-    }
+    const fetchImage = async () => {
+      const objectUrl = await convertImage(image);
+      setPreviewImage(objectUrl || "");
+    };
+
+    fetchImage();
   }, [image]);
 
   React.useEffect(() => {
@@ -157,7 +169,13 @@ const MemoryPage = () => {
                 date={date}
                 description={description}
                 image={previewImage as string}
-                onImageChange={(value) => setImage(value)}
+                onImageChange={(value) => {
+                  if (!validateFile(value)) {
+                    return;
+                  }
+
+                  setImage(value);
+                }}
                 onLocationChange={(value) => setLocation(value)}
                 onDateChange={(value) => setDate(value)}
                 onDescriptionChange={(value) => setDescription(value)}

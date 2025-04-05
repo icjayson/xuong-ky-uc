@@ -94,9 +94,9 @@ type MainPageContextType = {
   data: Data;
   memories: Memories[];
   isLoading: boolean;
-  isBelongsToUser: boolean;
   color: ColorSchemeColors;
   colorKey: string;
+  isBelongsToUser: boolean;
   isNotSharing: boolean;
 };
 
@@ -104,8 +104,8 @@ export const MainPageContext = React.createContext<MainPageContextType>({
   data: {} as Data,
   memories: [] as Memories[],
   isLoading: false,
-  isBelongsToUser: true,
   color: {} as ColorSchemeColors,
   colorKey: "",
+  isBelongsToUser: true,
   isNotSharing: false
 });

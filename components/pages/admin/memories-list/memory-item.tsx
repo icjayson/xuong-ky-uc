@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { MemoryContext } from "@/contexts/contexts";
 import { format } from "date-fns";
+import { convertImage, heicToJpeg, validateFile } from "@/utils/convert-image";
 
 type MemoryItemProps = {
   id: number;
@@ -52,8 +53,19 @@ const MemoryItem = ({
   const handleSave = async (is_visible?: boolean) => {
     try {
       setIsLoading(true);
+
+      let convertedFile;
+      if (
+        editedImage instanceof File &&
+        (editedImage.type === "image/heic" ||
+          editedImage.type === "image/heif" ||
+          editedImage.type.endsWith(".heic") ||
+          editedImage.type.endsWith(".heif"))
+      ) {
+        convertedFile = await heicToJpeg(editedImage);
+      }
       const formData = new FormData();
-      formData.append("file", editedImage);
+      formData.append("file", convertedFile || editedImage);
       formData.append("memory_id", id.toString());
       formData.append("location", editedLocation);
       formData.append("memory_date", new Date(editedDate).toLocaleDateString());
@@ -106,12 +118,12 @@ const MemoryItem = ({
   };
 
   React.useEffect(() => {
-    if (image_url instanceof File) {
-      const objectUrl = URL.createObjectURL(image_url);
-      setImageUrl(objectUrl);
-    } else {
-      setImageUrl(image_url || "");
-    }
+    const fetchImage = async () => {
+      const objectUrl = await convertImage(image_url);
+      setImageUrl(objectUrl || "");
+    };
+
+    fetchImage();
   }, [image_url]);
 
   if (isEditing) {
@@ -122,6 +134,10 @@ const MemoryItem = ({
         description={editedDescription}
         image={editedImage}
         onImageChange={(value) => {
+          if (!validateFile(value)) {
+            return;
+          }
+
           setEditedImage(value);
         }}
         onLocationChange={(value) => {

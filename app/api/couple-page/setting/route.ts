@@ -106,7 +106,7 @@ export async function POST(req: Request) {
       updates.clock_type = clock_type;
     }
 
-    if (is_sharing) {
+    if (is_sharing !== undefined) {
       updates.is_sharing = is_sharing;
     }
 

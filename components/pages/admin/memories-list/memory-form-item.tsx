@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React from "react";
 import MemoryFormInput from "./memory-form-input";
+import { acceptFileExtensions, convertImage } from "@/utils/convert-image";
 
 type MemoryFormItemProps = {
   isCreateMode?: boolean;
@@ -35,12 +36,12 @@ const MemoryFormItem = ({
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
-    if (image instanceof File) {
-      const objectUrl = URL.createObjectURL(image);
-      setImageUrl(objectUrl);
-    } else {
-      setImageUrl(image || "");
-    }
+    const fetchImage = async () => {
+      const objectUrl = await convertImage(image);
+      setImageUrl(objectUrl || "");
+    };
+
+    fetchImage();
   }, [image]);
 
   return (
@@ -55,10 +56,10 @@ const MemoryFormItem = ({
       </div>
 
       <div className={cn("flex gap-7", "max-sm:gap-2")}>
-        <div className="flex flex-col gap-3 relative">
+        <div className="flex flex-col relative">
           <div
             className={cn(
-              "text-xs text-black-80 font-medium",
+              "text-xs text-black-80 font-medium mb-2",
               "max-sm:text-[10px]"
             )}
           >
@@ -66,7 +67,7 @@ const MemoryFormItem = ({
           </div>
           <div
             className={cn(
-              "w-[156px] h-[156px] rounded-lg bg-image-placeholder overflow-hidden",
+              "w-[156px] h-[156px] rounded-lg bg-image-placeholder overflow-hidden mb-[4px]",
               "max-sm:w-[128px] max-sm:h-[128px]"
             )}
           >
@@ -80,6 +81,10 @@ const MemoryFormItem = ({
               />
             )}
           </div>
+          <div className="text-[8px] text-black-80 flex flex-col items-center mb-2">
+            <div>Dung lượng ảnh tải lên tối đa: 5MB</div>
+            <div>Định dạng: PNG, JPEG, HEIC, HEIF</div>
+          </div>
           <div>
             <Button
               className="h-6 text-[10px] px-2 rounded-[8px]"
@@ -91,6 +96,7 @@ const MemoryFormItem = ({
 
           <input
             type="file"
+            accept={acceptFileExtensions}
             className="absolute top-0 left-0 opacity-0"
             ref={fileInputRef}
             onChange={(e) => {

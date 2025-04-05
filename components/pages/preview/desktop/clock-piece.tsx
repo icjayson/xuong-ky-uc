@@ -27,7 +27,7 @@ const ClockPiece = ({ number, timeType }: ClockPieceProps) => {
     >
       <div
         className={cn(
-          "text-[64px] text-background",
+          "text-[64px] text-background font-semibold",
           "max-sm:text-xl",
           "max-lg:text-2xl",
           "max-xl:text-4xl"
