@@ -213,7 +213,8 @@
 }
 
 .prevent-overflow-word {
-  word-break: break-all;
+  word-break: keep-all;
   white-space: pre-wrap;
   overflow-wrap: break-word;
+  hyphens: auto;
 }
