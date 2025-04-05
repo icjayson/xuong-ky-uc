@@ -24,6 +24,8 @@ const ShareModal = ({
 }: ShareModalProps) => {
   const [isSharing, setIsSharing] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isCopying, setIsCopying] = React.useState(false);
+
   const getCookie = useGetCookie();
 
   const handleCheckedChange = async () => {
@@ -47,11 +49,15 @@ const ShareModal = ({
   };
 
   const handleCopyLink = () => {
+    setIsCopying(true);
     const domain = getCookie("domain");
     navigator.clipboard.writeText(
       `${process.env.NEXT_PUBLIC_BASE_URL}/${domain}`
     );
     toast.success("Đã sao chép đường dẫn nhật ký");
+    setTimeout(() => {
+      setIsCopying(false);
+    }, 200);
   };
 
   React.useEffect(() => {
@@ -113,7 +119,10 @@ const ShareModal = ({
             className={cn(
               "flex items-center gap-2",
               "max-sm:text-xs",
-              "hover:!bg-primary hover:text-black hover:opacity-100"
+              "hover:!bg-primary hover:text-black hover:opacity-100",
+              {
+                "!bg-primary !text-black !opacity-100": isCopying
+              }
             )}
             onClick={() => handleCopyLink()}
           >
