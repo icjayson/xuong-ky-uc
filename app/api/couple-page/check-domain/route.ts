@@ -18,6 +18,7 @@ export async function GET(req: Request) {
   const { data: user, error: userError } = await supabase
     .from("users")
     .select("id")
+    .eq("id", userId)
     .eq("domain", domain)
     .single();
 

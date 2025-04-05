@@ -30,7 +30,10 @@ export default function RootLayout({
     const { error } = await res.json();
     if (error) {
       setIsBelongsToUser(false);
+      return false;
     }
+
+    return true;
   };
 
   const fetchDomain = async () => {
@@ -48,8 +51,10 @@ export default function RootLayout({
   React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      await checkDomain();
-      await fetchDomain();
+      const isDomainBelongsToUser = await checkDomain();
+      if (isDomainBelongsToUser) {
+        await fetchDomain();
+      }
 
       setTimeout(() => {
         setIsLoading(false);
