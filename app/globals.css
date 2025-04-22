@@ -1,0 +1,241 @@
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+
+@font-face {
+  font-family: "Mark Pro";
+  src: url("/fonts/MarkPro/MarkPro-Regular.otf") format("opentype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Mark Pro";
+  src: url("/fonts/MarkPro/MarkPro-Medium.otf") format("opentype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Mark Pro";
+  src: url("/fonts/MarkPro/MarkPro-Bold.otf") format("opentype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Mark Pro";
+  src: url("/fonts/MarkPro/MarkPro-Light.otf") format("opentype");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Appleberry";
+  src: url("/fonts/SVN-Appleberry.ttf") format("truetype");
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-widget-messenger-background: var(--widget-messenger-background);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Customs underneath */
+  /* Shadows */
+  --shadow-card: 8px 8px 12px 0px #00000040;
+  --shadow-card-small: 4px 4px 6px 0px #00000040;
+  --shadow-timer: 24px 24px 4px -1px #00000080;
+  --shadow-timer-small: 4px 4px 4px 4px #00000080;
+  --shadow-info-card: 10px 10px 4px 0px #cea19eb2;
+  --shadow-info-card-small: 4px 4px 4px 4px #cea19eb2;
+
+  /* Backdrops */
+  --backdrop-timer-small: blur(5.432888984680176px);
+  --backdrop-timer: blur(20px);
+
+  /* Fonts */
+  --font-appleberry: "Appleberry";
+  --font-mark-pro: "Mark Pro";
+
+  /* Colors */
+  --color-black-80: rgba(0, 0, 0, 0.8);
+  --color-black-60: rgba(0, 0, 0, 0.6);
+  --color-black-40: rgba(0, 0, 0, 0.4);
+  --color-black-20: rgba(0, 0, 0, 0.2);
+  --color-primary-50: rgba(206, 161, 158, 0.5);
+  --color-white-60: rgba(255, 255, 255, 0.6);
+  --color-info-icon: rgba(113, 113, 113, 1);
+  --color-checked-icon: rgba(0, 237, 4, 1);
+  --color-frame-background: rgba(255, 251, 250, 1);
+  --color-frame-text: rgba(9, 9, 9, 1);
+  --color-image-placeholder: rgba(217, 217, 217, 1);
+  --color-heart-clock: rgba(165, 68, 91, 1);
+  --color-memory-frame-background: rgba(238, 234, 223, 1); /* #eeeadf */
+  --color-switch-active: rgba(0, 237, 4, 1);
+
+  /* Custom heights */
+  --height-calculated-content: calc(100vh - 98px - 289px);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: #eeeadf;
+  --foreground: #252525;
+  --card: #ffffff;
+  --card-foreground: #252525;
+  --popover: #ffffff;
+  --popover-foreground: #252525;
+  --primary: #cea19e;
+  --primary-foreground: #fbfbfb;
+  --secondary: #f7f7f7;
+  --secondary-foreground: #343434;
+  --muted: #f7f7f7;
+  --muted-foreground: #8e8e8e;
+  --accent: #f7f7f7;
+  --accent-foreground: #343434;
+  --destructive: #ff0000;
+  --border: #ebebeb;
+  --input: #ebebeb;
+  --ring: #b4b4b4;
+  --chart-1: #a55500;
+  --chart-2: #0099ff;
+  --chart-3: #0066ff;
+  --chart-4: #ffcc00;
+  --chart-5: #ffbb00;
+  --sidebar: #fbfbfb;
+  --sidebar-foreground: #252525;
+  --sidebar-primary: #343434;
+  --sidebar-primary-foreground: #fbfbfb;
+  --sidebar-accent: #f7f7f7;
+  --sidebar-accent-foreground: #343434;
+  --sidebar-border: #ebebeb;
+  --sidebar-ring: #b4b4b4;
+  --widget-messenger-background: #007aff;
+}
+
+* {
+  font-family: var(--font-mark-pro);
+}
+
+.gradient-line {
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(to right, white 0%, #e1be72 50%, white 100%);
+  animation: gradientLoop 20s linear infinite;
+}
+
+@keyframes gradientLoop {
+  to {
+    background-position: 2000px 0;
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.animate-blink {
+  animation: blink 1s step-start infinite;
+}
+
+.loader {
+  width: fit-content;
+  font-size: 40px;
+  font-family: monospace;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #0000;
+  -webkit-text-stroke: 1px #000;
+  background: conic-gradient(#000 0 0) 0/0 100% no-repeat text;
+  animation: l11 2s steps(8, jump-none) infinite;
+}
+
+.loader:before {
+  content: "Loading";
+}
+
+@keyframes l11 {
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+.chrome-picker
+  > div[style*="background-color: inherit"]
+  > div:nth-child(2)
+  > div:nth-child(2) {
+  display: none;
+}
+
+.prevent-overflow-word {
+  word-break: break-word;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes slide-up-mobile {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .animate-slide-up-mobile {
+    animation: slide-up-mobile 0.5s ease-out forwards;
+  }
+}
