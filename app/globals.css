@@ -103,6 +103,8 @@
   --color-heart-clock: rgba(165, 68, 91, 1);
   --color-memory-frame-background: rgba(238, 234, 223, 1); /* #eeeadf */
   --color-switch-active: rgba(0, 237, 4, 1);
+  --color-frame-border: rgba(82, 64, 63, 1);
+  --color-frame-item: rgba(196, 196, 196, 1);
 
   /* Custom heights */
   --height-calculated-content: calc(100vh - 98px - 289px);
@@ -217,4 +219,18 @@
   white-space: pre-wrap;
   overflow-wrap: break-word;
   hyphens: auto;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #cea09e;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #fff;
+  border-radius: 10px;
 }

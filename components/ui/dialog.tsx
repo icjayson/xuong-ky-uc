@@ -65,7 +65,7 @@ function DialogContent({
           className
         )}
         style={{
-          borderRadius: "32px"
+          borderRadius: "32px",
         }}
         onInteractOutside={(e) => {
           if (isLoading) {
@@ -76,13 +76,17 @@ function DialogContent({
         {...props}
       >
         {isLoading && <Loading className="h-[100px]" />}
-        <div
-          className={cn({
-            " hidden": isLoading
-          })}
-        >
-          {children}
-        </div>
+        {!isLoading ? (
+          children
+        ) : (
+          <div
+            className={cn({
+              " hidden": isLoading,
+            })}
+          >
+            {children}
+          </div>
+        )}
         {!isLoading && (
           <DialogPrimitive.Close className="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-6 right-6 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-5 cursor-pointer">
             <XIcon />
@@ -156,5 +160,5 @@ export {
   DialogOverlay,
   DialogPortal,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
 };

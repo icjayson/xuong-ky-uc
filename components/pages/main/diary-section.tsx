@@ -1,10 +1,13 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import DiaryCard from "@/components/ui/diary-card";
 import { MainPageContext } from "@/contexts/contexts";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import React from "react";
+import SelectImagesModal from "./select-images-modal";
+import PhotoFrameModal from "./photo-frame-modal";
 
 type DiarySectionProps = {
   isEditMode?: boolean;
@@ -12,11 +15,21 @@ type DiarySectionProps = {
 
 const DiarySection = ({ isEditMode = false }: DiarySectionProps) => {
   const { memories, color, data, colorKey } = React.useContext(MainPageContext);
+  const [isSelectingImages, setIsSelectingImages] = React.useState(false);
+  const [isPhotoFrameModalOpen, setIsPhotoFrameModalOpen] =
+    React.useState(false);
+  const [selectedImages, setSelectedImages] = React.useState<string[]>([]);
 
   const router = useRouter();
 
   const handleClickAddMemory = () => {
     router.push("/memory");
+  };
+
+  const handleDownloadDiary = () => {
+    if (!isEditMode) return;
+
+    setIsSelectingImages(true);
   };
 
   return (
@@ -40,7 +53,7 @@ const DiarySection = ({ isEditMode = false }: DiarySectionProps) => {
                 ? color?.secondary1
                 : color?.secondary3
               : color?.secondary4 || undefined,
-          fontFamily: data?.font || undefined
+          fontFamily: data?.font || undefined,
         }}
       >
         Nhật ký tình yêu
@@ -61,6 +74,35 @@ const DiarySection = ({ isEditMode = false }: DiarySectionProps) => {
           <DiaryCard isEditMode={isEditMode} onClick={handleClickAddMemory} />
         )}
       </div>
+
+      {isEditMode && (
+        <>
+          <div className="">
+            <Button onClick={handleDownloadDiary}>Tải xuống nhật ký</Button>
+          </div>
+
+          <SelectImagesModal
+            isSelectImagesModalOpen={isSelectingImages}
+            selectedImages={selectedImages}
+            setIsSelectImagesModalOpen={setIsSelectingImages}
+            setSelectedImages={setSelectedImages}
+            onClickNext={() => {
+              setIsSelectingImages(false);
+              setIsPhotoFrameModalOpen(true);
+            }}
+          />
+
+          <PhotoFrameModal
+            selectedImages={selectedImages}
+            isPhotoFrameModalOpen={isPhotoFrameModalOpen}
+            setIsPhotoFrameModalOpen={setIsPhotoFrameModalOpen}
+            onClickBack={() => {
+              setIsPhotoFrameModalOpen(false);
+              setIsSelectingImages(true);
+            }}
+          />
+        </>
+      )}
     </div>
   );
 };

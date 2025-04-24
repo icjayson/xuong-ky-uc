@@ -1,14 +1,23 @@
 "use client";
 
+import LockIcon from "@/components/icons/lock";
 import Header from "@/components/pages/main/header";
+import LoveIcon from "@/components/pages/preview/cellphone/love-icon";
+import LoveItem from "@/components/pages/preview/cellphone/love-item";
 import Footer from "@/components/pages/unauth/footer";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Data, MainPageContext, Memories } from "@/contexts/contexts";
+import { cn } from "@/lib/utils";
+import { formatDurationFrom } from "@/utils/date";
+import { useReminder } from "@/utils/use-reminder";
 import { useGetCookie } from "cookies-next";
+import { addMonths, addYears, format, getDate } from "date-fns";
 import { redirect, useParams, usePathname } from "next/navigation";
 import React from "react";
 
 export default function RootLayout({
-  children
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -24,6 +33,49 @@ export default function RootLayout({
   const color = Object.values(colorScheme || {})[0];
   const colorKey = Object.keys(colorScheme || {})[0];
   const isNotSharing = !isBelongsToUser && !data?.is_sharing;
+  const { dismiss } = useReminder();
+
+  const fromDate = new Date(
+    data?.start_date_of_love || new Date().toISOString()
+  ).toLocaleDateString("vi-VN", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+
+  const { years, months } = formatDurationFrom(fromDate);
+  const milestone = () => {
+    let milestoneYears, milestoneMonths, milestoneDays;
+    if (years > 0) {
+      milestoneYears = addYears(
+        new Date(data?.start_date_of_love || new Date().toISOString()),
+        years
+      ).getFullYear();
+    } else {
+      milestoneYears = new Date(
+        data?.start_date_of_love || new Date().toISOString()
+      ).getFullYear();
+    }
+
+    if (months > 0) {
+      milestoneMonths = addMonths(
+        new Date(data?.start_date_of_love || new Date().toISOString()),
+        months
+      );
+      milestoneMonths = format(milestoneMonths, "MM");
+    }
+
+    milestoneDays = getDate(
+      new Date(data?.start_date_of_love || new Date().toISOString())
+    );
+    milestoneDays = format(milestoneDays, "dd");
+
+    return {
+      milestoneYears,
+      milestoneMonths,
+      milestoneDays,
+    };
+  };
 
   const checkDomain = async () => {
     const res = await fetch(`/api/couple-page/check-domain?domain=${domain}`);
@@ -82,7 +134,7 @@ export default function RootLayout({
         color,
         colorKey,
         isBelongsToUser,
-        isNotSharing
+        isNotSharing,
       }}
     >
       <div className="bg-background flex flex-col min-h-screen">
@@ -101,7 +153,7 @@ export default function RootLayout({
                 ? undefined
                 : colorKey !== "custom"
                 ? color?.primary
-                : color?.secondary1 || undefined
+                : color?.secondary1 || undefined,
           }}
         >
           {children}
@@ -111,6 +163,65 @@ export default function RootLayout({
             isNotSharing || (!isBelongsToUser && !data?.is_sharing)
           }
         />
+
+        <Dialog open={false} onOpenChange={dismiss}>
+          <DialogTitle />
+          <DialogContent className="w-full !max-w-[759px]">
+            <div>
+              <div className="flex justify-center font-medium text-black-80 text-2xl mb-11">
+                Bạn biết sắp đến ngày gì chưa?
+              </div>
+              <div className="flex justify-center font-medium text-black-80 text-2xl mb-3">
+                💖 KỶ NIỆM{" "}
+                {`${years ? `${years} NĂM` : ""} ${
+                  months ? `${months} THÁNG` : ""
+                }`}{" "}
+                BÊN NHAU! 💖
+              </div>
+              <div className="flex justify-center text-black-80 text-[18px] mb-8">
+                Vào ngày {milestone().milestoneDays}/
+                {milestone().milestoneMonths}/{milestone().milestoneYears}
+              </div>
+              <div className="flex justify-center text-black-80 text-2xl text-justify mb-8">
+                Chúc mừng hai bạn đã cùng nhau đi qua một hành trình thật đẹp!
+                🎉
+              </div>
+              <div className="mb-8 grid grid-cols-3 gap-5 place-items-center">
+                <LoveItem
+                  url={(data?.avatar_1_url as string) ?? ""}
+                  className="w-[171px] h-[171px]"
+                />
+
+                <LoveIcon type={data?.clock_type ?? 1} />
+
+                <LoveItem
+                  url={(data?.avatar_2_url as string) ?? ""}
+                  className="w-[171px] h-[171px]"
+                />
+              </div>
+              <div className="flex justify-center text-black-80 text-2xl text-justify mb-13">
+                Hãy lưu giữ kỷ niệm tuyệt vời này bằng những lời ngọt ngào nhất
+                và sẵn sàng đón nhận những điều tuyệt vời phía trước nhé! 💖
+              </div>
+              <div
+                className={cn("flex justify-between gap-2", "max-sm:flex-col")}
+              >
+                <Button className="max-sm:w-full">
+                  Xem lại hành trình yêu nhau
+                </Button>
+                <div className="relative">
+                  <Button className="max-sm:w-full " disabled>
+                    Gửi lời yêu thương
+                  </Button>
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 text-[8px] text-white flex gap-1 items-center">
+                    <LockIcon size={8} />
+                    Sắp ra mắt
+                  </div>
+                </div>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </MainPageContext.Provider>
   );
