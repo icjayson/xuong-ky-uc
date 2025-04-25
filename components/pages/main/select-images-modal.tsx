@@ -46,7 +46,10 @@ const SelectImagesModal = ({
   return (
     <Dialog
       open={isSelectImagesModalOpen}
-      onOpenChange={setIsSelectImagesModalOpen}
+      onOpenChange={(open) => {
+        setSelectedImages([]);
+        setIsSelectImagesModalOpen(open);
+      }}
     >
       <DialogContent className="bg-memory-frame-background !rounded-[32px] w-full !max-w-[776px]">
         <DialogTitle className="text-2xl text-black-80 leading-none font-semibold text-center">

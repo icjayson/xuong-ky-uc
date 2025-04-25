@@ -17,6 +17,7 @@ type PhotoFrameModalProps = {
   isPhotoFrameModalOpen: boolean;
   setIsPhotoFrameModalOpen: (isOpen: boolean) => void;
   selectedImages: string[];
+  setSelectedImages: (images: string[]) => void;
   onClickBack: () => void;
 };
 
@@ -194,6 +195,7 @@ const PhotoFrameModal = ({
   isPhotoFrameModalOpen,
   setIsPhotoFrameModalOpen,
   onClickBack,
+  setSelectedImages,
 }: PhotoFrameModalProps) => {
   const { memories } = React.useContext(MainPageContext);
   const [selectedPhotoFrameId, setSelectedPhotoFrameId] =
@@ -225,6 +227,7 @@ const PhotoFrameModal = ({
     link.href = uri;
     link.click();
     setIsPhotoFrameModalOpen(false);
+    setSelectedImages([]);
   };
 
   return (

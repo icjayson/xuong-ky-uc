@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import ClockSelector from "@/components/ui/clock-selector";
 import ColorSelector, {
-  ColorSchemeColors
+  ColorSchemeColors,
 } from "@/components/ui/color-selector";
 import FontSelector from "@/components/ui/font-selector";
 import FrameSelector from "@/components/ui/frame-selector";
@@ -30,7 +30,7 @@ const SettingsPage = () => {
     dob: new Date(),
     zodiac: "",
     description: "",
-    avatar: ""
+    avatar: "",
   });
   const [person2, setPerson2] = React.useState<Person>({
     name: "",
@@ -38,7 +38,7 @@ const SettingsPage = () => {
     dob: new Date(),
     zodiac: "",
     description: "",
-    avatar: ""
+    avatar: "",
   });
   const [isLoading, setIsLoading] = React.useState(false);
   const [previewData, setPreviewData] = React.useState<Data>({} as Data);
@@ -48,7 +48,7 @@ const SettingsPage = () => {
     setSelectedColorScheme({ [id]: colors });
     setPreviewData({
       ...previewData,
-      color_scheme: { [id]: colors }
+      color_scheme: { [id]: colors },
     });
   };
 
@@ -56,7 +56,7 @@ const SettingsPage = () => {
     setSelectedFont(font);
     setPreviewData({
       ...previewData,
-      font
+      font,
     });
   };
 
@@ -64,7 +64,7 @@ const SettingsPage = () => {
     setSelectedClock(clock);
     setPreviewData({
       ...previewData,
-      clock_type: clock
+      clock_type: clock,
     });
   };
 
@@ -72,7 +72,7 @@ const SettingsPage = () => {
     setTitle(title);
     setPreviewData({
       ...previewData,
-      title
+      title,
     });
   };
 
@@ -80,7 +80,7 @@ const SettingsPage = () => {
     setStartDate(date);
     setPreviewData({
       ...previewData,
-      start_date_of_love: new Date(date).toLocaleDateString()
+      start_date_of_love: new Date(date).toLocaleDateString(),
     });
   };
 
@@ -96,7 +96,7 @@ const SettingsPage = () => {
         formData1.append("avatarNumber", "1");
         payloadAva1 = await fetch("/api/couple-page/upload-avatar", {
           method: "POST",
-          body: formData1
+          body: formData1,
         }).then((r) => r.json().then((r) => r.url));
       }
 
@@ -106,7 +106,7 @@ const SettingsPage = () => {
         formData2.append("avatarNumber", "2");
         payloadAva2 = await fetch("/api/couple-page/upload-avatar", {
           method: "POST",
-          body: formData2
+          body: formData2,
         }).then((r) => r.json().then((r) => r.url));
       }
 
@@ -129,8 +129,17 @@ const SettingsPage = () => {
           title,
           font: selectedFont,
           color_scheme: JSON.stringify(selectedColorScheme),
-          clock_type: selectedClock
-        })
+          clock_type: selectedClock,
+        }),
+      });
+
+      await fetch("/api/couple-page/reminder", {
+        method: "POST",
+        body: JSON.stringify({
+          start_date: new Date(startDate).toLocaleDateString(),
+          interval_months: +(process.env.NEXT_PUBLIC_INTERVAL_MONTHS || 1),
+          last_dismissed_date: null,
+        }),
       });
 
       refetchData();
@@ -152,7 +161,7 @@ const SettingsPage = () => {
         dob: data.person1_dob || new Date(),
         zodiac: data.person1_zodiac || "",
         description: data.person1_description || "",
-        avatar: data.avatar_1_url || ""
+        avatar: data.avatar_1_url || "",
       });
       setPerson2({
         name: data.person2_name || "",
@@ -160,7 +169,7 @@ const SettingsPage = () => {
         dob: data.person2_dob || new Date(),
         zodiac: data.person2_zodiac || "",
         description: data.person2_description || "",
-        avatar: data.avatar_2_url || ""
+        avatar: data.avatar_2_url || "",
       });
       setStartDate(data.start_date_of_love || new Date());
       setTitle(data.title || "");
@@ -195,7 +204,7 @@ const SettingsPage = () => {
         person2,
         setPerson2,
         previewData,
-        setPreviewData
+        setPreviewData,
       }}
     >
       <div className={cn("w-full h-full flex")}>

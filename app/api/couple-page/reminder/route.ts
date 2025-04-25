@@ -24,7 +24,7 @@ export async function GET() {
     lastDismissedDate: reminder.last_dismissed_date,
   });
 
-  return NextResponse.json({ showReminder });
+  return NextResponse.json({ ...showReminder });
 }
 
 export async function PATCH() {

@@ -96,6 +96,7 @@ const DiarySection = ({ isEditMode = false }: DiarySectionProps) => {
             selectedImages={selectedImages}
             isPhotoFrameModalOpen={isPhotoFrameModalOpen}
             setIsPhotoFrameModalOpen={setIsPhotoFrameModalOpen}
+            setSelectedImages={setSelectedImages}
             onClickBack={() => {
               setIsPhotoFrameModalOpen(false);
               setIsSelectingImages(true);

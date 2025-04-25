@@ -12,7 +12,6 @@ import { cn } from "@/lib/utils";
 import { formatDurationFrom } from "@/utils/date";
 import { useReminder } from "@/utils/use-reminder";
 import { useGetCookie } from "cookies-next";
-import { addMonths, addYears, format, getDate } from "date-fns";
 import { redirect, useParams, usePathname } from "next/navigation";
 import React from "react";
 
@@ -33,7 +32,7 @@ export default function RootLayout({
   const color = Object.values(colorScheme || {})[0];
   const colorKey = Object.keys(colorScheme || {})[0];
   const isNotSharing = !isBelongsToUser && !data?.is_sharing;
-  const { dismiss } = useReminder();
+  const { dismiss, show, milestone } = useReminder();
 
   const fromDate = new Date(
     data?.start_date_of_love || new Date().toISOString()
@@ -44,38 +43,6 @@ export default function RootLayout({
   });
 
   const { years, months } = formatDurationFrom(fromDate);
-  const milestone = () => {
-    let milestoneYears, milestoneMonths, milestoneDays;
-    if (years > 0) {
-      milestoneYears = addYears(
-        new Date(data?.start_date_of_love || new Date().toISOString()),
-        years
-      ).getFullYear();
-    } else {
-      milestoneYears = new Date(
-        data?.start_date_of_love || new Date().toISOString()
-      ).getFullYear();
-    }
-
-    if (months > 0) {
-      milestoneMonths = addMonths(
-        new Date(data?.start_date_of_love || new Date().toISOString()),
-        months
-      );
-      milestoneMonths = format(milestoneMonths, "MM");
-    }
-
-    milestoneDays = getDate(
-      new Date(data?.start_date_of_love || new Date().toISOString())
-    );
-    milestoneDays = format(milestoneDays, "dd");
-
-    return {
-      milestoneYears,
-      milestoneMonths,
-      milestoneDays,
-    };
-  };
 
   const checkDomain = async () => {
     const res = await fetch(`/api/couple-page/check-domain?domain=${domain}`);
@@ -125,6 +92,10 @@ export default function RootLayout({
     }
   }, [getCookie, isLoading, isAdminPage]);
 
+  const handleClickDismiss = () => {
+    dismiss();
+  };
+
   return (
     <MainPageContext.Provider
       value={{
@@ -164,9 +135,9 @@ export default function RootLayout({
           }
         />
 
-        <Dialog open={false} onOpenChange={dismiss}>
+        <Dialog open={show}>
           <DialogTitle />
-          <DialogContent className="w-full !max-w-[759px]">
+          <DialogContent className="w-full !max-w-[759px]" closable={false}>
             <div>
               <div className="flex justify-center font-medium text-black-80 text-2xl mb-11">
                 Bạn biết sắp đến ngày gì chưa?
@@ -179,8 +150,7 @@ export default function RootLayout({
                 BÊN NHAU! 💖
               </div>
               <div className="flex justify-center text-black-80 text-[18px] mb-8">
-                Vào ngày {milestone().milestoneDays}/
-                {milestone().milestoneMonths}/{milestone().milestoneYears}
+                Vào ngày {milestone}
               </div>
               <div className="flex justify-center text-black-80 text-2xl text-justify mb-8">
                 Chúc mừng hai bạn đã cùng nhau đi qua một hành trình thật đẹp!
@@ -206,7 +176,7 @@ export default function RootLayout({
               <div
                 className={cn("flex justify-between gap-2", "max-sm:flex-col")}
               >
-                <Button className="max-sm:w-full">
+                <Button className="max-sm:w-full" onClick={handleClickDismiss}>
                   Xem lại hành trình yêu nhau
                 </Button>
                 <div className="relative">
