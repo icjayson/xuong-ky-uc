@@ -74,7 +74,9 @@ export default function Home() {
             <div className="flex-1">
               <h3 className="text-[30px] mb-4 font-bold max-lg:text-[20px]">
                 Thẻ NFC{" "}
-                <span style={{ color: "#CEA19E" }}>"Căn cước Tình yêu"</span>
+                <span style={{ color: "#CEA19E" }}>
+                  &quot;Căn cước Tình yêu&quot;
+                </span>
               </h3>
               <p className="text-justify text-black mb-6 max-lg:text-sm">
                 Là minh chứng vật lý cho tình yêu đẹp, đồng hành & không quan
@@ -140,7 +142,8 @@ export default function Home() {
                     </div>
                   </div>
                   <span className="text-sm text-justify flex-1 text-gray-600">
-                    Quét để truy cập "Nhật ký Tình yêu dễ dàng: trong 1 CHẠM.
+                    Quét để truy cập &quot;Nhật ký Tình yêu&quot; dễ dàng: trong
+                    1 CHẠM.
                   </span>
                 </div>
               </div>
@@ -176,7 +179,9 @@ export default function Home() {
             <div className="flex-1 order-1 max-lg:order-2">
               <h3 className="text-[30px] mb-4 font-bold max-lg:text-[20px]">
                 Website{" "}
-                <span style={{ color: "#CEA19E" }}>"Nhật ký Tình yêu"</span>
+                <span style={{ color: "#CEA19E" }}>
+                  &quot;Nhật ký Tình yêu&quot;
+                </span>
               </h3>
               <p className="text-justify text-black mb-6 max-lg:text-sm">
                 Là một cuốn nhật ký ảo, riêng tư để lưu ghi lại và lưu trữ những
@@ -212,8 +217,8 @@ export default function Home() {
                     </div>
                   </div>
                   <span className="text-sm text-justify flex-1 text-gray-600">
-                    Truy cập dễ dàng: từ domain cá nhân hoá hoặc thẻ NFC "Căn
-                    cước Tình yêu".
+                    Truy cập dễ dàng: từ domain cá nhân hoá hoặc thẻ NFC
+                    &quot;Căn cước Tình yêu&quot;.
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
@@ -278,7 +283,10 @@ export default function Home() {
             </div>
             <div className="flex-1">
               <h3 className="text-[30px] mb-4 font-bold max-lg:text-[20px]">
-                Hộp <span style={{ color: "#CEA19E" }}>"Kho báu Tình yêu"</span>
+                Hộp{" "}
+                <span style={{ color: "#CEA19E" }}>
+                  &quot;Kho báu Tình yêu&quot;
+                </span>
               </h3>
               <p className="text-justify text-black mb-6 max-lg:text-sm">
                 Không chỉ là một chiếc hộp thông thường, mà là nơi để bạn dành
