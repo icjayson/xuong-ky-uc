@@ -21,5 +21,5 @@ export function useReminder() {
     setShow(false);
   };
 
-  return { show, dismiss, milestone };
+  return { show, setShow, dismiss, milestone };
 }

@@ -2,7 +2,9 @@
 
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import React from "react";
 import { FramesList } from "../pages/main/photo-frame-modal";
+import { MainPageContext } from "@/contexts/contexts";
 
 type CarouselProps = {
   frames: FramesList[];
@@ -13,19 +15,30 @@ type CarouselProps = {
 const items = [1, 2, 3, 4, 5, 6];
 
 export function Carousel({ frames, selectedId, onSelect }: CarouselProps) {
+  const { color } = React.useContext(MainPageContext);
   return (
     <div className="w-full max-w-[524px]">
       <div className="relative">
-        <div className="flex overflow-x-auto custom-scrollbar pb-1">
+        <div
+          className={cn(
+            "flex flex-col overflow-y-auto max-h-[654px] custom-scrollbar pb-1",
+            "max-xl:flex-row max-xl:overflow-x-auto"
+          )}
+        >
           {frames.map((item) => (
             <div key={item.id} className="flex-none overflow-hidden">
               <div
                 className={cn(
-                  "h-[215px] w-[143px] relative border-[6px] border-transparent",
+                  "h-[215px] w-[150px] relative border-[6px] border-transparent",
+                  "max-sm:h-[150px] max-sm:w-[100px]",
                   {
-                    "border-frame-border rounded-[6px]": selectedId === item.id,
+                    "rounded-[6px]": selectedId === item.id,
                   }
                 )}
+                style={{
+                  borderColor:
+                    selectedId === item.id ? color?.secondary2 : "transparent",
+                }}
                 onClick={() => onSelect(item.id)}
               >
                 {item.frame1.startsWith("#") ? (
@@ -51,12 +64,18 @@ export function Carousel({ frames, selectedId, onSelect }: CarouselProps) {
                   />
                 ) : null}
 
-                <div className="relative grid grid-cols-2 gap-1 z-[2] px-[10.5px] pt-2 pb-[30px]">
-                  {items.map((miniItem) => (
+                <div className="relative grid grid-cols-2 gap-1 z-[2] px-[13px] pt-2 pb-[30px]">
+                  {items.map((miniItem, index) => (
                     <div
                       key={miniItem}
-                      className="w-full aspect-square bg-frame-item rounded-xs"
-                    ></div>
+                      style={{
+                        borderColor: item?.borders && item.borders?.[index],
+                        borderWidth: item?.borders && "1px",
+                        backgroundColor: item?.borders && item.borders?.[index],
+                      }}
+                    >
+                      <div className="w-full aspect-square bg-frame-item rounded-xs"></div>
+                    </div>
                   ))}
                 </div>
               </div>

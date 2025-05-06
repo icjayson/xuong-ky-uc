@@ -4,6 +4,9 @@ import {
   subDays,
   isWithinInterval,
   differenceInCalendarMonths,
+  startOfDay,
+  addHours,
+  isAfter,
 } from "date-fns";
 
 export type ReminderSettings = {
@@ -25,8 +28,7 @@ export function shouldShowReminder(
   const cyclesPassed = Math.floor(monthsSinceStart / interval);
   const cycleDate = addMonths(start, cyclesPassed * interval);
 
-  // Show reminder from (cycleDate - 4 days) to (cycleDate), inclusive (5 days)
-  const popupStart = subDays(cycleDate, 4);
+  const popupStart = subDays(cycleDate, 5);
   const popupEnd = cycleDate;
 
   const isInWindow = isWithinInterval(today, {
@@ -36,9 +38,13 @@ export function shouldShowReminder(
 
   if (!isInWindow) return { show: false, popupStart, popupEnd };
 
+  const dayStart = startOfDay(today);
+  const noon = addHours(dayStart, 12);
+  const currentWindowStart = today < noon ? dayStart : noon;
+
   if (settings.lastDismissedDate) {
-    const dismissed = parseISO(settings.lastDismissedDate);
-    if (dismissed >= popupStart && dismissed <= popupEnd) {
+    const dismissedAt = parseISO(settings.lastDismissedDate);
+    if (isAfter(dismissedAt, currentWindowStart)) {
       return { show: false, popupStart, popupEnd };
     }
   }

@@ -26,7 +26,7 @@ const SelectImagesModal = ({
   setSelectedImages,
   onClickNext,
 }: SelectImagesModalProps) => {
-  const { memories } = React.useContext(MainPageContext);
+  const { memories, color } = React.useContext(MainPageContext);
 
   const handleClickSelectImage = (imageId: string) => {
     if (selectedImages.includes(imageId)) {
@@ -51,21 +51,34 @@ const SelectImagesModal = ({
         setIsSelectImagesModalOpen(open);
       }}
     >
-      <DialogContent className="bg-memory-frame-background !rounded-[32px] w-full !max-w-[776px]">
-        <DialogTitle className="text-2xl text-black-80 leading-none font-semibold text-center">
+      <DialogContent
+        className="!rounded-[32px] max-h-screen w-full !max-w-[728px] m-2"
+        style={{
+          backgroundColor: color?.secondary1 || "rgba(238, 234, 223, 1)",
+        }}
+      >
+        <DialogTitle
+          className="text-2xl leading-none font-semibold text-center"
+          style={{
+            color: color?.secondary4 || "rgba(0, 0, 0, 0.8)",
+          }}
+        >
           Tải xuống nhật ký
         </DialogTitle>
         <DialogDescription />
-        <div className="mt-5">
-          <div className="text-center text-base text-black-80 leading-none">
+        <div className="mt-5 h-full">
+          <div
+            className="text-center text-base leading-none"
+            style={{
+              color: color?.secondary4 || "rgba(0, 0, 0, 0.8)",
+            }}
+          >
             Chọn 6 ảnh bất kỳ
           </div>
 
           <div
             className={cn(
-              "mt-5 grid grid-cols-[repeat(auto-fill,_minmax(220px,_1fr))] gap-4 place-items-center max-h-[728px] overflow-y-auto",
-              "max-lg:grid-cols-[repeat(2,_minmax(150px,_1fr))] max-lg:max-h-[500px]",
-              "max-sm:grid-cols-[repeat(2,_minmax(100px,_1fr))] max-sm:max-h-[300px]"
+              "mt-5 grid grid-cols-3 gap-4 max-h-[50vh] overflow-y-auto max-md:max-h-[40vh]"
             )}
           >
             {memories.map((image) => (
@@ -86,7 +99,7 @@ const SelectImagesModal = ({
 
                 <div
                   className={cn(
-                    "absolute top-3 left-3 bg-switch-active text-white w-5 h-5 rounded-full hidden items-center justify-center text-xs",
+                    "absolute top-3 left-3 bg-primary text-black w-5 h-5 rounded-full hidden items-center justify-center text-xs",
                     {
                       " flex": selectedImages.includes(image.id.toString()),
                     }
@@ -102,6 +115,10 @@ const SelectImagesModal = ({
             <Button
               disabled={selectedImages.length !== 6}
               onClick={onClickNext}
+              style={{
+                backgroundColor: color?.primary,
+                color: color?.secondary3,
+              }}
             >
               Tiếp
             </Button>

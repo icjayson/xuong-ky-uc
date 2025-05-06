@@ -38,6 +38,7 @@ const DiarySection = ({ isEditMode = false }: DiarySectionProps) => {
         "flex flex-col items-center justify-center gap-8 w-4/5 mx-auto",
         "max-sm:gap-4"
       )}
+      id="diary-section-title"
     >
       <div
         className={cn(
@@ -78,7 +79,15 @@ const DiarySection = ({ isEditMode = false }: DiarySectionProps) => {
       {isEditMode && (
         <>
           <div className="">
-            <Button onClick={handleDownloadDiary}>Tải xuống nhật ký</Button>
+            <Button
+              onClick={handleDownloadDiary}
+              style={{
+                backgroundColor: color?.primary,
+                color: color?.secondary3,
+              }}
+            >
+              Tải xuống nhật ký
+            </Button>
           </div>
 
           <SelectImagesModal

@@ -7,7 +7,7 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerTrigger
+  DrawerTrigger,
 } from "@/components/ui/drawer";
 import { cn } from "@/lib/utils";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
@@ -31,7 +31,7 @@ const Header = ({
   className,
   isMainPage = false,
   forceDefaultColor = false,
-  hideShareButtonAndMenu = false
+  hideShareButtonAndMenu = false,
 }: HeaderProps) => {
   const pathname = usePathname();
   const isEditMode = pathname.split("/").includes("edit") || forceEditMode;
@@ -49,18 +49,14 @@ const Header = ({
         backgroundColor: forceDefaultColor
           ? undefined
           : isMainPage
-          ? color?.primary
-          : undefined
+          ? color?.secondary1
+          : undefined,
       }}
     >
       <div
-        className={cn(
-          "flex items-center gap-11",
-          "max-sm:flex-row-reverse max-sm:w-1/2 max-sm:justify-between",
-          {
-            "max-sm:w-full max-sm:justify-center": !isEditMode
-          }
-        )}
+        className={cn("flex items-center gap-11", "max-sm:justify-between", {
+          "max-sm:w-full max-sm:justify-center": !isEditMode,
+        })}
       >
         <Link href="/">
           <Avatar
@@ -129,8 +125,13 @@ const Header = ({
               backgroundColor: forceDefaultColor
                 ? undefined
                 : isMainPage
-                ? color?.secondary1
-                : undefined
+                ? color?.primary
+                : undefined,
+              color: forceDefaultColor
+                ? undefined
+                : isMainPage
+                ? color?.secondary3
+                : undefined,
             }}
           >
             Chia sẻ

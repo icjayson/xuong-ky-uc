@@ -11,9 +11,14 @@ import { MainPageContext } from "@/contexts/contexts";
 type LoveIconProps = {
   className?: string;
   type?: number;
+  isReminder?: boolean;
 };
 
-const LoveIcon = ({ type = 1, className }: LoveIconProps) => {
+const LoveIcon = ({
+  type = 1,
+  className,
+  isReminder = false,
+}: LoveIconProps) => {
   const { color, colorKey } = React.useContext(MainPageContext);
 
   const iconColorBlinkingHeart = () => {
@@ -33,10 +38,10 @@ const LoveIcon = ({ type = 1, className }: LoveIconProps) => {
             className
           )}
           style={{
-            color: iconColorBlinkingHeart()
+            color: iconColorBlinkingHeart(),
           }}
         >
-          <BlinkingHeart />
+          <BlinkingHeart isReminder={isReminder} />
         </div>
       );
 
@@ -45,6 +50,9 @@ const LoveIcon = ({ type = 1, className }: LoveIconProps) => {
         <div
           className={cn(
             "flex justify-center items-center relative w-full h-full",
+            {
+              "w-[200px] h-[80px] max-xl:w-[70px] max-xl:h-[50px]": isReminder,
+            },
             className
           )}
         >
@@ -57,7 +65,10 @@ const LoveIcon = ({ type = 1, className }: LoveIconProps) => {
           <div
             className={cn(
               "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[128px] h-[80px] z-10",
-              "max-sm:w-[50px] max-sm:h-[30px]"
+              "max-sm:w-[50px] max-sm:h-[30px]",
+              {
+                "max-sm:w-[70px] max-sm:h-[50px]": isReminder,
+              }
             )}
           >
             <DotLottieReact src="/lotties/sandglass.lottie" autoplay loop />
@@ -70,6 +81,9 @@ const LoveIcon = ({ type = 1, className }: LoveIconProps) => {
         <div
           className={cn(
             "flex justify-center items-center relative w-full h-full",
+            {
+              "w-[200px] h-[80px] max-xl:w-[70px] max-xl:h-[50px]": isReminder,
+            },
             className
           )}
         >
@@ -84,7 +98,10 @@ const LoveIcon = ({ type = 1, className }: LoveIconProps) => {
           <div
             className={cn(
               "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[128px] h-[80px] z-10",
-              "max-sm:w-[50px] max-sm:h-[30px]"
+              "max-sm:w-[50px] max-sm:h-[30px]",
+              {
+                "max-sm:w-[70px] max-sm:h-[50px]": isReminder,
+              }
             )}
           >
             <DotLottieReact src="/lotties/filling-heart.lottie" autoplay loop />
@@ -97,6 +114,9 @@ const LoveIcon = ({ type = 1, className }: LoveIconProps) => {
         <div
           className={cn(
             "flex justify-center items-center relative w-full h-full",
+            {
+              "w-[200px] h-[80px] max-xl:w-[70px] max-xl:h-[50px]": isReminder,
+            },
             className
           )}
         >
@@ -111,7 +131,10 @@ const LoveIcon = ({ type = 1, className }: LoveIconProps) => {
           <div
             className={cn(
               "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[128px] h-[80px] z-10",
-              "max-sm:w-[50px] max-sm:h-[30px]"
+              "max-sm:w-[50px] max-sm:h-[30px]",
+              {
+                "max-sm:w-[70px] max-sm:h-[50px]": isReminder,
+              }
             )}
           >
             <DotLottieReact src="/lotties/icon-4.lottie" autoplay loop />
@@ -124,6 +147,9 @@ const LoveIcon = ({ type = 1, className }: LoveIconProps) => {
         <div
           className={cn(
             "flex justify-center items-center relative w-full h-full",
+            {
+              "w-[200px] h-[80px] max-xl:w-[70px] max-xl:h-[50px]": isReminder,
+            },
             className
           )}
         >
@@ -138,7 +164,10 @@ const LoveIcon = ({ type = 1, className }: LoveIconProps) => {
           <div
             className={cn(
               "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[128px] h-[80px] z-10",
-              "max-sm:w-[50px] max-sm:h-[30px]"
+              "max-sm:w-[50px] max-sm:h-[30px]",
+              {
+                "max-sm:w-[70px] max-sm:h-[50px]": isReminder,
+              }
             )}
           >
             <DotLottieReact src="/lotties/icon-3.lottie" autoplay loop />

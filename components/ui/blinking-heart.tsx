@@ -1,14 +1,18 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 
-const BlinkingHeart = () => {
+const BlinkingHeart = ({ isReminder = false }: { isReminder?: boolean }) => {
   return (
     <div
       className={cn(
         "min-w-[432px] h-[80px] animate-blink text-heart-clock",
         "max-sm:min-w-[60px] max-sm:h-[20px]",
         "max-lg:min-w-[120px] max-lg:h-[30px]",
-        "max-xl:min-w-[240px] max-xl:h-[40px]"
+        "max-xl:min-w-[240px] max-xl:h-[40px]",
+        {
+          "min-w-[200px] h-[50px] max-sm:!min-w-[100px] max-sm:!h-[30px] max-lg:!min-w-[140px] max-lg:!h-[40px] max-xl:!min-w-[180px] max-xl:!h-[45px]":
+            isReminder,
+        }
       )}
     >
       <svg
