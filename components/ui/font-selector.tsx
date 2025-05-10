@@ -4,12 +4,21 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from "./select";
 
 const options = [
   { label: "Mark Pro", value: "Mark Pro" },
-  { label: "Appleberry", value: "Appleberry" }
+  { label: "Appleberry", value: "Appleberry" },
+  { label: "Arcade Among", value: "Arcade Among" },
+  { label: "Cookii Display", value: "Cookii Display" },
+  { label: "Hoa Sen Typeface", value: "Hoa Sen Typeface" },
+  { label: "Little Thing", value: "Little Thing" },
+  { label: "Lobster", value: "Lobster" },
+  { label: "New Hanoi", value: "New Hanoi" },
+  { label: "Pacifico", value: "Pacifico" },
+  { label: "SacViet", value: "SacViet" },
+  { label: "Marienda", value: "Marienda" },
 ];
 
 type FontSelectorProps = {

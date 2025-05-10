@@ -12,7 +12,7 @@ export const MemoryContext = React.createContext<MemoryContextType>({
   refetchMemories: () => {},
   setIsLoading: () => {},
   isCreating: false,
-  setIsCreating: () => {}
+  setIsCreating: () => {},
 });
 
 export type Person = {
@@ -40,7 +40,7 @@ export const SettingContext = React.createContext<SettingContextType>({
     dob: new Date(),
     zodiac: "",
     description: "",
-    avatar: ""
+    avatar: "",
   },
   person2: {
     name: "",
@@ -48,12 +48,12 @@ export const SettingContext = React.createContext<SettingContextType>({
     dob: new Date(),
     zodiac: "",
     description: "",
-    avatar: ""
+    avatar: "",
   },
   setPerson1: () => {},
   setPerson2: () => {},
   previewData: {} as Data,
-  setPreviewData: () => {}
+  setPreviewData: () => {},
 });
 
 export type Data = {
@@ -88,11 +88,13 @@ export type Memories = {
   location: string;
   memory_date: string;
   description: string;
+  is_visible: boolean;
 };
 
 type MainPageContextType = {
   data: Data;
   memories: Memories[];
+  allMemories: Memories[];
   isLoading: boolean;
   color: ColorSchemeColors;
   colorKey: string;
@@ -103,9 +105,10 @@ type MainPageContextType = {
 export const MainPageContext = React.createContext<MainPageContextType>({
   data: {} as Data,
   memories: [] as Memories[],
+  allMemories: [] as Memories[],
   isLoading: false,
   color: {} as ColorSchemeColors,
   colorKey: "",
   isBelongsToUser: true,
-  isNotSharing: false
+  isNotSharing: false,
 });

@@ -56,6 +56,7 @@ function DialogContent({
 }: React.ComponentProps<typeof DialogPrimitive.Content> & {
   isLoading?: boolean;
   closable?: boolean;
+  onClose?: () => void;
 }) {
   return (
     <DialogPortal data-slot="dialog-portal">
@@ -90,7 +91,12 @@ function DialogContent({
           </div>
         )}
         {!isLoading && closable && (
-          <DialogPrimitive.Close className="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-6 right-6 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-5 cursor-pointer">
+          <DialogPrimitive.Close
+            className="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-6 right-6 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-5 cursor-pointer"
+            onClick={() => {
+              props.onClose?.();
+            }}
+          >
             <XIcon />
             <span className="sr-only">Close</span>
           </DialogPrimitive.Close>

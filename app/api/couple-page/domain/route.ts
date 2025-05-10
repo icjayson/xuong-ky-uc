@@ -62,15 +62,15 @@ export async function GET(req: Request) {
 
   const formattedMemories = memories
     .map((memory) => memory.memory_images[0])
-    .filter((memory) => memory?.is_visible);
+    .filter((memory) => memory);
 
   const formattedData = {
     ...data,
-    color_scheme: JSON.parse(data.color_scheme || "{}")
+    color_scheme: JSON.parse(data.color_scheme || "{}"),
   };
 
   return NextResponse.json({
     data: formattedData,
-    memories: formattedMemories
+    memories: formattedMemories,
   });
 }

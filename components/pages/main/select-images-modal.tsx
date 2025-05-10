@@ -26,7 +26,7 @@ const SelectImagesModal = ({
   setSelectedImages,
   onClickNext,
 }: SelectImagesModalProps) => {
-  const { memories, color } = React.useContext(MainPageContext);
+  const { allMemories, color } = React.useContext(MainPageContext);
 
   const handleClickSelectImage = (imageId: string) => {
     if (selectedImages.includes(imageId)) {
@@ -52,7 +52,7 @@ const SelectImagesModal = ({
       }}
     >
       <DialogContent
-        className="!rounded-[32px] max-h-screen w-full !max-w-[728px] m-2"
+        className="!rounded-[32px] max-h-screen w-full !max-w-[min(728px,95vw)]"
         style={{
           backgroundColor: color?.secondary1 || "rgba(238, 234, 223, 1)",
         }}
@@ -81,7 +81,7 @@ const SelectImagesModal = ({
               "mt-5 grid grid-cols-3 gap-4 max-h-[50vh] overflow-y-auto max-md:max-h-[40vh]"
             )}
           >
-            {memories.map((image) => (
+            {allMemories.map((image) => (
               <div
                 className={cn("relative opacity-80", {
                   "opacity-100": selectedImages.includes(image.id.toString()),

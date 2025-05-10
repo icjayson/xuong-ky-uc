@@ -27,6 +27,7 @@ export type FramesList = {
   id: number;
   frame1: string;
   frame2?: string;
+  bgColor?: string;
   borders?: string[];
 };
 
@@ -92,11 +93,13 @@ const frames: FramesList[] = [
     id: 12,
     frame1: "/photo-frames/frame-12.svg",
     frame2: undefined,
+    bgColor: "#fff",
   },
   {
     id: 13,
-    frame1: "/photo-frames/frame-13.svg",
+    frame1: "/photo-frames/frame-12.svg",
     frame2: undefined,
+    bgColor: "#000",
   },
   {
     id: 14,
@@ -189,6 +192,8 @@ const GAP = 12.89;
 const SCALE_FACTOR = 0.6;
 const BORDER_WIDTH = 1;
 const IMAGE_PADDING = 2;
+const GAP_RESPONSIVE = GAP / 2;
+const FRAME_PADDING_TOP_RESPONSIVE = FRAME_PADDING_TOP + GAP_RESPONSIVE;
 
 type ObjectFitCoverImageProps = {
   src: string;
@@ -197,6 +202,7 @@ type ObjectFitCoverImageProps = {
   x?: number;
   y?: number;
   borderColor?: string;
+  fill?: string;
 };
 
 function ObjectFitCoverImage({
@@ -206,6 +212,7 @@ function ObjectFitCoverImage({
   x,
   y,
   borderColor,
+  fill,
 }: ObjectFitCoverImageProps) {
   const [crop, setCrop] = React.useState({ x: 0, y: 0, width: 0, height: 0 });
   const imageRef = React.useRef<Image>(null);
@@ -255,6 +262,7 @@ function ObjectFitCoverImage({
         crop={crop}
         perfectDrawEnabled={false}
         cornerRadius={3}
+        fill={fill}
       />
     </Group>
   ) : null;
@@ -309,7 +317,7 @@ const PhotoFrameModal = ({
     >
       <DialogContent
         className={cn(
-          "!rounded-[32px] w-full max-xl:!max-w-[564px] !max-w-[calc(564px+172.34px*0.6)] h-fit",
+          "!rounded-[32px] w-full max-xl:!max-w-[min(564px,95vw)] !max-w-[calc(564px+172.34px*0.6)] h-fit",
           "max-lg:max-w-[calc(564px*0.7)]"
         )}
         style={{
@@ -354,6 +362,7 @@ const PhotoFrameModal = ({
                     }
                     x={0}
                     y={0}
+                    fill={selectedFrame?.bgColor || undefined}
                   />
                 )}
               </Layer>
@@ -364,11 +373,15 @@ const PhotoFrameModal = ({
                   const x = isLarge
                     ? FRAME_PADDING_SIDE + col * (IMAGE_SIZE + GAP)
                     : FRAME_PADDING_SIDE * SCALE_FACTOR +
-                      col * (IMAGE_SIZE * SCALE_FACTOR + GAP * SCALE_FACTOR);
+                      col *
+                        (IMAGE_SIZE * SCALE_FACTOR +
+                          GAP_RESPONSIVE * SCALE_FACTOR);
                   const y = isLarge
                     ? FRAME_PADDING_TOP + row * (IMAGE_SIZE + GAP)
-                    : FRAME_PADDING_TOP * SCALE_FACTOR +
-                      row * (IMAGE_SIZE * SCALE_FACTOR + GAP * SCALE_FACTOR);
+                    : FRAME_PADDING_TOP_RESPONSIVE * SCALE_FACTOR +
+                      row *
+                        (IMAGE_SIZE * SCALE_FACTOR +
+                          GAP_RESPONSIVE * SCALE_FACTOR);
                   return (
                     <ObjectFitCoverImage
                       key={index}

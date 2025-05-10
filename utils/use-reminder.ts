@@ -10,7 +10,7 @@ export function useReminder() {
       .then((res) => res.json())
       .then((data) => {
         setShow(data.show);
-        setMilestone(format(new Date(data.popupStart), "dd/MM/yyyy"));
+        setMilestone(format(new Date(data.popupEnd), "dd/MM/yyyy"));
       });
   }, []);
 

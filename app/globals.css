@@ -31,6 +31,88 @@
   src: url("/fonts/SVN-Appleberry.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Arcade Among";
+  src: url("/fonts/Arcade Among Font.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Cookii Display";
+  src: url("/fonts/Cookii Display Font.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Hoa Sen Typeface";
+  src: url("/fonts/Hoa Sen Typeface.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Little Thing";
+  src: url("/fonts/Little Thing Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Lobster";
+  src: url("/fonts/Lobster Regular Font.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "New Hanoi";
+  src: url("/fonts/New Hanoi Font.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Pacifico";
+  src: url("/fonts/Pacifico Regular Font.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SacViet";
+  src: url("/fonts/Sac Viet Font.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Marienda";
+  src: url("/fonts/Marienda-Light.ttf") format("truetype");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Marienda";
+  src: url("/fonts/Marienda-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Marienda";
+  src: url("/fonts/Marienda-Medium.ttf") format("truetype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Marienda";
+  src: url("/fonts/Marienda-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Marienda";
+  src: url("/fonts/Marienda-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Marienda";
+  src: url("/fonts/Marienda-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "Marienda";
+  src: url("/fonts/Marienda-Black.ttf") format("truetype");
+  font-weight: 900;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

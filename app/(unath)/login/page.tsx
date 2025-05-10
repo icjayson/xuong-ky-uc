@@ -25,7 +25,7 @@ const LoginPage = () => {
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await res.json();
@@ -47,7 +47,7 @@ const LoginPage = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-calculated-content max-w-[421px] mx-auto max-xl:pb-10 max-sm:px-10 py-5">
       <div className="font-bold text-[40px] text-black-80">Đăng nhập</div>
-      <Image src="/logo-tach-nen.png" alt="logo" width={196} height={130} />
+      <Image src="/logo-black.png" alt="logo" width={196} height={130} />
 
       <form onSubmit={handleSubmit} className="w-full flex flex-col gap-5 mt-4">
         <Input

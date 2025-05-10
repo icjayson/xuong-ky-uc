@@ -2,6 +2,7 @@ import { getUser } from "@/utils/middlewares";
 import { shouldShowReminder } from "@/utils/reminder";
 import supabase from "@/utils/supabase";
 import { NextResponse } from "next/server";
+import { format } from "date-fns";
 
 export async function GET() {
   const userId = await getUser();
@@ -20,8 +21,7 @@ export async function GET() {
 
   const showReminder = shouldShowReminder({
     startDate: reminder.start_date,
-    intervalMonths: reminder.interval_months,
-    lastDismissedDate: reminder.last_dismissed_date,
+    lastDismissedDate: reminder.last_dismissed_at,
   });
 
   return NextResponse.json({ ...showReminder });
@@ -32,9 +32,11 @@ export async function PATCH() {
   if (!userId)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
+  const dateWithoutTimezone = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS");
+
   const { error } = await supabase
     .from("reminders")
-    .update({ last_dismissed_at: new Date().toISOString() })
+    .update({ last_dismissed_at: dateWithoutTimezone })
     .eq("user_id", userId);
 
   if (error) {
@@ -49,7 +51,7 @@ export async function POST(req: Request) {
   if (!userId)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { start_date, interval_months, last_dismissed_at } = await req.json();
+  const { start_date, last_dismissed_at } = await req.json();
 
   const { data: reminder } = await supabase
     .from("reminders")
@@ -62,7 +64,7 @@ export async function POST(req: Request) {
   if (reminder) {
     const { error } = await supabase
       .from("reminders")
-      .update({ last_dismissed_at, start_date, interval_months })
+      .update({ last_dismissed_at, start_date })
       .eq("user_id", userId)
       .select()
       .single();
@@ -71,7 +73,7 @@ export async function POST(req: Request) {
   } else {
     const { error } = await supabase
       .from("reminders")
-      .insert({ user_id: userId, start_date, interval_months })
+      .insert({ user_id: userId, start_date })
       .select()
       .single();
 

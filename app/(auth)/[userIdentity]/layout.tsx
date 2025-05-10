@@ -9,9 +9,9 @@ import LoveIcon from "@/components/ui/love-icon";
 import LoveItem from "@/components/ui/love-item";
 import { Data, MainPageContext, Memories } from "@/contexts/contexts";
 import { cn } from "@/lib/utils";
-import { formatDurationFrom } from "@/utils/date";
 import { useReminder } from "@/utils/use-reminder";
 import { useGetCookie } from "cookies-next";
+import { differenceInCalendarMonths, parseISO } from "date-fns";
 import { redirect, useParams, usePathname } from "next/navigation";
 import React from "react";
 
@@ -28,6 +28,7 @@ export default function RootLayout({
   const [isBelongsToUser, setIsBelongsToUser] = React.useState(true);
   const [data, setData] = React.useState<Data>({} as Data);
   const [memories, setMemories] = React.useState<Memories[]>([]);
+  const [allMemories, setAllMemories] = React.useState<Memories[]>([]);
 
   const colorScheme = data.color_scheme;
   const color = Object.values(colorScheme || {})[0];
@@ -35,15 +36,11 @@ export default function RootLayout({
   const isNotSharing = !isBelongsToUser && !data?.is_sharing;
   const { dismiss, show, setShow, milestone } = useReminder();
 
-  const fromDate = new Date(
-    data?.start_date_of_love || new Date().toISOString()
-  ).toLocaleDateString("vi-VN", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
-
-  const { years, months, days } = formatDurationFrom(fromDate);
+  const now = new Date();
+  const start = parseISO(data?.start_date_of_love || new Date().toISOString());
+  const totalMonths = differenceInCalendarMonths(now, start);
+  const years = Math.floor(totalMonths / 12);
+  const months = totalMonths % 12;
 
   const checkDomain = async () => {
     const res = await fetch(`/api/couple-page/check-domain?domain=${domain}`);
@@ -64,7 +61,8 @@ export default function RootLayout({
     }
 
     if (memories) {
-      setMemories(memories);
+      setMemories(memories?.filter((memory: Memories) => memory?.is_visible));
+      setAllMemories(memories);
     }
   };
 
@@ -106,6 +104,7 @@ export default function RootLayout({
       value={{
         data,
         memories,
+        allMemories,
         isLoading,
         color,
         colorKey,
@@ -143,11 +142,14 @@ export default function RootLayout({
         <Dialog open={show}>
           <DialogTitle />
           <DialogContent
-            className="w-full !max-w-[759px]"
+            className="!rounded-[32px] w-full !max-w-[min(759px,95vw)]"
             style={{
               backgroundColor: color?.secondary1 || "rgba(238, 234, 223, 1)",
             }}
             onInteractOutside={() => {
+              setShow(false);
+            }}
+            onClose={() => {
               setShow(false);
             }}
           >
@@ -169,7 +171,7 @@ export default function RootLayout({
                 💖 KỶ NIỆM{" "}
                 {`${years ? `${years} NĂM` : ""} ${
                   months ? `${months} THÁNG` : ""
-                } ${days && (!years || !months) ? `${days} NGÀY` : ""}`}{" "}
+                } `}
                 BÊN NHAU! 💖
               </div>
               <div
@@ -181,7 +183,7 @@ export default function RootLayout({
                 Vào ngày {milestone}
               </div>
               <div
-                className="flex justify-center text-justify mb-8"
+                className="flex justify-center text-justify mb-8 max-xl:text-base text-xl"
                 style={{
                   color: color?.secondary4 || "rgba(0, 0, 0, 0.8)",
                 }}

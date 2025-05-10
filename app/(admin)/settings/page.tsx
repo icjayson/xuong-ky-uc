@@ -137,7 +137,6 @@ const SettingsPage = () => {
         method: "POST",
         body: JSON.stringify({
           start_date: new Date(startDate).toLocaleDateString(),
-          interval_months: +(process.env.NEXT_PUBLIC_INTERVAL_MONTHS || 1),
         }),
       });
 

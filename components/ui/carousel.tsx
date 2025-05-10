@@ -29,8 +29,8 @@ export function Carousel({ frames, selectedId, onSelect }: CarouselProps) {
             <div key={item.id} className="flex-none overflow-hidden">
               <div
                 className={cn(
-                  "h-[215px] w-[150px] relative border-[6px] border-transparent",
-                  "max-sm:h-[150px] max-sm:w-[100px]",
+                  "h-[220px] w-[150px] relative border-[6px] border-transparent",
+                  "max-sm:h-[114px] max-sm:w-[80px]",
                   {
                     "rounded-[6px]": selectedId === item.id,
                   }
@@ -38,6 +38,7 @@ export function Carousel({ frames, selectedId, onSelect }: CarouselProps) {
                 style={{
                   borderColor:
                     selectedId === item.id ? color?.secondary2 : "transparent",
+                  backgroundColor: item?.bgColor || undefined,
                 }}
                 onClick={() => onSelect(item.id)}
               >
