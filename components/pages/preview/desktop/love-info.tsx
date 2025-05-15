@@ -17,7 +17,15 @@ const LoveInfo = ({
   zodiac,
   description,
 }: LoveInfoProps) => {
-  const { color, data } = React.useContext(PreviewContext);
+  const { color, data, colorKey } = React.useContext(PreviewContext);
+
+  const getColorSchemeForFirstTwoDefaultColors = () => {
+    if (colorKey !== "custom" && (colorKey === "1" || colorKey === "2")) {
+      return color?.secondary3;
+    }
+
+    return color?.secondary4;
+  };
 
   return (
     <div className="flex flex-col items-center justify-center gap-2">
@@ -27,7 +35,7 @@ const LoveInfo = ({
           "max-sm:text-xs"
         )}
         style={{
-          color: color?.secondary4 || undefined,
+          color: getColorSchemeForFirstTwoDefaultColors(),
           fontFamily: data?.font || undefined,
         }}
       >
@@ -41,7 +49,7 @@ const LoveInfo = ({
             "max-sm:text-[10px]"
           )}
           style={{
-            color: color?.secondary4 || undefined,
+            color: getColorSchemeForFirstTwoDefaultColors(),
             fontFamily: data?.font || undefined,
           }}
         >
@@ -53,7 +61,7 @@ const LoveInfo = ({
             "max-sm:text-[8px]"
           )}
           style={{
-            color: color?.secondary4 || undefined,
+            color: getColorSchemeForFirstTwoDefaultColors(),
             fontFamily: data?.font || undefined,
           }}
         >
@@ -68,7 +76,7 @@ const LoveInfo = ({
             "max-sm:text-[8px]"
           )}
           style={{
-            color: color?.secondary4 || undefined,
+            color: getColorSchemeForFirstTwoDefaultColors(),
             fontFamily: data?.font || undefined,
           }}
         >
@@ -81,7 +89,7 @@ const LoveInfo = ({
             "max-sm:text-[8px]"
           )}
           style={{
-            color: color?.secondary4 || undefined,
+            color: getColorSchemeForFirstTwoDefaultColors(),
             fontFamily: data?.font || undefined,
           }}
         >

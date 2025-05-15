@@ -18,22 +18,16 @@ const DiaryCard = ({
   location,
   memory_date,
   description,
-  onClick
+  onClick,
 }: DiaryCardProps) => {
-  const { color, data, colorKey } = React.useContext(PreviewContext);
-
-  const diaryCardBackground = () => {
-    return colorKey !== "custom"
-      ? color?.secondary1
-      : color?.primary || undefined;
-  };
+  const { color, data } = React.useContext(PreviewContext);
 
   return (
     <Card
       diary
       className={cn("w-full rounded-2xl flex flex-col gap-2")}
       style={{
-        backgroundColor: diaryCardBackground()
+        backgroundColor: color?.primary || undefined,
       }}
       onClick={onClick}
     >
@@ -52,7 +46,7 @@ const DiaryCard = ({
             )}
             style={{
               color: color?.secondary3 || undefined,
-              fontFamily: data?.font || undefined
+              fontFamily: data?.font || undefined,
             }}
           >
             {location}
@@ -63,7 +57,7 @@ const DiaryCard = ({
             )}
             style={{
               color: color?.secondary3 || undefined,
-              fontFamily: data?.font || undefined
+              fontFamily: data?.font || undefined,
             }}
           >
             {format(new Date(memory_date || new Date()), "dd/MM/yyyy")}
@@ -73,7 +67,7 @@ const DiaryCard = ({
           className={cn("text-[10px] text-black prevent-overflow-word")}
           style={{
             color: color?.secondary3 || undefined,
-            fontFamily: data?.font || undefined
+            fontFamily: data?.font || undefined,
           }}
         >
           &ldquo;{description}&rdquo;

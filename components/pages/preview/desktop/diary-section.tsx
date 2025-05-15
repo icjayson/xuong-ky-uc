@@ -6,7 +6,13 @@ import React from "react";
 import { PreviewContext } from "../../admin/preview";
 
 const DiarySection = () => {
-  const { memories, color, data } = React.useContext(PreviewContext);
+  const { memories, color, data, colorKey } = React.useContext(PreviewContext);
+
+  const getColorSchemeForFirstTwoDefaultColors = () => {
+    if (colorKey !== "custom" && (colorKey === "1" || colorKey === "2")) {
+      return color?.secondary3;
+    }
+  };
 
   return (
     <div
@@ -23,7 +29,7 @@ const DiarySection = () => {
           "max-xl:text-xl"
         )}
         style={{
-          color: color?.secondary4 || undefined,
+          color: getColorSchemeForFirstTwoDefaultColors(),
           fontFamily: data?.font || undefined,
         }}
       >

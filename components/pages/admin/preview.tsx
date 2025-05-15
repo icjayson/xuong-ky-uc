@@ -8,7 +8,7 @@ import {
   Drawer,
   DrawerContent,
   DrawerDescription,
-  DrawerTitle
+  DrawerTitle,
 } from "@/components/ui/drawer";
 import Loading from "@/components/ui/loading";
 import { Data, Memories } from "@/contexts/contexts";
@@ -34,7 +34,7 @@ export const PreviewContext = React.createContext<PreviewContextType>({
   data: {} as Data,
   memories: [] as Memories[],
   color: {} as ColorSchemeColors,
-  colorKey: ""
+  colorKey: "",
 });
 
 type PreviewProps = {
@@ -48,7 +48,7 @@ const Preview = ({
   previewData,
   previewMemories,
   isPreviewDesktop,
-  setIsPreviewDesktop
+  setIsPreviewDesktop,
 }: PreviewProps) => {
   const [isSharing, setIsSharing] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -92,7 +92,7 @@ const Preview = ({
             : data,
         memories: previewMemories || memories,
         color,
-        colorKey
+        colorKey,
       }}
     >
       <div className="sticky top-0 flex flex-col p-9">
@@ -104,7 +104,7 @@ const Preview = ({
           <div className="flex gap-5 justify-center">
             <div
               className={cn("cursor-pointer p-2 rounded-full", {
-                "bg-primary": !isPreviewDesktop
+                "bg-primary": !isPreviewDesktop,
               })}
               onClick={() => setIsPreviewDesktop(false)}
             >
@@ -112,7 +112,7 @@ const Preview = ({
             </div>
             <div
               className={cn("cursor-pointer p-2 rounded-full", {
-                "bg-primary": isPreviewDesktop
+                "bg-primary": isPreviewDesktop,
               })}
               onClick={() => setIsPreviewDesktop(true)}
             >
@@ -132,10 +132,7 @@ const Preview = ({
             // 170px is the height of the header and paddings
             className="w-[375px] h-[calc(100vh-170px)] max-h-[812px] bg-memory-frame-background rounded-[36px] border-4 border-black overflow-y-auto pt-6 flex flex-col gap-10 hide-scrollbar"
             style={{
-              backgroundColor:
-                colorKey !== "custom"
-                  ? color?.primary
-                  : color?.secondary1 || undefined
+              backgroundColor: color?.secondary1 || undefined,
             }}
           >
             <ClockSection />
@@ -156,10 +153,7 @@ const Preview = ({
                 "max-lg:py-16"
               )}
               style={{
-                backgroundColor:
-                  colorKey !== "custom"
-                    ? color?.primary
-                    : color?.secondary1 || undefined
+                backgroundColor: color?.secondary1 || undefined,
               }}
             >
               <div

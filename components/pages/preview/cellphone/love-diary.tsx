@@ -8,6 +8,14 @@ import React from "react";
 const DiarySection = () => {
   const { memories, color, data, colorKey } = React.useContext(PreviewContext);
 
+  const getColorSchemeForFirstTwoDefaultColors = () => {
+    if (colorKey !== "custom" && (colorKey === "1" || colorKey === "2")) {
+      return color?.secondary3;
+    }
+
+    return color?.secondary4;
+  };
+
   return (
     <div
       className={cn(
@@ -17,13 +25,8 @@ const DiarySection = () => {
       <div
         className={cn("text-base text-black-80 font-medium")}
         style={{
-          color:
-            colorKey !== "custom"
-              ? colorKey == "3"
-                ? color?.secondary1
-                : color?.secondary3
-              : color?.secondary4 || undefined,
-          fontFamily: data?.font || undefined
+          color: getColorSchemeForFirstTwoDefaultColors(),
+          fontFamily: data?.font || undefined,
         }}
       >
         Nhật ký tình yêu

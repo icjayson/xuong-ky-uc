@@ -48,7 +48,7 @@ export const COLOR_SCHEMES: Record<string, ColorScheme> = {
     colors: {
       primary: "#ff70cd",
       secondary1: "#ffb8e6",
-      secondary2: "#ff00a6",
+      secondary2: "#662d52",
       secondary3: "#000000",
       secondary4: "#ffffff",
     },
@@ -56,9 +56,9 @@ export const COLOR_SCHEMES: Record<string, ColorScheme> = {
   },
   "3": {
     colors: {
-      primary: "#7d412c",
-      secondary1: "#eeeadf",
-      secondary2: "#603222",
+      primary: "#eeeadf",
+      secondary1: "#7d412c",
+      secondary2: "#bebbb2",
       secondary3: "#000000",
       secondary4: "#ffffff",
     },

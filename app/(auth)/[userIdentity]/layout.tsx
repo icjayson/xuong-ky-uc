@@ -126,8 +126,6 @@ export default function RootLayout({
             backgroundColor:
               isNotSharing || (!isBelongsToUser && !data?.is_sharing)
                 ? undefined
-                : colorKey !== "custom"
-                ? color?.primary
                 : color?.secondary1 || undefined,
           }}
         >

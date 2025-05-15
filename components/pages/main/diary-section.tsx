@@ -14,7 +14,7 @@ type DiarySectionProps = {
 };
 
 const DiarySection = ({ isEditMode = false }: DiarySectionProps) => {
-  const { memories, color, data } = React.useContext(MainPageContext);
+  const { memories, color, data, colorKey } = React.useContext(MainPageContext);
   const [isSelectingImages, setIsSelectingImages] = React.useState(false);
   const [isPhotoFrameModalOpen, setIsPhotoFrameModalOpen] =
     React.useState(false);
@@ -30,6 +30,14 @@ const DiarySection = ({ isEditMode = false }: DiarySectionProps) => {
     if (!isEditMode) return;
 
     setIsSelectingImages(true);
+  };
+
+  const getColorSchemeForFirstTwoDefaultColors = () => {
+    if (colorKey !== "custom" && (colorKey == "1" || colorKey == "2")) {
+      return color?.secondary3;
+    }
+
+    return color?.secondary4;
   };
 
   return (
@@ -48,7 +56,7 @@ const DiarySection = ({ isEditMode = false }: DiarySectionProps) => {
           "max-xl:text-xl"
         )}
         style={{
-          color: color?.secondary4 || undefined,
+          color: getColorSchemeForFirstTwoDefaultColors(),
           fontFamily: data?.font || undefined,
         }}
       >

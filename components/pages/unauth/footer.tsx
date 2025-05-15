@@ -13,7 +13,7 @@ type FooterProps = {
   forceDefaultColor?: boolean;
 };
 const Footer = ({ forceDefaultColor = false }: FooterProps) => {
-  const { color, colorKey } = React.useContext(MainPageContext);
+  const { color } = React.useContext(MainPageContext);
 
   const pathname = usePathname();
   const pathnames = pathname.split("/");
@@ -26,9 +26,7 @@ const Footer = ({ forceDefaultColor = false }: FooterProps) => {
       style={{
         backgroundColor: forceDefaultColor
           ? undefined
-          : colorKey !== "custom"
-          ? color?.secondary1
-          : color?.primary || undefined
+          : color?.primary || undefined,
       }}
     >
       <div className="py-5 px-[60px] flex justify-between items-center gap-5 max-sm:flex-col max-sm:items-start">
@@ -38,7 +36,7 @@ const Footer = ({ forceDefaultColor = false }: FooterProps) => {
             style={{
               color: forceDefaultColor
                 ? undefined
-                : color?.secondary3 || undefined
+                : color?.secondary3 || undefined,
             }}
           >
             Xưởng Ký Ức
@@ -48,7 +46,7 @@ const Footer = ({ forceDefaultColor = false }: FooterProps) => {
             style={{
               color: forceDefaultColor
                 ? undefined
-                : color?.secondary3 || undefined
+                : color?.secondary3 || undefined,
             }}
           >
             Trao tay kỷ vật. Lưu trọn kỷ niệm
@@ -59,7 +57,7 @@ const Footer = ({ forceDefaultColor = false }: FooterProps) => {
               style={{
                 color: forceDefaultColor
                   ? undefined
-                  : color?.secondary3 || undefined
+                  : color?.secondary3 || undefined,
               }}
             >
               <MailIcon />
@@ -69,7 +67,7 @@ const Footer = ({ forceDefaultColor = false }: FooterProps) => {
               style={{
                 color: forceDefaultColor
                   ? undefined
-                  : color?.secondary3 || undefined
+                  : color?.secondary3 || undefined,
               }}
             >
               xuongkyuc@gmail.com
@@ -81,7 +79,7 @@ const Footer = ({ forceDefaultColor = false }: FooterProps) => {
               style={{
                 color: forceDefaultColor
                   ? undefined
-                  : color?.secondary3 || undefined
+                  : color?.secondary3 || undefined,
               }}
             >
               <PhoneIcon />
@@ -91,7 +89,7 @@ const Footer = ({ forceDefaultColor = false }: FooterProps) => {
               style={{
                 color: forceDefaultColor
                   ? undefined
-                  : color?.secondary3 || undefined
+                  : color?.secondary3 || undefined,
               }}
             >
               012 123 12 12
@@ -107,7 +105,7 @@ const Footer = ({ forceDefaultColor = false }: FooterProps) => {
             style={{
               color: forceDefaultColor
                 ? undefined
-                : color?.secondary3 || undefined
+                : color?.secondary3 || undefined,
             }}
           >
             <FacebookIcon />
@@ -119,7 +117,7 @@ const Footer = ({ forceDefaultColor = false }: FooterProps) => {
             style={{
               color: forceDefaultColor
                 ? undefined
-                : color?.secondary3 || undefined
+                : color?.secondary3 || undefined,
             }}
           >
             <InstagramIcon />
@@ -131,7 +129,7 @@ const Footer = ({ forceDefaultColor = false }: FooterProps) => {
             style={{
               color: forceDefaultColor
                 ? undefined
-                : color?.secondary3 || undefined
+                : color?.secondary3 || undefined,
             }}
           >
             <Tiktok />
@@ -142,7 +140,7 @@ const Footer = ({ forceDefaultColor = false }: FooterProps) => {
       <div
         className="h-[69px] mx-[60px] flex justify-center items-center max-sm:mx-0 text-center max-sm:text-sm"
         style={{
-          color: forceDefaultColor ? undefined : color?.secondary3 || undefined
+          color: forceDefaultColor ? undefined : color?.secondary3 || undefined,
         }}
       >
         Copyright &copy; {new Date().getFullYear()} xuongkyuc. All rights

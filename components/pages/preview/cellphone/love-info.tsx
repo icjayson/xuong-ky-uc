@@ -17,7 +17,15 @@ const LoveInfo = ({
   zodiac,
   description,
 }: LoveInfoProps) => {
-  const { color, data } = React.useContext(PreviewContext);
+  const { color, data, colorKey } = React.useContext(PreviewContext);
+
+  const getColorSchemeForFirstTwoDefaultColors = () => {
+    if (colorKey !== "custom" && (colorKey === "1" || colorKey === "2")) {
+      return color?.secondary3;
+    }
+
+    return color?.secondary4;
+  };
 
   return (
     <div className="flex flex-col items-center justify-center gap-2">
@@ -26,7 +34,7 @@ const LoveInfo = ({
           "text-xs font-medium text-black text-center prevent-overflow-word"
         )}
         style={{
-          color: color?.secondary4 || undefined,
+          color: getColorSchemeForFirstTwoDefaultColors(),
           fontFamily: data?.font || undefined,
         }}
       >
@@ -39,7 +47,7 @@ const LoveInfo = ({
             "text-[10px] text-black-80 opacity-80 text-center prevent-overflow-word"
           )}
           style={{
-            color: color?.secondary4 || undefined,
+            color: getColorSchemeForFirstTwoDefaultColors(),
             fontFamily: data?.font || undefined,
           }}
         >
@@ -50,7 +58,7 @@ const LoveInfo = ({
             "text-[8px] text-black-60 opacity-60 text-center prevent-overflow-word"
           )}
           style={{
-            color: color?.secondary4 || undefined,
+            color: getColorSchemeForFirstTwoDefaultColors(),
             fontFamily: data?.font || undefined,
           }}
         >
@@ -64,7 +72,7 @@ const LoveInfo = ({
             "text-[8px] text-black-60 opacity-60 text-center prevent-overflow-word"
           )}
           style={{
-            color: color?.secondary4 || undefined,
+            color: getColorSchemeForFirstTwoDefaultColors(),
             fontFamily: data?.font || undefined,
           }}
         >
@@ -76,7 +84,7 @@ const LoveInfo = ({
             "text-[8px] text-black-60 opacity-60 prevent-overflow-word"
           )}
           style={{
-            color: color?.secondary4 || undefined,
+            color: getColorSchemeForFirstTwoDefaultColors(),
             fontFamily: data?.font || undefined,
           }}
         >

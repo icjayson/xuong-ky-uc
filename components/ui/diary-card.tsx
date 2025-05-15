@@ -20,15 +20,9 @@ const DiaryCard = ({
   location,
   memory_date,
   description,
-  onClick
+  onClick,
 }: DiaryCardProps) => {
-  const { color, data, colorKey } = React.useContext(MainPageContext);
-
-  const diaryCardBackground = () => {
-    return colorKey !== "custom"
-      ? color?.secondary1
-      : color?.primary || undefined;
-  };
+  const { color, data } = React.useContext(MainPageContext);
 
   return (
     <Card
@@ -37,11 +31,11 @@ const DiaryCard = ({
         "w-full rounded-2xl flex flex-col gap-2",
         "max-sm:rounded-[8px]",
         {
-          "cursor-pointer": isEditMode
+          "cursor-pointer": isEditMode,
         }
       )}
       style={{
-        backgroundColor: diaryCardBackground()
+        backgroundColor: color?.primary || undefined,
       }}
       onClick={onClick}
     >
@@ -68,7 +62,7 @@ const DiaryCard = ({
               )}
               style={{
                 color: color?.secondary3 || undefined,
-                fontFamily: data?.font || undefined
+                fontFamily: data?.font || undefined,
               }}
             >
               {location}
@@ -82,7 +76,7 @@ const DiaryCard = ({
               )}
               style={{
                 color: color?.secondary3 || undefined,
-                fontFamily: data?.font || undefined
+                fontFamily: data?.font || undefined,
               }}
             >
               {format(new Date(memory_date || new Date()), "dd/MM/yyyy")}
@@ -97,7 +91,7 @@ const DiaryCard = ({
             )}
             style={{
               color: color?.secondary3 || undefined,
-              fontFamily: data?.font || undefined
+              fontFamily: data?.font || undefined,
             }}
           >
             &ldquo;{description}&rdquo;
@@ -113,7 +107,7 @@ const DiaryCard = ({
           )}
           style={{
             color: color?.secondary3 || undefined,
-            fontFamily: data?.font || undefined
+            fontFamily: data?.font || undefined,
           }}
         >
           Cập nhật nhật ký
