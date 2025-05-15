@@ -14,15 +14,7 @@ type LoveIconProps = {
 };
 
 const LoveIcon = ({ type = 1, className }: LoveIconProps) => {
-  const { color, colorKey } = React.useContext(PreviewContext);
-
-  const iconColorBlinkingHeart = () => {
-    if (colorKey === "2") return color?.secondary2;
-
-    if (colorKey === "1") return color?.secondary1;
-
-    return color?.secondary4 || undefined;
-  };
+  const { color } = React.useContext(PreviewContext);
 
   switch (type) {
     case 1:
@@ -33,7 +25,7 @@ const LoveIcon = ({ type = 1, className }: LoveIconProps) => {
             className
           )}
           style={{
-            color: iconColorBlinkingHeart()
+            color: color?.secondary4 || undefined,
           }}
         >
           <BlinkingHeart />

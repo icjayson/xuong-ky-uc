@@ -36,7 +36,7 @@ const Header = ({
   const pathname = usePathname();
   const isEditMode = pathname.split("/").includes("edit") || forceEditMode;
   const [isSharingModalOpen, setIsSharingModalOpen] = React.useState(false);
-  const { color, isLoading } = React.useContext(MainPageContext);
+  const { color, data, isLoading } = React.useContext(MainPageContext);
   const [isCollapsed, setIsCollapsed] = React.useState(false);
   return (
     <header
@@ -132,6 +132,7 @@ const Header = ({
                 : isMainPage
                 ? color?.secondary3
                 : undefined,
+              fontFamily: data?.font || undefined,
             }}
           >
             Chia sẻ

@@ -30,39 +30,39 @@ const INITIAL_CUSTOM_COLORS: ColorSchemeColors = {
   secondary1: "#000000",
   secondary2: "#000000",
   secondary3: "#000000",
-  secondary4: "#000000"
+  secondary4: "#000000",
 };
 
 export const COLOR_SCHEMES: Record<string, ColorScheme> = {
   "1": {
     colors: {
-      primary: "#eeeadf",
-      secondary1: "#cea19e",
+      primary: "#cea19e",
+      secondary1: "#eeeadf",
       secondary2: "#52403f",
       secondary3: "#000000",
-      secondary4: "#ffffff"
+      secondary4: "#ffffff",
     },
-    disabled: false
+    disabled: false,
   },
   "2": {
     colors: {
-      primary: "#ffb8e6",
-      secondary1: "#ff70cd",
-      secondary2: "#662d52",
+      primary: "#ff70cd",
+      secondary1: "#ffb8e6",
+      secondary2: "#ff00a6",
       secondary3: "#000000",
-      secondary4: "#ffffff"
+      secondary4: "#ffffff",
     },
-    disabled: false
+    disabled: false,
   },
   "3": {
     colors: {
       primary: "#7d412c",
       secondary1: "#eeeadf",
-      secondary2: "#bebbb2",
+      secondary2: "#603222",
       secondary3: "#000000",
-      secondary4: "#ffffff"
+      secondary4: "#ffffff",
     },
-    disabled: false
+    disabled: false,
   },
   "4": {
     colors: {
@@ -70,9 +70,9 @@ export const COLOR_SCHEMES: Record<string, ColorScheme> = {
       secondary1: "#eeeadf",
       secondary2: "#603222",
       secondary3: "#000000",
-      secondary4: "#ffffff"
+      secondary4: "#ffffff",
     },
-    disabled: true
+    disabled: true,
   },
   "5": {
     colors: {
@@ -80,10 +80,10 @@ export const COLOR_SCHEMES: Record<string, ColorScheme> = {
       secondary1: "#eeeadf",
       secondary2: "#603222",
       secondary3: "#000000",
-      secondary4: "#ffffff"
+      secondary4: "#ffffff",
     },
-    disabled: true
-  }
+    disabled: true,
+  },
 };
 
 const COLOR_NAMES: Record<keyof ColorSchemeColors, string> = {
@@ -91,14 +91,14 @@ const COLOR_NAMES: Record<keyof ColorSchemeColors, string> = {
   secondary1: "Màu phụ 1",
   secondary2: "Màu phụ 2",
   secondary3: "Màu phụ 3",
-  secondary4: "Màu phụ 4"
+  secondary4: "Màu phụ 4",
 };
 
 const ColorSchemePreview = ({
   id,
   scheme,
   isSelected,
-  onSelect
+  onSelect,
 }: {
   id: string;
   scheme: ColorScheme;
@@ -110,7 +110,7 @@ const ColorSchemePreview = ({
       "h-[100px] w-[70px] rounded-[6px] border-[0.5px] border-black overflow-hidden cursor-pointer relative",
       {
         "cursor-not-allowed opacity-25": scheme.disabled,
-        "border-checked-icon": isSelected
+        "border-checked-icon": isSelected,
       }
     )}
     onClick={() => !scheme.disabled && onSelect(id, scheme.colors)}
@@ -128,7 +128,7 @@ const ColorSchemePreview = ({
 
 const CustomColorPicker = ({
   colors,
-  onColorChange
+  onColorChange,
 }: {
   colors: ColorSchemeColors;
   onColorChange: (key: keyof ColorSchemeColors, color: string) => void;

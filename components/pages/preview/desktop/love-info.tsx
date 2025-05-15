@@ -15,9 +15,9 @@ const LoveInfo = ({
   nickName,
   dateOfBirth,
   zodiac,
-  description
+  description,
 }: LoveInfoProps) => {
-  const { color, data, colorKey } = React.useContext(PreviewContext);
+  const { color, data } = React.useContext(PreviewContext);
 
   return (
     <div className="flex flex-col items-center justify-center gap-2">
@@ -27,13 +27,8 @@ const LoveInfo = ({
           "max-sm:text-xs"
         )}
         style={{
-          color:
-            colorKey !== "custom"
-              ? colorKey == "3"
-                ? color?.secondary1
-                : color?.secondary3
-              : color?.secondary4 || undefined,
-          fontFamily: data?.font || undefined
+          color: color?.secondary4 || undefined,
+          fontFamily: data?.font || undefined,
         }}
       >
         {name}
@@ -46,13 +41,8 @@ const LoveInfo = ({
             "max-sm:text-[10px]"
           )}
           style={{
-            color:
-              colorKey !== "custom"
-                ? colorKey == "3"
-                  ? color?.secondary1
-                  : color?.secondary3
-                : color?.secondary4 || undefined,
-            fontFamily: data?.font || undefined
+            color: color?.secondary4 || undefined,
+            fontFamily: data?.font || undefined,
           }}
         >
           {nickName}
@@ -63,13 +53,8 @@ const LoveInfo = ({
             "max-sm:text-[8px]"
           )}
           style={{
-            color:
-              colorKey !== "custom"
-                ? colorKey == "3"
-                  ? color?.secondary1
-                  : color?.secondary3
-                : color?.secondary4 || undefined,
-            fontFamily: data?.font || undefined
+            color: color?.secondary4 || undefined,
+            fontFamily: data?.font || undefined,
           }}
         >
           {format(
@@ -83,13 +68,8 @@ const LoveInfo = ({
             "max-sm:text-[8px]"
           )}
           style={{
-            color:
-              colorKey !== "custom"
-                ? colorKey == "3"
-                  ? color?.secondary1
-                  : color?.secondary3
-                : color?.secondary4 || undefined,
-            fontFamily: data?.font || undefined
+            color: color?.secondary4 || undefined,
+            fontFamily: data?.font || undefined,
           }}
         >
           {zodiac}
@@ -101,13 +81,8 @@ const LoveInfo = ({
             "max-sm:text-[8px]"
           )}
           style={{
-            color:
-              colorKey !== "custom"
-                ? colorKey == "3"
-                  ? color?.secondary1
-                  : color?.secondary3
-                : color?.secondary4 || undefined,
-            fontFamily: data?.font || undefined
+            color: color?.secondary4 || undefined,
+            fontFamily: data?.font || undefined,
           }}
         >
           {description}

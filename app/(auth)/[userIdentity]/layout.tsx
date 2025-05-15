@@ -155,7 +155,7 @@ export default function RootLayout({
           >
             <div>
               <div
-                className="flex justify-center font-medium text-2xl mb-11"
+                className="flex justify-center font-medium text-2xl mb-11 text-center max-sm:text-base"
                 style={{
                   color: color?.secondary4 || "rgba(0, 0, 0, 0.8)",
                 }}
@@ -163,7 +163,7 @@ export default function RootLayout({
                 Bạn biết sắp đến ngày gì chưa?
               </div>
               <div
-                className="flex justify-center font-medium text-2xl mb-3"
+                className="flex justify-center font-medium text-2xl mb-3 text-center max-sm:text-base"
                 style={{
                   color: color?.secondary4 || "rgba(0, 0, 0, 0.8)",
                 }}
@@ -175,7 +175,7 @@ export default function RootLayout({
                 BÊN NHAU! 💖
               </div>
               <div
-                className="flex justify-center text-[18px] mb-8"
+                className="flex justify-center text-[18px] mb-8 text-center"
                 style={{
                   color: color?.secondary4 || "rgba(0, 0, 0, 0.8)",
                 }}
@@ -183,7 +183,7 @@ export default function RootLayout({
                 Vào ngày {milestone}
               </div>
               <div
-                className="flex justify-center text-justify mb-8 max-xl:text-base text-xl"
+                className="flex justify-center text-center mb-8 max-xl:text-base text-xl"
                 style={{
                   color: color?.secondary4 || "rgba(0, 0, 0, 0.8)",
                 }}
@@ -199,7 +199,7 @@ export default function RootLayout({
                 <LoveItem url={(data?.avatar_2_url as string) ?? ""} />
               </div>
               <div
-                className="flex justify-center text-justify mb-13"
+                className="flex justify-center text-center mb-13"
                 style={{
                   color: color?.secondary4 || "rgba(0, 0, 0, 0.8)",
                 }}
@@ -210,16 +210,21 @@ export default function RootLayout({
               <div
                 className={cn("flex justify-between gap-2", "max-sm:flex-col")}
               >
-                <Button
-                  className="max-sm:w-full"
-                  onClick={handleClickDismiss}
-                  style={{
-                    backgroundColor: color?.primary,
-                    color: color?.secondary3,
-                  }}
-                >
-                  Xem lại hành trình yêu nhau
-                </Button>
+                <div className="relative">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 text-[8px] text-white flex gap-1 items-center">
+                    Tắt thông báo trong 12 tiếng
+                  </div>
+                  <Button
+                    className="max-sm:w-full"
+                    onClick={handleClickDismiss}
+                    style={{
+                      backgroundColor: color?.primary,
+                      color: color?.secondary3,
+                    }}
+                  >
+                    Xem lại hành trình yêu nhau
+                  </Button>
+                </div>
                 <div className="relative">
                   <Button
                     className="max-sm:w-full "

@@ -8,7 +8,7 @@ type ClockPieceProps = {
 };
 
 const ClockPiece = ({ number, timeType }: ClockPieceProps) => {
-  const { color, data, colorKey } = React.useContext(PreviewContext);
+  const { color, data } = React.useContext(PreviewContext);
 
   return (
     <div
@@ -19,10 +19,7 @@ const ClockPiece = ({ number, timeType }: ClockPieceProps) => {
         "max-xl:w-[128px] max-xl:h-[128px] max-xl:rounded-[16px] max-xl:gap-2"
       )}
       style={{
-        backgroundColor:
-          colorKey !== "custom"
-            ? color?.secondary2
-            : color?.secondary2 || undefined
+        backgroundColor: color?.secondary2 || undefined,
       }}
     >
       <div
@@ -33,11 +30,8 @@ const ClockPiece = ({ number, timeType }: ClockPieceProps) => {
           "max-xl:text-4xl"
         )}
         style={{
-          color:
-            colorKey !== "custom"
-              ? color?.primary
-              : color?.secondary1 || undefined,
-          fontFamily: data?.font || undefined
+          color: color?.secondary1 || undefined,
+          fontFamily: data?.font || undefined,
         }}
       >
         {number}
@@ -50,11 +44,8 @@ const ClockPiece = ({ number, timeType }: ClockPieceProps) => {
           "max-xl:text-sm"
         )}
         style={{
-          color:
-            colorKey !== "custom"
-              ? color?.primary
-              : color?.secondary1 || undefined,
-          fontFamily: data?.font || undefined
+          color: color?.secondary1 || undefined,
+          fontFamily: data?.font || undefined,
         }}
       >
         {timeType}

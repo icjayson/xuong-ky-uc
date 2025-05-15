@@ -52,7 +52,7 @@ const SelectImagesModal = ({
       }}
     >
       <DialogContent
-        className="!rounded-[32px] max-h-screen w-full !max-w-[min(728px,95vw)]"
+        className="!rounded-[32px] max-h-screen w-full !max-w-[min(728px,95vw)] gap-0"
         style={{
           backgroundColor: color?.secondary1 || "rgba(238, 234, 223, 1)",
         }}
@@ -78,7 +78,7 @@ const SelectImagesModal = ({
 
           <div
             className={cn(
-              "mt-5 grid grid-cols-3 gap-4 max-h-[50vh] overflow-y-auto max-md:max-h-[40vh]"
+              "mt-5 grid grid-cols-3 gap-4 max-h-[50vh] overflow-y-auto max-sm:gap-2 max-md:max-h-[40vh]"
             )}
           >
             {allMemories.map((image) => (

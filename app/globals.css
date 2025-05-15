@@ -38,7 +38,7 @@
 
 @font-face {
   font-family: "Cookii Display";
-  src: url("/fonts/Cookii Display Font.ttf") format("truetype");
+  src: url("/fonts/Cookii Display Font.otf") format("opentype");
 }
 
 @font-face {

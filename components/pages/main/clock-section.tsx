@@ -5,23 +5,17 @@ import { formatDurationFrom } from "@/utils/date";
 import { MainPageContext } from "@/contexts/contexts";
 
 const ClockSection = () => {
-  const { data, color, colorKey } = React.useContext(MainPageContext);
+  const { data, color } = React.useContext(MainPageContext);
 
   const fromDate = new Date(
     data.start_date_of_love || new Date().toISOString()
   ).toLocaleDateString("vi-VN", {
     year: "numeric",
     month: "2-digit",
-    day: "2-digit"
+    day: "2-digit",
   });
 
   const { years, months, days, hours } = formatDurationFrom(fromDate);
-
-  const clockBackground = () => {
-    return colorKey !== "custom"
-      ? color?.secondary1
-      : color?.primary || undefined;
-  };
 
   return (
     <div
@@ -30,7 +24,7 @@ const ClockSection = () => {
         "max-sm:rounded-[10px] max-sm:py-2 max-sm:shadow-timer-small max-sm:backdrop-timer-small max-sm:gap-1"
       )}
       style={{
-        backgroundColor: clockBackground()
+        backgroundColor: color?.primary || undefined,
       }}
     >
       <div
@@ -42,7 +36,7 @@ const ClockSection = () => {
         )}
         style={{
           color: color?.secondary3 || undefined,
-          fontFamily: data?.font || undefined
+          fontFamily: data?.font || undefined,
         }}
       >
         {data?.title || "Đã bên nhau"}
@@ -66,7 +60,7 @@ const ClockSection = () => {
         )}
         style={{
           color: color?.secondary3 || undefined,
-          fontFamily: data?.font || undefined
+          fontFamily: data?.font || undefined,
         }}
       >
         Từ {fromDate}

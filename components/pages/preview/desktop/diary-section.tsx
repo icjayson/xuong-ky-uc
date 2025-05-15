@@ -6,7 +6,7 @@ import React from "react";
 import { PreviewContext } from "../../admin/preview";
 
 const DiarySection = () => {
-  const { memories, color, data, colorKey } = React.useContext(PreviewContext);
+  const { memories, color, data } = React.useContext(PreviewContext);
 
   return (
     <div
@@ -23,13 +23,8 @@ const DiarySection = () => {
           "max-xl:text-xl"
         )}
         style={{
-          color:
-            colorKey !== "custom"
-              ? colorKey == "3"
-                ? color?.secondary1
-                : color?.secondary3
-              : color?.secondary4 || undefined,
-          fontFamily: data?.font || undefined
+          color: color?.secondary4 || undefined,
+          fontFamily: data?.font || undefined,
         }}
       >
         Nhật ký tình yêu

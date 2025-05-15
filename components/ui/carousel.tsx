@@ -65,7 +65,12 @@ export function Carousel({ frames, selectedId, onSelect }: CarouselProps) {
                   />
                 ) : null}
 
-                <div className="relative grid grid-cols-2 gap-1 z-[2] px-[13px] pt-2 pb-[30px]">
+                <div
+                  className={cn(
+                    "relative grid grid-cols-2 gap-[2px] z-[2] px-[13px] pt-2 pb-[30px]",
+                    "max-sm:px-[7px] max-sm:pt-[5px]"
+                  )}
+                >
                   {items.map((miniItem, index) => (
                     <div
                       key={miniItem}
@@ -75,7 +80,7 @@ export function Carousel({ frames, selectedId, onSelect }: CarouselProps) {
                         backgroundColor: item?.borders && item.borders?.[index],
                       }}
                     >
-                      <div className="w-full aspect-square bg-frame-item rounded-xs"></div>
+                      <div className="w-full aspect-square bg-frame-item rounded-xs max-sm:rounded-[1px]"></div>
                     </div>
                   ))}
                 </div>

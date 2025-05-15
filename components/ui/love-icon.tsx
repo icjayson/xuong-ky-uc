@@ -19,15 +19,7 @@ const LoveIcon = ({
   className,
   isReminder = false,
 }: LoveIconProps) => {
-  const { color, colorKey } = React.useContext(MainPageContext);
-
-  const iconColorBlinkingHeart = () => {
-    if (colorKey === "2") return color?.secondary2;
-
-    if (colorKey === "1") return color?.secondary1;
-
-    return color?.secondary4 || undefined;
-  };
+  const { color } = React.useContext(MainPageContext);
 
   switch (type) {
     case 1:
@@ -38,7 +30,7 @@ const LoveIcon = ({
             className
           )}
           style={{
-            color: iconColorBlinkingHeart(),
+            color: color?.secondary4 || undefined,
           }}
         >
           <BlinkingHeart isReminder={isReminder} />

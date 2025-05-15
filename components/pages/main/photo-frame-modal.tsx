@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Carousel } from "@/components/ui/carousel";
 import {
@@ -9,8 +11,8 @@ import {
 import { MainPageContext } from "@/contexts/contexts";
 import { cn } from "@/lib/utils";
 import { useDeviceSize } from "@/utils/get-device-size";
-import { Image } from "konva/lib/shapes/Image";
-import React from "react";
+import type { Image } from "konva/lib/shapes/Image";
+import React, { useEffect, useState } from "react";
 import { Group, Image as KonvaImage, Layer, Rect, Stage } from "react-konva";
 import { toast } from "sonner";
 import useImage from "use-image";
@@ -189,11 +191,8 @@ const FRAME_PADDING_TOP = 21;
 const FRAME_PADDING_SIDE = 39.62;
 const IMAGE_SIZE = 172.34;
 const GAP = 12.89;
-const SCALE_FACTOR = 0.6;
 const BORDER_WIDTH = 1;
 const IMAGE_PADDING = 2;
-const GAP_RESPONSIVE = GAP / 2;
-const FRAME_PADDING_TOP_RESPONSIVE = FRAME_PADDING_TOP + GAP_RESPONSIVE;
 
 type ObjectFitCoverImageProps = {
   src: string;
@@ -203,16 +202,18 @@ type ObjectFitCoverImageProps = {
   y?: number;
   borderColor?: string;
   fill?: string;
+  quality?: "high" | "medium" | "low";
 };
 
 function ObjectFitCoverImage({
   src,
   width,
   height,
-  x,
-  y,
+  x = 0,
+  y = 0,
   borderColor,
   fill,
+  quality = "high",
 }: ObjectFitCoverImageProps) {
   const [crop, setCrop] = React.useState({ x: 0, y: 0, width: 0, height: 0 });
   const imageRef = React.useRef<Image>(null);
@@ -243,8 +244,8 @@ function ObjectFitCoverImage({
     <Group>
       {borderColor && (
         <Rect
-          x={(x ?? 0) - BORDER_WIDTH}
-          y={(y ?? 0) - BORDER_WIDTH}
+          x={x - BORDER_WIDTH}
+          y={y - BORDER_WIDTH}
           width={width + BORDER_WIDTH * 2}
           height={height + BORDER_WIDTH * 2}
           stroke={borderColor}
@@ -257,10 +258,12 @@ function ObjectFitCoverImage({
         image={image}
         width={width - IMAGE_PADDING * 2}
         height={height - IMAGE_PADDING * 2}
-        x={(x ?? 0) + IMAGE_PADDING}
-        y={(y ?? 0) + IMAGE_PADDING}
+        x={x + IMAGE_PADDING}
+        y={y + IMAGE_PADDING}
         crop={crop}
-        perfectDrawEnabled={false}
+        perfectDrawEnabled={true}
+        imageSmoothingEnabled={true}
+        imageSmoothingQuality={quality}
         cornerRadius={3}
         fill={fill}
       />
@@ -275,14 +278,22 @@ const PhotoFrameModal = ({
   onClickBack,
   setSelectedImages,
 }: PhotoFrameModalProps) => {
-  const { memories, color } = React.useContext(MainPageContext);
+  const { allMemories, color } = React.useContext(MainPageContext);
   const [selectedPhotoFrameId, setSelectedPhotoFrameId] =
     React.useState<number>(1);
+  const [devicePixelRatio, setDevicePixelRatio] = useState(1);
 
   const deviceType = useDeviceSize();
   const isLarge = deviceType === "xl" || deviceType === "lg";
 
+  const displayScale = isLarge ? 1 : 0.6;
+
+  const containerWidth = FRAME_WIDTH * displayScale;
+  const containerHeight = FRAME_HEIGHT * displayScale;
+
   const stageRef = React.useRef<any>(null);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
   const framesMap = new Map<number, FramesList>(
     frames.map((frame) => [frame.id, frame])
   );
@@ -290,24 +301,43 @@ const PhotoFrameModal = ({
 
   const formattedImages = selectedImages
     .map(
-      (id) => memories.find((memory) => memory.id.toString() === id)?.image_url
+      (id) =>
+        allMemories.find((memory) => memory.id.toString() === id)?.image_url
     )
-    .filter(Boolean);
+    .filter(Boolean) as string[];
+
+  useEffect(() => {
+    setDevicePixelRatio(window.devicePixelRatio || 1);
+  }, []);
 
   const handleSelectPhotoFrame = (id: number) => {
     setSelectedPhotoFrameId(id);
   };
 
   const handleClickDownload = () => {
-    const uri = stageRef.current.toDataURL({ pixelRatio: 2 });
-    const link = document.createElement("a");
-    link.download = "photo-booth.png";
-    link.href = uri;
-    link.click();
-    setIsPhotoFrameModalOpen(false);
-    setSelectedPhotoFrameId(1);
-    setSelectedImages([]);
-    toast.success("Tải xuống thành công");
+    setTimeout(() => {
+      try {
+        const uri = stageRef.current.toDataURL({
+          pixelRatio: Math.max(4, devicePixelRatio * 2),
+          mimeType: "image/png",
+          quality: 1,
+        });
+
+        const link = document.createElement("a");
+        link.download = "photo-booth.png";
+        link.href = uri;
+        link.click();
+
+        setIsPhotoFrameModalOpen(false);
+        setSelectedPhotoFrameId(1);
+        setSelectedImages([]);
+
+        toast.success("Tải xuống thành công");
+      } catch (error) {
+        toast.error("Có lỗi xảy ra khi tạo ảnh");
+        console.error("Error generating image:", error);
+      }
+    }, 100);
   };
 
   return (
@@ -317,7 +347,7 @@ const PhotoFrameModal = ({
     >
       <DialogContent
         className={cn(
-          "!rounded-[32px] w-full max-xl:!max-w-[min(564px,95vw)] !max-w-[calc(564px+172.34px*0.6)] h-fit",
+          "!rounded-[32px] w-full max-xl:!max-w-[min(564px,95vw)] !max-w-[calc(564px+172.34px*0.6)] h-fit gap-0",
           "max-lg:max-w-[calc(564px*0.7)]"
         )}
         style={{
@@ -334,81 +364,86 @@ const PhotoFrameModal = ({
         </DialogTitle>
         <DialogDescription />
 
-        <div className="flex justify-between max-xl:flex-col max-xl:justify-normal overflow-y-auto max-h-[70vh] w-full">
-          <div className="relative !h-[654px] max-lg:!h-[calc(654px*0.7)] max-sm:!h-[calc(654px*0.6)]">
-            <Stage
-              ref={stageRef}
-              width={isLarge ? FRAME_WIDTH : FRAME_WIDTH * SCALE_FACTOR}
-              height={isLarge ? FRAME_HEIGHT : FRAME_HEIGHT * SCALE_FACTOR}
-              className="flex justify-center"
+        <div className="flex justify-between max-xl:flex-col max-xl:justify-normal overflow-y-auto max-h-[70vh] w-full mt-5">
+          <div className="flex justify-center">
+            <div
+              ref={containerRef}
+              className="relative"
+              style={{
+                width: `${containerWidth}px`,
+                height: `${containerHeight}px`,
+                overflow: "hidden",
+              }}
             >
-              <Layer>
-                {selectedFrame?.frame1?.startsWith("#") ? (
-                  <Rect
-                    fill={selectedFrame?.frame1}
-                    x={0}
-                    y={0}
-                    width={isLarge ? FRAME_WIDTH : FRAME_WIDTH * SCALE_FACTOR}
-                    height={
-                      isLarge ? FRAME_HEIGHT : FRAME_HEIGHT * SCALE_FACTOR
-                    }
-                  />
-                ) : (
-                  <ObjectFitCoverImage
-                    src={selectedFrame?.frame1 || ""}
-                    width={isLarge ? FRAME_WIDTH : FRAME_WIDTH * SCALE_FACTOR}
-                    height={
-                      isLarge ? FRAME_HEIGHT : FRAME_HEIGHT * SCALE_FACTOR
-                    }
-                    x={0}
-                    y={0}
-                    fill={selectedFrame?.bgColor || undefined}
-                  />
-                )}
-              </Layer>
-              <Layer>
-                {formattedImages.map((src, index) => {
-                  const col = index % 2;
-                  const row = Math.floor(index / 2);
-                  const x = isLarge
-                    ? FRAME_PADDING_SIDE + col * (IMAGE_SIZE + GAP)
-                    : FRAME_PADDING_SIDE * SCALE_FACTOR +
-                      col *
-                        (IMAGE_SIZE * SCALE_FACTOR +
-                          GAP_RESPONSIVE * SCALE_FACTOR);
-                  const y = isLarge
-                    ? FRAME_PADDING_TOP + row * (IMAGE_SIZE + GAP)
-                    : FRAME_PADDING_TOP_RESPONSIVE * SCALE_FACTOR +
-                      row *
-                        (IMAGE_SIZE * SCALE_FACTOR +
-                          GAP_RESPONSIVE * SCALE_FACTOR);
-                  return (
-                    <ObjectFitCoverImage
-                      key={index}
-                      src={src || ""}
-                      width={isLarge ? IMAGE_SIZE : IMAGE_SIZE * SCALE_FACTOR}
-                      height={isLarge ? IMAGE_SIZE : IMAGE_SIZE * SCALE_FACTOR}
-                      x={x}
-                      y={y}
-                      borderColor={selectedFrame?.borders?.[index] ?? undefined}
+              <Stage
+                ref={stageRef}
+                width={FRAME_WIDTH}
+                height={FRAME_HEIGHT}
+                className="flex justify-center"
+                style={{
+                  transform: `scale(${displayScale})`,
+                  transformOrigin: "top left",
+                }}
+                perfectDrawEnabled={true}
+              >
+                <Layer>
+                  {selectedFrame?.frame1?.startsWith("#") ? (
+                    <Rect
+                      fill={selectedFrame?.frame1}
+                      x={0}
+                      y={0}
+                      width={FRAME_WIDTH}
+                      height={FRAME_HEIGHT}
                     />
-                  );
-                })}
-              </Layer>
-              <Layer>
-                {selectedFrame?.frame2 && (
-                  <ObjectFitCoverImage
-                    src={selectedFrame.frame2}
-                    width={isLarge ? FRAME_WIDTH : FRAME_WIDTH * SCALE_FACTOR}
-                    height={
-                      isLarge ? FRAME_HEIGHT : FRAME_HEIGHT * SCALE_FACTOR
-                    }
-                    x={0}
-                    y={0}
-                  />
-                )}
-              </Layer>
-            </Stage>
+                  ) : (
+                    <ObjectFitCoverImage
+                      src={selectedFrame?.frame1 || ""}
+                      width={FRAME_WIDTH}
+                      height={FRAME_HEIGHT}
+                      x={0}
+                      y={0}
+                      fill={selectedFrame?.bgColor || undefined}
+                      quality="high"
+                    />
+                  )}
+                </Layer>
+                <Layer>
+                  {formattedImages.map((src, index) => {
+                    const col = index % 2;
+                    const row = Math.floor(index / 2);
+                    const x = FRAME_PADDING_SIDE + col * (IMAGE_SIZE + GAP);
+                    const y = FRAME_PADDING_TOP + row * (IMAGE_SIZE + GAP);
+
+                    return (
+                      <ObjectFitCoverImage
+                        key={index}
+                        src={src || ""}
+                        width={IMAGE_SIZE}
+                        height={IMAGE_SIZE}
+                        x={x}
+                        y={y}
+                        borderColor={
+                          selectedFrame?.borders?.[index] ?? undefined
+                        }
+                        quality="high"
+                      />
+                    );
+                  })}
+                </Layer>
+                <Layer>
+                  {selectedFrame?.frame2 && (
+                    <ObjectFitCoverImage
+                      src={selectedFrame.frame2}
+                      width={FRAME_WIDTH}
+                      height={FRAME_HEIGHT}
+                      x={0}
+                      y={0}
+                      quality="high"
+                    />
+                  )}
+                </Layer>
+              </Stage>
+            </div>
           </div>
 
           <div className="max-xl:mt-5">

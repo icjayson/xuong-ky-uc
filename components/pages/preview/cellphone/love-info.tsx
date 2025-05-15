@@ -15,9 +15,9 @@ const LoveInfo = ({
   nickName,
   dateOfBirth,
   zodiac,
-  description
+  description,
 }: LoveInfoProps) => {
-  const { color, data, colorKey } = React.useContext(PreviewContext);
+  const { color, data } = React.useContext(PreviewContext);
 
   return (
     <div className="flex flex-col items-center justify-center gap-2">
@@ -26,13 +26,8 @@ const LoveInfo = ({
           "text-xs font-medium text-black text-center prevent-overflow-word"
         )}
         style={{
-          color:
-            colorKey !== "custom"
-              ? colorKey == "3"
-                ? color?.secondary1
-                : color?.secondary3
-              : color?.secondary4 || undefined,
-          fontFamily: data?.font || undefined
+          color: color?.secondary4 || undefined,
+          fontFamily: data?.font || undefined,
         }}
       >
         {name}
@@ -44,13 +39,8 @@ const LoveInfo = ({
             "text-[10px] text-black-80 opacity-80 text-center prevent-overflow-word"
           )}
           style={{
-            color:
-              colorKey !== "custom"
-                ? colorKey == "3"
-                  ? color?.secondary1
-                  : color?.secondary3
-                : color?.secondary4 || undefined,
-            fontFamily: data?.font || undefined
+            color: color?.secondary4 || undefined,
+            fontFamily: data?.font || undefined,
           }}
         >
           {nickName}
@@ -60,13 +50,8 @@ const LoveInfo = ({
             "text-[8px] text-black-60 opacity-60 text-center prevent-overflow-word"
           )}
           style={{
-            color:
-              colorKey !== "custom"
-                ? colorKey == "3"
-                  ? color?.secondary1
-                  : color?.secondary3
-                : color?.secondary4 || undefined,
-            fontFamily: data?.font || undefined
+            color: color?.secondary4 || undefined,
+            fontFamily: data?.font || undefined,
           }}
         >
           {format(
@@ -79,13 +64,8 @@ const LoveInfo = ({
             "text-[8px] text-black-60 opacity-60 text-center prevent-overflow-word"
           )}
           style={{
-            color:
-              colorKey !== "custom"
-                ? colorKey == "3"
-                  ? color?.secondary1
-                  : color?.secondary3
-                : color?.secondary4 || undefined,
-            fontFamily: data?.font || undefined
+            color: color?.secondary4 || undefined,
+            fontFamily: data?.font || undefined,
           }}
         >
           {zodiac}
@@ -96,13 +76,8 @@ const LoveInfo = ({
             "text-[8px] text-black-60 opacity-60 prevent-overflow-word"
           )}
           style={{
-            color:
-              colorKey !== "custom"
-                ? colorKey == "3"
-                  ? color?.secondary1
-                  : color?.secondary3
-                : color?.secondary4 || undefined,
-            fontFamily: data?.font || undefined
+            color: color?.secondary4 || undefined,
+            fontFamily: data?.font || undefined,
           }}
         >
           {description}

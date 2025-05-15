@@ -14,7 +14,7 @@ type DiarySectionProps = {
 };
 
 const DiarySection = ({ isEditMode = false }: DiarySectionProps) => {
-  const { memories, color, data, colorKey } = React.useContext(MainPageContext);
+  const { memories, color, data } = React.useContext(MainPageContext);
   const [isSelectingImages, setIsSelectingImages] = React.useState(false);
   const [isPhotoFrameModalOpen, setIsPhotoFrameModalOpen] =
     React.useState(false);
@@ -48,12 +48,7 @@ const DiarySection = ({ isEditMode = false }: DiarySectionProps) => {
           "max-xl:text-xl"
         )}
         style={{
-          color:
-            colorKey !== "custom"
-              ? colorKey == "3"
-                ? color?.secondary1
-                : color?.secondary3
-              : color?.secondary4 || undefined,
+          color: color?.secondary4 || undefined,
           fontFamily: data?.font || undefined,
         }}
       >
@@ -84,6 +79,7 @@ const DiarySection = ({ isEditMode = false }: DiarySectionProps) => {
               style={{
                 backgroundColor: color?.primary,
                 color: color?.secondary3,
+                fontFamily: data?.font || undefined,
               }}
             >
               Tải xuống nhật ký
