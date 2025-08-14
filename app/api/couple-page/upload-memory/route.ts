@@ -1,5 +1,7 @@
 import { getUser } from "@/utils/middlewares";
+import { s3 } from "@/utils/s3-storage";
 import supabase from "@/utils/supabase";
+import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
@@ -24,40 +26,49 @@ export async function POST(req: Request) {
   }
 
   const fileExt = file.name.split(".").pop();
-  const filePath = `${userId}/memories/${uuidv4()}.${fileExt}`;
+  const filePath = `memories/${userId}/${uuidv4()}.${fileExt}`;
 
-  const { error: uploadError } = await supabase.storage
-    .from("memories")
-    .upload(filePath, file, {
-      cacheControl: "3600",
-      upsert: true
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    await s3.send(
+      new PutObjectCommand({
+        Bucket: process.env.AWS_BUCKET_PATHNAME || "",
+        Key: filePath,
+        Body: buffer,
+        ContentType: file.type,
+        ACL: "public-read",
+        CacheControl: "no-cache, no-store, must-revalidate",
+      })
+    );
+
+    const publicUrl = `${process.env.AWS_ENDPOINT}/${process.env.AWS_BUCKET_PATHNAME}/${filePath}`;
+
+    const { error: insertError } = await supabase.from("memory_images").insert({
+      memory_id,
+      image_url: publicUrl,
+      description,
+      is_visible,
+      location,
+      memory_date,
     });
 
-  if (uploadError) {
-    return NextResponse.json({ error: uploadError.message }, { status: 500 });
+    if (insertError) {
+      return NextResponse.json({ error: insertError.message }, { status: 500 });
+    }
+
+    return NextResponse.json({
+      message: "Tải ảnh lên thành công",
+      url: publicUrl,
+    });
+  } catch (error: any) {
+    console.error("S3 upload error:", error.message || error);
+    return NextResponse.json(
+      { error: "Không thể tải ảnh lên" },
+      { status: 500 }
+    );
   }
-
-  const {
-    data: { publicUrl }
-  } = supabase.storage.from("memories").getPublicUrl(filePath);
-
-  const { error: insertError } = await supabase.from("memory_images").insert({
-    memory_id,
-    image_url: publicUrl,
-    description,
-    is_visible,
-    location,
-    memory_date
-  });
-
-  if (insertError) {
-    return NextResponse.json({ error: insertError.message }, { status: 500 });
-  }
-
-  return NextResponse.json({
-    message: "Tải ảnh lên thành công",
-    url: publicUrl
-  });
 }
 
 export async function PATCH(req: Request) {
@@ -74,31 +85,64 @@ export async function PATCH(req: Request) {
   const memory_id = formData.get("memory_id") as string;
 
   const updates: Record<string, any> = {
-    is_visible: is_visible === "true" ? true : false
+    is_visible: is_visible === "true" ? true : false,
   };
   if (description) updates.description = description;
   if (location) updates.location = location;
   if (memory_date) updates.memory_date = memory_date;
   if (typeof file !== "string") {
-    const fileExt = file.name.split(".").pop();
-    const filePath = `${userId}/memories/${uuidv4()}.${fileExt}`;
+    try {
+      const { data: oldRecord, error: fetchError } = await supabase
+        .from("memory_images")
+        .select("image_url")
+        .eq("id", memory_id)
+        .single();
 
-    const { error: uploadError } = await supabase.storage
-      .from("memories")
-      .upload(filePath, file, {
-        cacheControl: "3600",
-        upsert: true
-      });
+      if (fetchError) {
+        console.error("Error fetching old image:", fetchError.message);
+      } else if (oldRecord?.image_url) {
+        const url = new URL(oldRecord.image_url);
+        const oldKey = decodeURIComponent(url.pathname.replace(/^\/+/, ""));
+        const key = oldKey.replace(/^xuongkyuc\//, "");
 
-    if (uploadError) {
-      return NextResponse.json({ error: uploadError.message }, { status: 500 });
+        try {
+          await s3.send(
+            new DeleteObjectCommand({
+              Bucket: process.env.AWS_BUCKET_PATHNAME || "",
+              Key: key,
+            })
+          );
+        } catch (deleteErr) {
+          console.error("S3 delete error:", deleteErr);
+        }
+      }
+
+      const fileExt = file.name.split(".").pop();
+      const filePath = `memories/${userId}/${uuidv4()}.${fileExt}`;
+
+      const arrayBuffer = await file.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+
+      await s3.send(
+        new PutObjectCommand({
+          Bucket: process.env.AWS_BUCKET_PATHNAME || "",
+          Key: filePath,
+          Body: buffer,
+          ContentType: file.type,
+          ACL: "public-read",
+          CacheControl: "no-cache, no-store, must-revalidate",
+        })
+      );
+
+      const publicUrl = `${process.env.AWS_ENDPOINT}/${process.env.AWS_BUCKET_PATHNAME}/${filePath}`;
+      updates.image_url = publicUrl;
+    } catch (error: any) {
+      console.error("S3 upload error:", error.message || error);
+      return NextResponse.json(
+        { error: "Không thể tải ảnh lên" },
+        { status: 500 }
+      );
     }
-
-    const {
-      data: { publicUrl }
-    } = supabase.storage.from("memories").getPublicUrl(filePath);
-
-    updates.image_url = publicUrl;
   }
 
   const { error: updateError } = await supabase
@@ -112,7 +156,7 @@ export async function PATCH(req: Request) {
 
   return NextResponse.json({
     message: "Cập nhật ảnh thành công",
-    url: updates.image_url
+    url: updates.image_url,
   });
 }
 
@@ -137,15 +181,19 @@ export async function DELETE(req: Request) {
     );
   }
 
-  const filePath = memory.image_url.split(
-    "/storage/v1/object/public/memories/"
-  )[1];
+  try {
+    const url = new URL(memory.image_url);
+    const filePath = decodeURIComponent(url.pathname.replace(/^\/+/, ""));
+    const key = filePath.replace(/^xuongkyuc\//, "");
 
-  const { error: deleteImagesError } = await supabase.storage
-    .from("memories")
-    .remove([filePath.toString()]);
-
-  if (deleteImagesError) {
+    await s3.send(
+      new DeleteObjectCommand({
+        Bucket: process.env.AWS_BUCKET_PATHNAME || "",
+        Key: key,
+      })
+    );
+  } catch (err: any) {
+    console.error("S3 delete error:", err.message || err);
     return NextResponse.json(
       { error: "Không thể xóa ảnh kỷ niệm" },
       { status: 500 }

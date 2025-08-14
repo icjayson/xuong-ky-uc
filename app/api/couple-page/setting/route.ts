@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     font,
     color_scheme,
     clock_type,
-    is_sharing
+    is_sharing,
   } = await req.json();
 
   const { data: existingPage } = await supabase
@@ -140,7 +140,7 @@ export async function POST(req: Request) {
     font,
     color_scheme,
     clock_type,
-    is_sharing
+    is_sharing,
   });
   if (error)
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -173,7 +173,9 @@ export async function GET() {
     color_scheme: JSON.parse(data.color_scheme),
     start_date_of_love: new Date(data.start_date_of_love).toLocaleDateString(),
     person1_dob: new Date(data.person1_dob).toLocaleDateString(),
-    person2_dob: new Date(data.person2_dob).toLocaleDateString()
+    person2_dob: new Date(data.person2_dob).toLocaleDateString(),
+    avatar_1_url: `${data.avatar_1_url}?v=${Date.now()}`,
+    avatar_2_url: `${data.avatar_2_url}?v=${Date.now()}`,
   };
 
   return NextResponse.json({ data: formattedData });
@@ -193,6 +195,19 @@ export async function PATCH(req: Request) {
     if (domain.includes("@")) {
       return NextResponse.json(
         { error: "Domain không được chứa ký tự @." },
+        { status: 400 }
+      );
+    }
+
+    const { data: user, error: domainError } = await supabase
+      .from("user")
+      .select("domain")
+      .eq("id", userId)
+      .single();
+
+    if (domainError || user.domain === domain) {
+      return NextResponse.json(
+        { error: "URL này đã bị trùng, cập nhật thất bại" },
         { status: 400 }
       );
     }
@@ -220,13 +235,6 @@ export async function PATCH(req: Request) {
     .eq("id", userId);
 
   if (error) {
-    if (error?.message.includes("unique_domain")) {
-      return NextResponse.json(
-        { error: "Domain đã được sử dụng." },
-        { status: 400 }
-      );
-    }
-
     console.error("Update error:", error.message);
     return NextResponse.json({ error: "Cập nhật thất bại" }, { status: 500 });
   }

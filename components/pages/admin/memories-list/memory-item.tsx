@@ -11,7 +11,7 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { MemoryContext } from "@/contexts/contexts";
 import { format } from "date-fns";
@@ -34,7 +34,7 @@ const MemoryItem = ({
   memory_date,
   image_url,
   description,
-  is_visible
+  is_visible,
 }: MemoryItemProps) => {
   const [imageUrl, setImageUrl] = React.useState<string | File>(image_url);
   const [editedLocation, setEditedLocation] = React.useState<string>(location);
@@ -68,7 +68,12 @@ const MemoryItem = ({
       formData.append("file", convertedFile || editedImage);
       formData.append("memory_id", id.toString());
       formData.append("location", editedLocation);
-      formData.append("memory_date", new Date(editedDate).toLocaleDateString());
+      formData.append(
+        "memory_date",
+        `${new Date(editedDate).getFullYear()}-${
+          new Date(editedDate).getMonth() + 1
+        }-${new Date(editedDate).getDate()}`
+      );
       formData.append("description", editedDescription);
       formData.append(
         "is_visible",
@@ -77,7 +82,7 @@ const MemoryItem = ({
 
       const response = await fetch(`/api/couple-page/upload-memory`, {
         method: "PATCH",
-        body: formData
+        body: formData,
       });
 
       if (response.ok) {
@@ -98,7 +103,7 @@ const MemoryItem = ({
 
       const response = await fetch(`/api/couple-page/upload-memory`, {
         method: "DELETE",
-        body: formData
+        body: formData,
       });
 
       if (response.ok) {

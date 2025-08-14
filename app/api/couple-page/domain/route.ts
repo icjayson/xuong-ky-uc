@@ -67,6 +67,8 @@ export async function GET(req: Request) {
   const formattedData = {
     ...data,
     color_scheme: JSON.parse(data.color_scheme || "{}"),
+    avatar_1_url: `${data.avatar_1_url}?v=${Date.now()}`,
+    avatar_2_url: `${data.avatar_2_url}?v=${Date.now()}`,
   };
 
   return NextResponse.json({

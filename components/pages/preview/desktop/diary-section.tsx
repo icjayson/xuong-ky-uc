@@ -43,9 +43,11 @@ const DiarySection = () => {
           "max-lg:gap-4 max-lg:grid-cols-3"
         )}
       >
-        {memories.map((memory) => (
-          <DiaryCard key={memory.id} {...memory} />
-        ))}
+        {memories
+          .filter((memory) => memory.is_visible)
+          .map((memory) => (
+            <DiaryCard key={memory.id} {...memory} />
+          ))}
       </div>
     </div>
   );

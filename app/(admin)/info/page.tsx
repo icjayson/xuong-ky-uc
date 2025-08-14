@@ -44,7 +44,7 @@ const InfoPage = () => {
       setIsLoading(true);
       const res = await fetch("/api/couple-page/setting", {
         method: "PATCH",
-        body: JSON.stringify({ domain })
+        body: JSON.stringify({ domain }),
       });
       const { error } = await res.json();
 
@@ -67,7 +67,7 @@ const InfoPage = () => {
       setIsLoading(true);
       const res = await fetch("/api/couple-page/setting", {
         method: "PATCH",
-        body: JSON.stringify({ password })
+        body: JSON.stringify({ password }),
       });
       const { error } = await res.json();
 

@@ -28,6 +28,6 @@ export function formatDurationFrom(dateString: string) {
     years,
     months,
     days,
-    hours
+    hours,
   };
 }

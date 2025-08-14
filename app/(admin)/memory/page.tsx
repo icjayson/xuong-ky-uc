@@ -51,7 +51,7 @@ const MemoryPage = () => {
       const page_id = getCookie("pageId");
       const response = await fetch("/api/couple-page/memory", {
         method: "POST",
-        body: JSON.stringify({ page_id })
+        body: JSON.stringify({ page_id }),
       });
 
       let convertedFile;
@@ -73,11 +73,14 @@ const MemoryPage = () => {
       formData.append("location", location);
       formData.append("description", description);
       formData.append("is_visible", "true");
-      formData.append("memory_date", new Date(date).toLocaleDateString());
+      formData.append(
+        "memory_date",
+        `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+      );
 
       await fetch("/api/couple-page/upload-memory", {
         method: "POST",
-        body: formData
+        body: formData,
       });
 
       refetchMemories();

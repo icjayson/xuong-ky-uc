@@ -109,23 +109,32 @@ const SettingsPage = () => {
           body: formData2,
         }).then((r) => r.json().then((r) => r.url));
       }
+      const dob1 = `${new Date(person1.dob).getFullYear()}-${
+        new Date(person1.dob).getMonth() + 1
+      }-${new Date(person1.dob).getDate()}`;
+      const dob2 = `${new Date(person2.dob).getFullYear()}-${
+        new Date(person2.dob).getMonth() + 1
+      }-${new Date(person2.dob).getDate()}`;
+      const startDateOfLove = `${new Date(startDate).getFullYear()}-${
+        new Date(startDate).getMonth() + 1
+      }-${new Date(startDate).getDate()}`;
 
       await fetch("/api/couple-page/setting", {
         method: "POST",
         body: JSON.stringify({
           person1_name: person1.name,
           person1_nickname: person1.nickname,
-          person1_dob: new Date(person1.dob).toLocaleDateString(),
+          person1_dob: dob1,
           person1_zodiac: person1.zodiac,
           person1_description: person1.description,
           avatar_1_url: payloadAva1,
           person2_name: person2.name,
           person2_nickname: person2.nickname,
-          person2_dob: new Date(person2.dob).toLocaleDateString(),
+          person2_dob: dob2,
           person2_zodiac: person2.zodiac,
           person2_description: person2.description,
           avatar_2_url: payloadAva2,
-          start_date_of_love: new Date(startDate).toLocaleDateString(),
+          start_date_of_love: startDateOfLove,
           title,
           font: selectedFont,
           color_scheme: JSON.stringify(selectedColorScheme),

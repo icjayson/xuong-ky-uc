@@ -33,9 +33,11 @@ const DiarySection = () => {
       </div>
 
       <div className={cn("grid grid-cols-2 gap-3")}>
-        {memories.map((memory) => (
-          <DiaryCard key={memory.id} {...memory} />
-        ))}
+        {memories
+          .filter((memory) => memory.is_visible)
+          .map((memory) => (
+            <DiaryCard key={memory.id} {...memory} />
+          ))}
       </div>
     </div>
   );
