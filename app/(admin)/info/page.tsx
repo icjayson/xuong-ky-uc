@@ -182,7 +182,7 @@ const InfoPage = () => {
               "max-sm:text-base"
             )}
           >
-            Domain
+            URL
           </div>
 
           <div
@@ -197,7 +197,7 @@ const InfoPage = () => {
                 "max-sm:text-xs"
               )}
             >
-              Domain của bạn:
+              URL của bạn:
             </div>
             <div
               className={cn(
@@ -233,7 +233,7 @@ const InfoPage = () => {
             )}
             onClick={handleChangeDomain}
           >
-            Đổi domain
+            Đổi URL
           </div>
         </Card>
 

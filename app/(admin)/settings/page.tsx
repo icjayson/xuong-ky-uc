@@ -290,10 +290,7 @@ const SettingsPage = () => {
             </div>
 
             <div className="mb-3">
-              <ClockSelector
-                value={selectedClock}
-                onSelect={handleClockChange}
-              />
+              <ClockSelector />
             </div>
 
             <ClockForm
@@ -324,7 +321,10 @@ const SettingsPage = () => {
             </div>
 
             <div className="mb-3">
-              <FrameSelector />
+              <FrameSelector
+                value={selectedClock}
+                onSelect={handleClockChange}
+              />
             </div>
 
             <InformationForm />

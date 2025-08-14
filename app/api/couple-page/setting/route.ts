@@ -200,7 +200,7 @@ export async function PATCH(req: Request) {
     }
 
     const { data: user, error: domainError } = await supabase
-      .from("user")
+      .from("users")
       .select("domain")
       .eq("id", userId)
       .single();
