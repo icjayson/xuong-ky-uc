@@ -201,20 +201,20 @@ export async function PATCH(req: Request) {
 
     const { data: user, error: domainError } = await supabase
       .from("users")
-      .select("domain")
-      .eq("id", userId)
-      .single();
+      .select("domain");
 
-    if (domainError || user.domain === domain) {
+    const isDomainExist = user?.some((u) => u.domain === domain);
+
+    if (domainError || isDomainExist) {
       return NextResponse.json(
         { error: "URL này đã bị trùng, cập nhật thất bại" },
         { status: 400 }
       );
+    } else {
+      const cookieStore = await cookies();
+      cookieStore.set("domain", domain);
+      updates.domain = domain;
     }
-
-    const cookieStore = await cookies();
-    cookieStore.set("domain", domain);
-    updates.domain = domain;
   }
 
   if (password) {
