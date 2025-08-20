@@ -174,8 +174,12 @@ export async function GET() {
     start_date_of_love: new Date(data.start_date_of_love).toLocaleDateString(),
     person1_dob: new Date(data.person1_dob).toLocaleDateString(),
     person2_dob: new Date(data.person2_dob).toLocaleDateString(),
-    avatar_1_url: `${data.avatar_1_url}?v=${Date.now()}`,
-    avatar_2_url: `${data.avatar_2_url}?v=${Date.now()}`,
+    avatar_1_url: data.avatar_1_url
+      ? `${data.avatar_1_url}?v=${Date.now()}`
+      : "",
+    avatar_2_url: data.avatar_2_url
+      ? `${data.avatar_2_url}?v=${Date.now()}`
+      : "",
   };
 
   return NextResponse.json({ data: formattedData });
