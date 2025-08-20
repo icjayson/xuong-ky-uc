@@ -44,7 +44,7 @@ export default function SanPhamPage() {
     ];
 
     return (
-      <section className="py-20">
+      <section className="py-10">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold !font-appleberry text-foreground mb-6" style={{ color: "#CEA19E" }}>
@@ -239,7 +239,7 @@ export default function SanPhamPage() {
 
   return (
     <div className="flex flex-col">
-      <section className="relative h-[500px] bg-gradient-hero flex items-center justify-center overflow-hidden">
+      <section className="relative py-12 bg-gradient-hero flex items-center justify-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
           style={{ backgroundImage: `url(${heroImage})` }}
@@ -253,7 +253,7 @@ export default function SanPhamPage() {
               Sản phẩm của Xưởng Ký Ức
             </h1>
 
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Khám phá những sản phẩm độc đáo giúp bạn lưu giữ và chia sẻ những kỷ niệm tình yêu đẹp nhất
             </p>
           </div>

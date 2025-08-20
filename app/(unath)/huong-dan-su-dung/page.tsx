@@ -22,7 +22,7 @@ export default function HuongDanPage() {
       <div className="py-12 text-center">
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-center mb-6">
-            <h1 className="text-5xl md:text-7xl font-bold !font-appleberry" style={{ color: "#CCA19E" }}>
+            <h1 className="text-5xl md:text-7xl font-bold !font-appleberry" text-black>
               Hướng Dẫn Sử Dụng
             </h1>
           </div>
