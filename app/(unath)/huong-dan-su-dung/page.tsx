@@ -29,7 +29,7 @@ export default function HuongDanPage() {
             </h1>
           </div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Khám phá cách sử dụng Thẻ NFC "Căn cước Tình yêu" và Website "Nhật ký Tình yêu" để lưu giữ những kỷ niệm đẹp nhất
+            Khám phá cách sử dụng Thẻ NFC Căn cước Tình yêu và Website Nhật ký Tình yêu để lưu giữ những kỷ niệm đẹp nhất
           </p>
         </div>
       </div>
@@ -127,7 +127,7 @@ export default function HuongDanPage() {
                   <div className="xl:grid xl:grid-cols-3 xl:gap-6">
                     <div className="xl:col-span-2">
                       <p className="text-gray-700">
-                        Vào mục <strong>"TÙY CHỈNH"</strong> để thoả sức chọn màu sắc, cập nhật thông tin và ảnh cá nhân.
+                        Vào mục <strong>TÙY CHỈNH</strong> để thoả sức chọn màu sắc, cập nhật thông tin và ảnh cá nhân.
                       </p>
                       <div className="bg-pink-50 border border-pink-200 rounded-lg p-4 my-4">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -156,7 +156,7 @@ export default function HuongDanPage() {
                         </div>
                       </div>
                       <p className="text-sm text-gray-600 italic mt-4">
-                        Khi đã ưng ý, nhấn <strong>"LƯU"</strong>.
+                        Khi đã ưng ý, nhấn <strong>LƯU</strong>.
                       </p>
                     </div>
                     <div className="mt-4 xl:mt-0 xl:col-span-1 rounded-sm">
@@ -184,7 +184,7 @@ export default function HuongDanPage() {
                   <div className="xl:grid xl:grid-cols-3 xl:gap-6">
                     <div className="xl:col-span-2">
                       <p className="text-gray-700">
-                        Vào mục <strong>"CẬP NHẬT NHẬT KÝ"</strong> để lưu giữ những khoảnh khắc đẹp bên người thương.
+                        Vào mục <strong>CẬP NHẬT NHẬT KÝ</strong> để lưu giữ những khoảnh khắc đẹp bên người thương.
                       </p>
                       <div className="grid gap-4 mt-4">
                         <div className="bg-pink-50 border border-pink-200 rounded-lg p-4">
@@ -209,7 +209,7 @@ export default function HuongDanPage() {
                         </div>
                       </div>
                       <p className="text-sm text-gray-600 italic mt-2">
-                        Sau khi hoàn tất, nhấn <strong>"LƯU"</strong>.
+                        Sau khi hoàn tất, nhấn <strong>LƯU</strong>.
                       </p>
                     </div>
                     <div className="mt-4 xl:mt-0 xl:col-span-1 rounded-sm">
@@ -237,7 +237,7 @@ export default function HuongDanPage() {
                   <div className="xl:grid xl:grid-cols-3 xl:gap-6 mt-4">
                   <div className="xl:col-span-2">
                   <p className="text-gray-700">
-                    Vào mục <strong>"THÔNG TIN"</strong> để tùy chỉnh DOMAIN cho Nhật ký Tình yêu và đổi mật khẩu nếu cần.
+                    Vào mục <strong>THÔNG TIN</strong> để tùy chỉnh DOMAIN cho Nhật ký Tình yêu và đổi mật khẩu nếu cần.
                   </p>
                       <div className="flex items-center gap-2 mt-4">
                       <Globe className="w-4 h-4" style={{ color: "#CCA19E" }} />
@@ -282,7 +282,7 @@ export default function HuongDanPage() {
                   <div className="xl:grid xl:grid-cols-3 xl:gap-6 mt-4">
                   <div className="xl:col-span-2">
                   <p className="text-gray-700">
-                    Vào mục <strong>"TRANG CHỦ"</strong> để chiêm ngưỡng toàn bộ Nhật ký Tình yêu của bạn và người thương.
+                    Vào mục <strong>TRANG CHỦ</strong> để chiêm ngưỡng toàn bộ Nhật ký Tình yêu của bạn và người thương.
                   </p>
 
                     </div>
@@ -309,7 +309,7 @@ export default function HuongDanPage() {
                     </h3>
                   </div>
                   <p className="text-gray-700">
-                    Nhấn nút <strong>"SHARE"</strong> ở góc trên - phải và chọn 1 trong 2 cách sau:
+                    Nhấn nút <strong>SHARE</strong> ở góc trên - phải và chọn 1 trong 2 cách sau:
                   </p>
                   <div className="lg:grid lg:grid-cols-2 lg:gap-6 mt-4">
                   <div className="xl:col-span-1">
@@ -362,7 +362,7 @@ export default function HuongDanPage() {
                     </p>
                     <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mt-4">
                       <p className="text-sm text-purple-800">
-                        <strong>Lưu ý:</strong> Đừng quên vào mục <strong>"FEEDBACK"</strong> để chia sẻ cảm nhận nhé! Ý kiến của bạn sẽ giúp Shop ngày càng hoàn thiện hơn.
+                        <strong>Lưu ý:</strong> Đừng quên vào mục <strong>FEEDBACK</strong> để chia sẻ cảm nhận nhé! Ý kiến của bạn sẽ giúp Shop ngày càng hoàn thiện hơn.
                       </p>
                     </div>
                     </div>
@@ -401,7 +401,7 @@ export default function HuongDanPage() {
                         <div className="grid gap-3">
                           <div className="flex items-center gap-2">
                             <ArrowRight className="w-4 h-4" style={{ color: "#CCA19E" }} />
-                            <span>Ấn vào nút <strong>"SHARE"</strong> trên góc trên bên phải <strong>TRANG CHỦ</strong></span>
+                            <span>Ấn vào nút <strong>SHARE</strong> trên góc trên bên phải <strong>TRANG CHỦ</strong></span>
                           </div>
                           <div className="flex items-center gap-2">
                             <ArrowRight className="w-4 h-4" style={{ color: "#CCA19E" }} />
