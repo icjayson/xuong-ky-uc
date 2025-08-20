@@ -66,19 +66,39 @@ export const COLOR_SCHEMES: Record<string, ColorScheme> = {
   },
   "4": {
     colors: {
-      primary: "#7d412c",
+      primary: "#C8A8E9",
+      secondary1: "#F4E7F8",
+      secondary2: "#78658C",
+      secondary3: "#000000",
+      secondary4: "#3D2556",
+    },
+    disabled: false,
+  },
+  "5": {
+    colors: {
+      primary: "#CB9D98",
+      secondary1: "#BCD1C2",
+      secondary2: "#7A5E5B",
+      secondary3: "#ffffff",
+      secondary4: "#000000",
+    },
+    disabled: false,
+  },
+  "6": {
+    colors: {
+      primary: "#cea19e",
       secondary1: "#eeeadf",
-      secondary2: "#603222",
+      secondary2: "#52403f",
       secondary3: "#000000",
       secondary4: "#ffffff",
     },
     disabled: true,
   },
-  "5": {
+  "7": {
     colors: {
-      primary: "#7d412c",
+      primary: "#cea19e",
       secondary1: "#eeeadf",
-      secondary2: "#603222",
+      secondary2: "#52403f",
       secondary3: "#000000",
       secondary4: "#ffffff",
     },

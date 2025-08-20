@@ -19,9 +19,16 @@ export default function Home() {
             Trao tay kỷ vật - Lưu trọn kỷ niệm
           </div>
           <div className="flex gap-5 mt-10">
-            <Button variant="secondary">Đặt hàng ngay</Button>
-            <Button variant="secondary" anomaly="outline">
-              Khám phá
+            <Button variant="secondary" asChild className="inline-flex items-center justify-center hover:!bg-[#CEA19E] hover:text-black hover:!opacity-100">
+              <Link href="https://linktr.ee/xuongkyuc" target="_blank" rel="noopener noreferrer">Đặt hàng ngay</Link>
+            </Button>
+            <Button
+              variant="secondary"
+              anomaly="outline"
+              asChild
+              className="inline-flex items-center justify-center hover:!bg-black hover:!text-white hover:!opacity-100"
+            >
+              <Link href="https://xuong-ky-uc.gitbook.io/xuong-ky-uc" target="_blank" rel="noopener noreferrer">Khám phá</Link>
             </Button>
           </div>
         </div>
@@ -436,7 +443,7 @@ export default function Home() {
                 </p>
                 <div className="flex justify-start">
                   <Link
-                    href="mailto:xuongkyuc@gmail.com"
+                    href="https://linktr.ee/xuongkyuc"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -474,7 +481,7 @@ export default function Home() {
                 </p>
                 <div className="flex justify-start">
                   <Link
-                    href="https://m.me/xuongkyuc"
+                    href="https://www.facebook.com/messages/t/734739063060792"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

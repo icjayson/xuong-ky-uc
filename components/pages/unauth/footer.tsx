@@ -70,7 +70,7 @@ const Footer = ({ forceDefaultColor = false }: FooterProps) => {
                   : color?.secondary3 || undefined,
               }}
             >
-              xuongkyuc@gmail.com
+              xuongkyuc.contact@gmail.com
             </div>
           </div>
           <div className="flex items-center gap-2 mt-4">
@@ -92,14 +92,14 @@ const Footer = ({ forceDefaultColor = false }: FooterProps) => {
                   : color?.secondary3 || undefined,
               }}
             >
-              012 123 12 12
+              0818 720 128
             </div>
           </div>
         </div>
 
         <div className="flex items-center gap-6">
           <Link
-            href="https://www.facebook.com/xuongkyuc"
+            href="https://www.facebook.com/profile.php?id=61579091172426"
             className="text-black"
             target="_blank"
             style={{
@@ -123,7 +123,7 @@ const Footer = ({ forceDefaultColor = false }: FooterProps) => {
             <InstagramIcon />
           </Link>
           <Link
-            href="https://www.tiktok.com/@xuongkyuc"
+            href="https://www.tiktok.com/@xuongkyuc.com"
             className="text-black"
             target="_blank"
             style={{
