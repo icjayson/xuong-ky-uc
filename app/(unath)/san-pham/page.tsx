@@ -85,7 +85,7 @@ export default function SanPhamPage() {
 
               <div className="rounded-2xl p-6 border border-primary/20 bg-primary/10">
                 <p className="text-muted-foreground italic text-center">
-                  "Thẻ NFC cá nhãn hóa dành cho cặp đôi"
+                    &quot;Thẻ NFC cá nhãn hóa dành cho cặp đôi &quot;
                 </p>
               </div>
 
@@ -178,7 +178,7 @@ export default function SanPhamPage() {
               </div>
               <div className="text-center">
                 <p className="text-muted-foreground italic">
-                  "Nhật ký Tình yêu của riêng đôi bạn trên website xuongkyuc.com"
+                &quot;Nhật ký Tình yêu của riêng đôi bạn trên website xuongkyuc.com&quot;
                 </p>
               </div>
             </div>
