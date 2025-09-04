@@ -12,7 +12,7 @@ export default function Home() {
       {/* Hero Section */}
       <div className="flex items-center justify-center min-h-calculated-content px-[100px] gap-[100px] max-xl:px-0 max-xl:gap-5 max-lg:flex-col-reverse py-10">
         <div className="flex flex-col items-center">
-          <div className="text-[100px] font-bold !font-appleberry text-black-80 max-md:text-[50px]">
+          <div className="text-[100px] font-bold !font-appleberry text-primary max-md:text-[50px]">
             Xưởng Ký Ức
           </div>
           <div className="text-[40px] text-black-80 max-md:text-[20px]">
@@ -20,7 +20,7 @@ export default function Home() {
           </div>
           <div className="flex gap-5 mt-10">
             <Button variant="secondary" asChild className="inline-flex items-center justify-center hover:!bg-[#CEA19E] hover:text-black hover:!opacity-100">
-              <Link href="https://linktr.ee/xuongkyuc" target="_blank" rel="noopener noreferrer">Đặt hàng ngay</Link>
+              <Link href={`https://m.me/${process.env.NEXT_PUBLIC_MESSENGER_URL}`} target="_blank" rel="noopener noreferrer">Liên hệ đặt hàng ngay</Link>
             </Button>
             <Button
               variant="secondary"
@@ -28,14 +28,14 @@ export default function Home() {
               asChild
               className="inline-flex items-center justify-center hover:!bg-black hover:!text-white hover:!opacity-100"
             >
-              <Link href="https://xuong-ky-uc.gitbook.io/xuong-ky-uc" target="_blank" rel="noopener noreferrer">Khám phá</Link>
+              <Link href="https://linktr.ee/xuongkyuc" target="_blank" rel="noopener noreferrer">Khám phá</Link>
             </Button>
           </div>
         </div>
 
         <div className="h-[400px] w-[400px] max-xl:h-[200px] max-xl:w-[200px]">
           <Image
-            src="/home-page-logo.png"
+            src="/homepage_herosection.png"
             alt="clock"
             width={400}
             height={400}
@@ -71,7 +71,7 @@ export default function Home() {
           <div className="flex gap-8 max-lg:flex-col items-center">
             <div className="w-[400px] h-[300px] max-lg:w-full max-lg:h-[200px] rounded-[10px] overflow-hidden flex items-center justify-center">
               <Image
-                src="/(unauth)-homepage/nfc-card-section.png"
+                src="/(unauth)-homepage/homepage_nfccard.png"
                 alt="Thẻ NFC Căn cước Tình yêu"
                 width={400}
                 height={300}
@@ -176,7 +176,7 @@ export default function Home() {
           <div className="flex gap-8 max-lg:flex-col items-center">
             <div className="w-[400px] h-[300px] max-lg:w-full max-lg:h-[200px] rounded-[10px] overflow-hidden order-2 max-lg:order-1 flex items-center justify-center">
               <Image
-                src="/(unauth)-homepage/website-section.png"
+                src="/(unauth)-homepage/homepage_website.png"
                 alt="Website Nhật ký Tình yêu"
                 width={400}
                 height={300}
@@ -352,15 +352,15 @@ export default function Home() {
         </h2>
         <div className="grid grid-cols-3 grid-rows-3 gap-0 w-full max-w-[2000px] px-0 max-md:grid-cols-1">
           {[
-            "/(unauth)-homepage/product-gallery-2.png",
-            "/(unauth)-homepage/product-gallery-1.png",
-            "/(unauth)-homepage/product-gallery-3.png",
-            "/(unauth)-homepage/product-gallery-5.png",
-            "/(unauth)-homepage/product-gallery-4.png",
-            "/(unauth)-homepage/product-gallery-6.png",
-            "/(unauth)-homepage/product-gallery-2.png",
-            "/(unauth)-homepage/product-gallery-1.png",
-            "/(unauth)-homepage/product-gallery-3.png",
+            "/(unauth)-homepage/homepage-gallery-01.png",
+            "/(unauth)-homepage/homepage-gallery-02.png",
+            "/(unauth)-homepage/homepage-gallery-03.png",
+            "/(unauth)-homepage/homepage-gallery-04.png",
+            "/(unauth)-homepage/homepage-gallery-05.png",
+            "/(unauth)-homepage/homepage-gallery-06.png",
+            "/(unauth)-homepage/homepage-gallery-07.png",
+            "/(unauth)-homepage/homepage-gallery-08.png",
+            "/(unauth)-homepage/homepage-gallery-09.png",
           ].map((imagePath, i) => (
             <motion.div
               key={i}
